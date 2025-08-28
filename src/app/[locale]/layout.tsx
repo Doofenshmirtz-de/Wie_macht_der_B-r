@@ -10,11 +10,17 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-type LocaleLayoutProps = { children: React.ReactNode; params: { locale: string } };
+type MaybePromise<T> = T | Promise<T>;
+
+type LocaleLayoutProps = {
+  children: React.ReactNode;
+  params: MaybePromise<{ locale: string }>;
+};
 
 export default async function LocaleLayout(props: LocaleLayoutProps) {
-  const { children, params } = props;
-  const locale = params?.locale as AppLocale;
+  const { children } = props;
+  const params = await props.params;
+  const locale = (params as { locale: string })?.locale as AppLocale;
   if (!routing.locales.includes(locale)) {
     notFound();
   }

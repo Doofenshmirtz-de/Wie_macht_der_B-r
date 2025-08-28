@@ -6,10 +6,9 @@ import { useLocale } from "next-intl";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
 
-const { Link, useRouter } = createNavigation(routing);
+const { Link } = createNavigation(routing);
 
 export function Header() {
-  // const router = useRouter(); // ungenutzt
   const pathname = usePathname();
   const locale = useLocale();
 
