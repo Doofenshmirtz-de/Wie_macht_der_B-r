@@ -1,103 +1,111 @@
+"use client";
+
+import Link from "next/link";
 import Image from "next/image";
+import { useLanguage } from "./providers/LanguageProvider";
+import { useRef } from "react";
 
 export default function Home() {
+  const { t } = useLanguage();
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const scrollByAmount = (dir: 1 | -1) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.8 * dir;
+    el.scrollBy({ left: amount, behavior: "smooth" });
+  };
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="mx-auto max-w-screen-lg px-4 py-8">
+      <section className="text-center mt-6">
+        <h1 className="text-4xl font-extrabold bg-gradient-to-r from-amber-400 via-pink-500 to-indigo-500 bg-clip-text text-transparent">
+          {t("title")}
+        </h1>
+        <p className="mt-2 text-sm text-white/80">{t("chooseGame")}</p>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <section className="mt-8">
+        <div className="relative">
+          <button
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-white/20 hover:bg-white/30"
+            onClick={() => scrollByAmount(-1)}
+            aria-label="prev"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            ‹
+          </button>
+          <div ref={scrollRef} className="flex gap-6 overflow-x-auto snap-x pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth">
+          <GameCard
+            title={t("bombParty")}
+            description="Der Klassiker"
+            href="/game/bomb"
+            color="from-orange-400 to-red-500"
+            iconSrc="/bomb.svg"
+          />
+          <GameCard
+            title="Quiz Show"
+            description={t("comingSoon")}
+            href="#"
+            disabled
+            color="from-fuchsia-400 to-blue-500"
+            iconSrc="/icons/rocket.svg"
+          />
+          <GameCard
+            title="Charades"
+            description={t("comingSoon")}
+            href="#"
+            disabled
+            color="from-green-400 to-teal-500"
+            iconSrc="/icons/gift.svg"
+          />
+          </div>
+          <button
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-white/20 hover:bg-white/30"
+            onClick={() => scrollByAmount(1)}
+            aria-label="next"
           >
-            Read our docs
-          </a>
+            ›
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+    </main>
+  );
+}
+
+function GameCard({
+  title,
+  description,
+  href,
+  color,
+  iconSrc,
+  disabled,
+}: {
+  title: string;
+  description: string;
+  href: string;
+  color: string;
+  iconSrc: string;
+  disabled?: boolean;
+}) {
+  const content = (
+    <div className={`snap-center min-w-[380px] sm:min-w-[560px] min-h-[320px] sm:min-h-[380px] rounded-[24px] p-7 text-white shadow-2xl bg-gradient-to-br ${color} ${disabled ? "opacity-60" : "hover:scale-[1.02]"} transition`}> 
+      <div className="flex items-center gap-4">
+        <div className="relative h-12 w-12">
+          <Image src={iconSrc} alt="" fill sizes="48px" />
+        </div>
+        <h3 className="text-2xl font-bold">{title}</h3>
+      </div>
+      <p className="mt-3 text-base">{description}</p>
+      {!disabled && (
+        <div className="relative mt-4 h-64 sm:h-80 w-full rounded-2xl overflow-hidden ring-1 ring-white/10">
+          <Image src="/bearbomb.jpg" alt="Bär mit Bombe" fill sizes="(max-width: 640px) 420px, 720px" className="object-contain rounded-2xl" />
+        </div>
+      )}
     </div>
+  );
+
+  if (disabled) return content;
+  return (
+    <Link href={href} className="block">
+      {content}
+    </Link>
   );
 }
