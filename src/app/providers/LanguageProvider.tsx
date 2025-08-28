@@ -34,10 +34,16 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const t = useMemo(() => {
     const dict = messages[lang] ?? messages.de;
-    return (key: string) => dict[key] ?? key;
+    return (key: keyof typeof dict | string) => {
+      if (key in dict) {
+        // TypeScript narrow: key is keyof typeof dict
+        return (dict as Record<string, string>)[key as string];
+      }
+      return key;
+    };
   }, [lang]);
 
-  const value: LanguageContextValue = useMemo(() => ({ lang, setLang, t }), [lang]);
+  const value: LanguageContextValue = useMemo(() => ({ lang, setLang, t }), [lang, t]);
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

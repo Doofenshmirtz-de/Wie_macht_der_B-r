@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLanguage } from "../../providers/LanguageProvider";
-import Link from "next/link";
 import Image from "next/image";
 import { categoriesDE, categoriesEN } from "./shared/categories";
 
@@ -49,8 +48,9 @@ export default function BombGamePage() {
         audioExplosion.current.play().catch(() => {});
       }
       // Vibrationsfeedback (falls verfügbar)
-      if (typeof navigator !== "undefined" && (navigator as any).vibrate) {
-        (navigator as any).vibrate([100, 80, 120]);
+      if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+        const navWithVibrate = navigator as Navigator & { vibrate?: (pattern: number | number[]) => boolean };
+        navWithVibrate.vibrate?.([100, 80, 120]);
       }
       setStep("explode");
       if (postExplosionRef.current) window.clearTimeout(postExplosionRef.current);
