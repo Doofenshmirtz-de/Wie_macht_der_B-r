@@ -2,19 +2,16 @@
 
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
 
 const { Link, useRouter } = createNavigation(routing);
 
 export function Header() {
-  const router = useRouter();
+  // const router = useRouter(); // ungenutzt
   const pathname = usePathname();
   const locale = useLocale();
-  const t = useTranslations();
-
-  const canGoBack = pathname !== "/" && pathname !== `/${locale}`;
 
   return (
     <header className="sticky top-0 z-20 bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-lg">
