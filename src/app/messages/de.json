@@ -1,0 +1,28 @@
+{
+  "title": "Wie macht der Bär",
+  "chooseGame": "Wähle einen Spielmodus",
+  "bombParty": "Bomb Party",
+  "comingSoon": "Bald verfügbar",
+  "start": "Start",
+  "settings": "Einstellungen",
+  "howTo": "Anleitung",
+  "roundLength": "Rundenlänge",
+  "roundCount": "Rundenanzahl",
+  "volume": "Lautstärke",
+  "players": "Spieler",
+  "addPlayer": "Spieler hinzufügen",
+  "confirmPlayers": "Bestätigen",
+  "whoPlays": "Wer spielt?",
+  "enterName": "Name eingeben und Enter drücken",
+  "categories": "Kategorien",
+  "go": "Los geht's",
+  "whoLost": "Wer hat verloren?",
+  "nextRound": "Nächste Runde",
+  "youAreUp": "Du bist dran, {name}!",
+  "exitTitle": "Spiel verlassen?",
+  "exitBody": "Bist du sicher, dass du zur Startseite zurück willst?",
+  "yes": "Ja",
+  "no": "Nein"
+}
+
+

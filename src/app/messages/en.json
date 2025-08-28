@@ -1,0 +1,28 @@
+{
+  "title": "How does the Bear go",
+  "chooseGame": "Choose a game mode",
+  "bombParty": "Bomb Party",
+  "comingSoon": "Coming soon",
+  "start": "Start",
+  "settings": "Settings",
+  "howTo": "How-To",
+  "roundLength": "Round length",
+  "roundCount": "Rounds",
+  "volume": "Volume",
+  "players": "Players",
+  "addPlayer": "Add player",
+  "confirmPlayers": "Confirm",
+  "whoPlays": "Who plays?",
+  "enterName": "Enter a name and press Enter",
+  "categories": "Categories",
+  "go": "Go",
+  "whoLost": "Who lost?",
+  "nextRound": "Next round",
+  "youAreUp": "You're up, {name}!",
+  "exitTitle": "Leave game?",
+  "exitBody": "Are you sure you want to go back to home?",
+  "yes": "Yes",
+  "no": "No"
+}
+
+

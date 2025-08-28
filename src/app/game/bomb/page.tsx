@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useLanguage } from "../../providers/LanguageProvider";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { categoriesDE, categoriesEN } from "./shared/categories";
 
 type Player = { id: string; name: string };
 
 export default function BombGamePage() {
-  const { lang, t } = useLanguage();
+  const locale = useLocale();
+  const t = useTranslations();
   const [step, setStep] = useState<"players" | "categories" | "running" | "explode" | "lost" | "next" | "final">("players");
   const [players, setPlayers] = useState<Player[]>([]);
   const [newPlayer, setNewPlayer] = useState("");
@@ -27,7 +28,7 @@ export default function BombGamePage() {
   const postExplosionRef = useRef<number | null>(null);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
 
-  const dict = useMemo(() => (lang === "de" ? categoriesDE : categoriesEN), [lang]);
+  const dict = useMemo(() => (locale === "de" ? categoriesDE : categoriesEN), [locale]);
 
   const canConfirmPlayers = players.length >= 2 && players.length <= 12;
 
@@ -212,8 +213,8 @@ export default function BombGamePage() {
           </ul>
           <div className="mt-3 flex items-center justify-between">
             <div className="text-sm opacity-80">
-              {players.length < 2 && <span>Mindestens 2 Spieler nötig</span>}
-              {players.length > 12 && <span>Maximal 12 Spieler erlaubt</span>}
+              {players.length < 2 && <span>{t("players")} ≥ 2</span>}
+              {players.length > 12 && <span>{t("players")} ≤ 12</span>}
             </div>
             <button disabled={!canConfirmPlayers} className="rounded bg-amber-500 px-4 py-2 disabled:opacity-50" onClick={() => setStep("categories")}>{t("confirmPlayers")}</button>
           </div>
@@ -228,7 +229,7 @@ export default function BombGamePage() {
               <label key={cat} className={`flex items-center justify-between rounded-xl p-3 bg-neutral-900/50 cursor-pointer ${activeCategory === cat ? "ring-2 ring-amber-400" : ""}`}>
                 <div>
                   <div className="font-semibold">{cat}</div>
-                  <div className="text-xs opacity-70">{items.length} Begriffe</div>
+                  <div className="text-xs opacity-70">{items.length}</div>
                 </div>
                 <input type="radio" name="cat" checked={activeCategory === cat} onChange={() => setActiveCategory(cat)} />
               </label>
