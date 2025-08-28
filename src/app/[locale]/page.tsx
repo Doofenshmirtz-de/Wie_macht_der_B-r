@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+// import Link from "next/link"; // entfernt: wir nutzen LocaleLink
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { createNavigation } from "next-intl/navigation";
