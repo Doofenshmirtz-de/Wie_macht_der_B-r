@@ -11,6 +11,17 @@ const { Link } = createNavigation(routing);
 export function Header() {
   const pathname = usePathname();
   const locale = useLocale();
+  
+  // Safe href that falls back to root if pathname is not in defined routes
+  const getValidHref = (path: string): "/" | "/game/bomb" => {
+    if (path === "/" || path === "/de" || path === "/en" || path === "/de/" || path === "/en/") {
+      return "/";
+    }
+    if (path.includes("/game/bomb")) {
+      return "/game/bomb";
+    }
+    return "/";
+  };
 
   return (
     <header className="sticky top-0 z-20 bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-lg">
@@ -22,7 +33,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <Link
             aria-label="Deutsch"
-            href={pathname || "/"}
+            href={getValidHref(pathname || "/")}
             locale="de"
             className={`relative h-7 w-10 rounded overflow-hidden ring-2 ${locale === "de" ? "ring-yellow-300" : "ring-transparent"}`}
           >
@@ -30,7 +41,7 @@ export function Header() {
           </Link>
           <Link
             aria-label="English"
-            href={pathname || "/"}
+            href={getValidHref(pathname || "/")}
             locale="en"
             className={`relative h-7 w-10 rounded overflow-hidden ring-2 ${locale === "en" ? "ring-yellow-300" : "ring-transparent"}`}
           >

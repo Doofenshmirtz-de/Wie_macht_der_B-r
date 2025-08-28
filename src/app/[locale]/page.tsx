@@ -47,7 +47,7 @@ export default function Home() {
           <GameCard
             title="Quiz Show"
             description={t("comingSoon")}
-            href="#"
+            href={null}
             disabled
             color="from-fuchsia-400 to-blue-500"
             iconSrc="/icons/rocket.svg"
@@ -55,7 +55,7 @@ export default function Home() {
           <GameCard
             title="Charades"
             description={t("comingSoon")}
-            href="#"
+            href={null}
             disabled
             color="from-green-400 to-teal-500"
             iconSrc="/icons/gift.svg"
@@ -84,7 +84,7 @@ function GameCard({
 }: {
   title: string;
   description: string;
-  href: string;
+  href: string | null;
   color: string;
   iconSrc: string;
   disabled?: boolean;
@@ -106,9 +106,13 @@ function GameCard({
     </div>
   );
 
-  if (disabled) return content;
+  if (disabled || !href) return content;
+  
+  // Type-safe href validation
+  const validHref: "/game/bomb" = href as "/game/bomb";
+  
   return (
-    <LocaleLink href={href} className="block">
+    <LocaleLink href={validHref} className="block">
       {content}
     </LocaleLink>
   );

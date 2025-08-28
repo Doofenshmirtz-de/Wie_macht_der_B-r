@@ -8,7 +8,7 @@ export const routing = defineRouting({
     '/': '/',
     '/game/bomb': '/game/bomb'
   }
-});
+} as const);
 
 export type AppLocale = (typeof routing)["locales"][number];
 
