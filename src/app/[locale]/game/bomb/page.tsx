@@ -6,12 +6,20 @@ import { categoriesDE, categoriesEN } from "./shared/categories";
 import type { AppLocale } from "@/i18n/routing";
 import { useParams } from "next/navigation";
 
+// Import Multiplayer Components
+import GameModeSelection from "./components/GameModeSelection";
+import MultiplayerModeSelection from "./components/MultiplayerModeSelection";
+import HostSetup from "./components/HostSetup";
+import ClientSetup from "./components/ClientSetup";
+import WaitingRoom from "./components/WaitingRoom";
+import type { HostGameState, ClientGameState } from "./shared/multiplayer-types";
+
 type Player = {
   id: string;
   name: string;
 };
 
-type GamePhase = "setup" | "rounds" | "category" | "playing" | "selectLoser" | "scoreboard" | "gameOver";
+type GamePhase = "modeSelection" | "multiplayerModeSelection" | "hostSetup" | "clientSetup" | "waiting" | "setup" | "rounds" | "category" | "playing" | "selectLoser" | "scoreboard" | "gameOver";
 
 type PlayerScore = {
   playerId: string;
@@ -19,13 +27,25 @@ type PlayerScore = {
   losses: number;
 };
 
+type GameMode = "single" | "multi";
+type MultiplayerMode = "host" | "client";
+
 export default function BombGamePage() {
   const t = useTranslations();
   const params = useParams();
   const locale = params.locale as AppLocale;
   
+  // Debug: Log when component loads
+  console.log("🎮 Bomb Game Page loaded with Multiplayer support!");
+  
   const categories = locale === "de" ? categoriesDE : categoriesEN;
-  const [gamePhase, setGamePhase] = useState<GamePhase>("setup");
+  
+  // Game Mode State
+  const [gameMode, setGameMode] = useState<GameMode | null>(null);
+  const [multiplayerMode, setMultiplayerMode] = useState<MultiplayerMode | null>(null);
+  const [gamePhase, setGamePhase] = useState<GamePhase>("modeSelection");
+  
+  // Single Player State
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>("casual");
@@ -37,6 +57,10 @@ export default function BombGamePage() {
   const [totalRounds, setTotalRounds] = useState(5);
   const [currentRound, setCurrentRound] = useState(1);
   const [playerScores, setPlayerScores] = useState<PlayerScore[]>([]);
+  
+  // Multiplayer State
+  const [hostGameState, setHostGameState] = useState<HostGameState | null>(null);
+  const [clientGameState, setClientGameState] = useState<ClientGameState | null>(null);
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const explosionRef = useRef<HTMLAudioElement>(null);
@@ -139,10 +163,15 @@ export default function BombGamePage() {
   };
 
   const newGame = () => {
-    setGamePhase("setup");
+    // Reset to mode selection for new game
+    setGameMode(null);
+    setMultiplayerMode(null);
+    setGamePhase("modeSelection");
     setCurrentRound(1);
     setPlayerScores([]);
     setIsGameActive(false);
+    setHostGameState(null);
+    setClientGameState(null);
   };
 
   const showScoreboard = () => {
@@ -151,6 +180,104 @@ export default function BombGamePage() {
 
   const backToCategory = () => {
     setGamePhase("category");
+  };
+
+  // Game Mode Handlers
+  const handleModeSelect = (mode: GameMode) => {
+    setGameMode(mode);
+    if (mode === "single") {
+      setGamePhase("setup");
+    } else {
+      setGamePhase("multiplayerModeSelection");
+    }
+  };
+
+  const handleMultiplayerModeSelect = (mode: MultiplayerMode) => {
+    setMultiplayerMode(mode);
+    if (mode === "host") {
+      setGamePhase("hostSetup");
+    } else {
+      setGamePhase("clientSetup");
+    }
+  };
+
+  const handleHostGameStateChange = (gameState: HostGameState) => {
+    setHostGameState(gameState);
+    // Sync some values to single player state for compatibility
+    setSelectedCategory(gameState.selectedCategory);
+    setCurrentWord(gameState.currentWord);
+    setIsGameActive(gameState.isGameActive);
+    setBombTimer(gameState.bombTimer);
+    setTotalRounds(gameState.totalRounds);
+    setCurrentRound(gameState.currentRound);
+    setCurrentPlayerIndex(gameState.currentPlayerIndex);
+    setPlayerScores(gameState.playerScores);
+    
+    // Convert multiplayer players to single player format for compatibility
+    const simplePlayers: Player[] = gameState.players.map(p => ({
+      id: p.id,
+      name: p.name
+    }));
+    setPlayers(simplePlayers);
+    
+    // Update game phase
+    if (gameState.gamePhase !== "waiting") {
+      setGamePhase(gameState.gamePhase);
+    }
+  };
+
+  const handleClientGameStateChange = (gameState: ClientGameState) => {
+    setClientGameState(gameState);
+    // Sync values for UI display
+    setSelectedCategory(gameState.selectedCategory);
+    setCurrentWord(gameState.currentWord);
+    setIsGameActive(gameState.isGameActive);
+    setTotalRounds(gameState.totalRounds);
+    setCurrentRound(gameState.currentRound);
+    setCurrentPlayerIndex(gameState.currentPlayerIndex);
+    setPlayerScores(gameState.playerScores);
+    
+    // Convert multiplayer players to single player format for compatibility
+    const simplePlayers: Player[] = gameState.players.map(p => ({
+      id: p.id,
+      name: p.name
+    }));
+    setPlayers(simplePlayers);
+    
+    // Update game phase
+    setGamePhase(gameState.gamePhase);
+  };
+
+  // Back handlers for nested navigation
+  const handleBackToModeSelection = () => {
+    setGameMode(null);
+    setMultiplayerMode(null);
+    setGamePhase("modeSelection");
+  };
+
+  const handleBackToMultiplayerModeSelection = () => {
+    setMultiplayerMode(null);
+    setGamePhase("multiplayerModeSelection");
+  };
+
+  // Start multiplayer game from waiting room
+  const handleStartMultiplayerGame = () => {
+    if (multiplayerMode === "host" && hostGameState && hostGameState.players.length >= 2) {
+      setGamePhase("rounds");
+    }
+  };
+
+  // Leave multiplayer room
+  const handleLeaveRoom = () => {
+    // Disconnect all WebRTC connections
+    // webRTCManager.disconnectAll(); // Uncomment when WebRTC is properly implemented
+    
+    // Reset multiplayer state
+    setHostGameState(null);
+    setClientGameState(null);
+    setMultiplayerMode(null);
+    setGameMode(null);
+    setGamePhase("modeSelection");
   };
 
   return (
@@ -167,7 +294,63 @@ export default function BombGamePage() {
         <h1 className="text-3xl md:text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-purple-600 drop-shadow-lg">
           💣 {t("bombParty")} 💣
         </h1>
+        
+        {/* Mode Indicator */}
+        {gameMode && (
+          <div className="text-sm text-white/60 mb-2">
+            {gameMode === "single" ? "📱 Einzelnes Handy" : 
+             multiplayerMode === "host" ? "👑 Host Modus" : 
+             multiplayerMode === "client" ? "📱 Client Modus" : 
+             "🌐 Multiplayer"}
+          </div>
+        )}
       </div>
+
+      {/* Game Mode Selection */}
+      {gamePhase === "modeSelection" && (
+        <>
+          {/* Debug: Diese Nachricht sollte sichtbar sein wenn gamePhase = "modeSelection" */}
+          <div className="text-center mb-4 text-green-400 font-bold">
+            🎮 Multiplayer Version geladen! GamePhase: {gamePhase}
+          </div>
+          <GameModeSelection onModeSelect={handleModeSelect} />
+        </>
+      )}
+
+      {/* Multiplayer Mode Selection */}
+      {gamePhase === "multiplayerModeSelection" && (
+        <MultiplayerModeSelection 
+          onModeSelect={handleMultiplayerModeSelect}
+          onBack={handleBackToModeSelection}
+        />
+      )}
+
+      {/* Host Setup */}
+      {gamePhase === "hostSetup" && (
+        <HostSetup 
+          onGameStateChange={handleHostGameStateChange}
+          onBack={handleBackToMultiplayerModeSelection}
+        />
+      )}
+
+      {/* Client Setup */}
+      {gamePhase === "clientSetup" && (
+        <ClientSetup 
+          onGameStateChange={handleClientGameStateChange}
+          onBack={handleBackToMultiplayerModeSelection}
+        />
+      )}
+
+      {/* Multiplayer Waiting Room */}
+      {gamePhase === "waiting" && gameMode === "multi" && (
+        <WaitingRoom
+          gameMode={multiplayerMode!}
+          hostGameState={hostGameState || undefined}
+          clientGameState={clientGameState || undefined}
+          onStartGame={multiplayerMode === "host" ? handleStartMultiplayerGame : undefined}
+          onLeaveRoom={handleLeaveRoom}
+        />
+      )}
 
       {/* Player Setup Phase */}
       {gamePhase === "setup" && (
@@ -327,11 +510,22 @@ export default function BombGamePage() {
             <div className="text-center mb-6">
               <div className="mb-4">
                 <span className="text-lg md:text-xl text-yellow-300 font-bold">
-                  {t("passPhone")}:
+                  {gameMode === "single" ? t("passPhone") : "Aktueller Spieler"}:
                 </span>
                 <div className="text-2xl md:text-4xl font-black text-white mt-2">
                   🎯 {players[currentPlayerIndex]?.name}
                 </div>
+                
+                {/* Multiplayer Turn Indicator */}
+                {gameMode === "multi" && clientGameState && (
+                  <div className="mt-2">
+                    {clientGameState.isMyTurn ? (
+                      <div className="text-green-400 font-bold">✨ Du bist dran!</div>
+                    ) : (
+                      <div className="text-white/60">Warte auf {players[currentPlayerIndex]?.name}...</div>
+                    )}
+                  </div>
+                )}
               </div>
               
               {/* Bomb animation without timer */}
@@ -355,13 +549,52 @@ export default function BombGamePage() {
             
             {/* Next Player Button */}
             <div className="text-center">
-              <button
-                onClick={nextPlayer}
-                className="cr-button-primary px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-black text-white drop-shadow-lg"
-              >
-                ✅ {t("nextWord")} - Nächster Spieler
-              </button>
+              {/* Single Player or Host can always click */}
+              {(gameMode === "single" || (gameMode === "multi" && multiplayerMode === "host")) && (
+                <button
+                  onClick={nextPlayer}
+                  className="cr-button-primary px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-black text-white drop-shadow-lg"
+                >
+                  ✅ {t("nextWord")} - Nächster Spieler
+                </button>
+              )}
+              
+              {/* Client can only click when it's their turn */}
+              {gameMode === "multi" && multiplayerMode === "client" && clientGameState && (
+                <button
+                  onClick={nextPlayer}
+                  disabled={!clientGameState.isMyTurn}
+                  className={`px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-black drop-shadow-lg transition-all ${
+                    clientGameState.isMyTurn 
+                      ? "cr-button-primary text-white" 
+                      : "bg-gray-500/50 text-gray-300 cursor-not-allowed opacity-50"
+                  }`}
+                >
+                  {clientGameState.isMyTurn 
+                    ? "✅ Weiter - Nächster Spieler" 
+                    : "⏳ Warten auf deinen Zug..."
+                  }
+                </button>
+              )}
             </div>
+            
+            {/* Connection Status for Multiplayer */}
+            {gameMode === "multi" && (
+              <div className="mt-4 text-center text-sm">
+                {multiplayerMode === "host" && hostGameState && (
+                  <div className="text-green-400">
+                    👑 Host - {hostGameState.players.length} Spieler verbunden
+                  </div>
+                )}
+                {multiplayerMode === "client" && clientGameState && (
+                  <div className={`${
+                    clientGameState.connectionStatus === "connected" ? "text-green-400" : "text-red-400"
+                  }`}>
+                    📱 {clientGameState.connectionStatus === "connected" ? "Verbunden" : "Verbindung unterbrochen"}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           
           {/* Players List During Game */}
@@ -377,6 +610,8 @@ export default function BombGamePage() {
                       : 'bg-white/20 text-white'
                   }`}
                 >
+                  {/* Show host crown for multiplayer */}
+                  {gameMode === "multi" && hostGameState?.players.find(p => p.id === player.id)?.isHost && "👑 "}
                   {player.name} {index === currentPlayerIndex && '👈'}
                 </div>
               ))}
@@ -397,28 +632,45 @@ export default function BombGamePage() {
               {t("whoLostTitle")}
             </h3>
             
-            <div className="mb-6">
-              <select 
-                value={selectedLoser}
-                onChange={(e) => setSelectedLoser(e.target.value)}
-                className="cr-select px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
-              >
-                <option value="">{t("selectLoser")}</option>
-                {players.map(player => (
-                  <option key={player.id} value={player.id}>
-                    {player.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {/* Only Host can select loser in multiplayer */}
+            {(gameMode === "single" || (gameMode === "multi" && multiplayerMode === "host")) && (
+              <>
+                <div className="mb-6">
+                  <select 
+                    value={selectedLoser}
+                    onChange={(e) => setSelectedLoser(e.target.value)}
+                    className="cr-select px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
+                  >
+                    <option value="">{t("selectLoser")}</option>
+                    {players.map(player => (
+                      <option key={player.id} value={player.id}>
+                        {player.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                <button
+                  onClick={confirmLoser}
+                  disabled={!selectedLoser}
+                  className="cr-button-primary px-8 py-4 text-xl font-black disabled:opacity-50 disabled:cursor-not-allowed w-full"
+                >
+                  ✅ {t("confirmLoser")}
+                </button>
+              </>
+            )}
             
-            <button
-              onClick={confirmLoser}
-              disabled={!selectedLoser}
-              className="cr-button-primary px-8 py-4 text-xl font-black disabled:opacity-50 disabled:cursor-not-allowed w-full"
-            >
-              ✅ {t("confirmLoser")}
-            </button>
+            {/* Client waits for host decision */}
+            {gameMode === "multi" && multiplayerMode === "client" && (
+              <div className="space-y-4">
+                <div className="text-yellow-300 text-lg">
+                  ⏳ Der Host entscheidet, wer verloren hat...
+                </div>
+                <div className="text-white/60">
+                  Warte auf die Entscheidung des Hosts
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
