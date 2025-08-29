@@ -30,8 +30,8 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <div className="mx-auto max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl px-2 sm:px-4">
-        <div className="my-3 rounded-[18px] border border-white/10 panel-bg backdrop-blur-md shadow-xl overflow-hidden">
+      <div className="min-h-screen">
+        <div className="relative overflow-hidden">
           <Header />
           {children}
         </div>
