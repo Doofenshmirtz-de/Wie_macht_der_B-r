@@ -1,0 +1,42 @@
+# Robots.txt für Wie macht der Bär - Online Trinkspiele
+# Optimiert für beste SEO-Performance
+
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://wiemachtderbaer.com/sitemap.xml
+
+# Crawl-delay für bessere Server-Performance
+Crawl-delay: 1
+
+# Spezifische Anweisungen für Google Bot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Spezifische Anweisungen für Bing Bot  
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block für unerwünschte Bots
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot  
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Erlaubte Ressourcen für SEO
+Allow: /bomb.svg
+Allow: /icons/
+Allow: /flags/
+Allow: /bearbomb.jpg
+Allow: /_next/static/
+Allow: /favicon.ico
+
+# Host-Definition (optional)
+Host: https://wiemachtderbaer.com

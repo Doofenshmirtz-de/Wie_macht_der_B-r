@@ -80,7 +80,7 @@ export default function Home() {
             <LocaleLink href="/game/bomb" className="group">
               <button className="cr-button-primary px-8 py-4 text-xl font-bold text-white hover:scale-105 transition-all duration-300 shadow-2xl">
                 <span className="flex items-center gap-3">
-                  <Image src="/bomb.svg" alt="" width={24} height={24} />
+                  <Image src="/bomb.svg" alt="Bomb Party Trinkspiel Icon" width={24} height={24} />
                   JETZT SPIELEN!
                   <div className="w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>
                 </span>
@@ -89,7 +89,7 @@ export default function Home() {
             
             <button className="group relative px-6 py-3 text-lg font-bold text-yellow-300 border-2 border-yellow-400/50 rounded-xl hover:border-yellow-300 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-yellow-400/25">
               <span className="flex items-center gap-2">
-                <Image src="/icons/gear.svg" alt="" width={20} height={20} />
+                <Image src="/icons/gear.svg" alt="Anleitung und Einstellungen für Trinkspiele" width={20} height={20} />
                 Anleitung
               </span>
             </button>
@@ -235,7 +235,7 @@ function EpicGameCard({
           <div className="relative">
             <div className="absolute inset-0 bg-yellow-400/50 rounded-full blur-sm group-hover:blur-md transition-all duration-300"></div>
             <div className="relative h-14 w-14 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-2xl border-2 border-white/30 shadow-2xl flex items-center justify-center">
-              <Image src={iconSrc} alt="" width={28} height={28} className="drop-shadow-lg" />
+              <Image src={iconSrc} alt={`${title} Trinkspiel Icon - Jetzt online spielen`} width={28} height={28} className="drop-shadow-lg" />
             </div>
           </div>
           <div>
@@ -267,7 +267,7 @@ function EpicGameCard({
           {available && imageSrc ? (
             <Image 
               src={imageSrc} 
-              alt={title} 
+              alt={`${title} - ${subtitle} Trinkspiel für ${players} online spielen`} 
               fill 
               sizes="420px"
               className="object-cover group-hover:scale-110 transition-transform duration-500" 

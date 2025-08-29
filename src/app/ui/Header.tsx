@@ -39,7 +39,7 @@ export function Header() {
           <div className="relative">
             <div className="absolute inset-0 bg-yellow-400 rounded-full blur-md group-hover:blur-lg transition-all duration-300 opacity-50"></div>
             <div className="relative h-12 w-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl border-2 border-yellow-300 shadow-2xl flex items-center justify-center">
-              <Image src="/bomb.svg" alt="Bomb" width={24} height={24} className="drop-shadow-lg" />
+              <Image src="/bomb.svg" alt="Wie macht der Bär Bomb Party Logo - Online Trinkspiel" width={24} height={24} className="drop-shadow-lg" />
             </div>
           </div>
           <div className="flex flex-col">
@@ -63,7 +63,7 @@ export function Header() {
             }`}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
-            <Image src="/flags/de.svg" alt="Deutsch" fill sizes="48px" className="object-cover" />
+            <Image src="/flags/de.svg" alt="Deutsche Sprache wählen - Wie macht der Bär auf Deutsch spielen" fill sizes="48px" className="object-cover" />
             {locale === "de" && (
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border border-yellow-300 shadow-lg"></div>
             )}
@@ -80,7 +80,7 @@ export function Header() {
             }`}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
-            <Image src="/flags/gb.svg" alt="English" fill sizes="48px" className="object-cover" />
+            <Image src="/flags/gb.svg" alt="Switch to English - Play Wie macht der Bär in English" fill sizes="48px" className="object-cover" />
             {locale === "en" && (
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border border-yellow-300 shadow-lg"></div>
             )}
