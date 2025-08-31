@@ -1,0 +1,106 @@
+{
+  "name": "Wie macht der Bär - Online Trinkspiele",
+  "short_name": "Wie macht der Bär",
+  "description": "🍻 Die besten Online Trinkspiele für deine Party! Bomb Party, Quiz Show und mehr mit Freunden spielen.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#ffd700",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "de-DE",
+  "dir": "ltr",
+  "categories": ["games", "entertainment", "social"],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-home.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "platform": "wide",
+      "label": "Homepage auf Desktop"
+    },
+    {
+      "src": "/screenshots/mobile-game.jpg", 
+      "sizes": "390x844",
+      "type": "image/jpeg",
+      "platform": "narrow",
+      "label": "Bomb Party Spiel auf Mobile"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/bomb.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96", 
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Bomb Party spielen",
+      "short_name": "Bomb Party",
+      "description": "Direkt zum beliebten Wortspiel",
+      "url": "/game/bomb",
+      "icons": [
+        {
+          "src": "/bomb.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 480
+  }
+}

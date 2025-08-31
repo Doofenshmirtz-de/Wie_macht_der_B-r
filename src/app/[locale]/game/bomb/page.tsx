@@ -2,16 +2,26 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { categoriesDE, categoriesEN } from "./shared/categories";
 import type { AppLocale } from "@/i18n/routing";
 import { useParams } from "next/navigation";
+
+
+// Import Multiplayer Components (P2P System)
+import GameModeSelection from "./components/GameModeSelection";
+import MultiplayerModeSelection from "./components/MultiplayerModeSelection";
+import PeerHostSetup from "./components/PeerHostSetup";
+import PeerClientSetup from "./components/PeerClientSetup";
+import WaitingRoom from "./components/WaitingRoom";
+import type { HostGameState, ClientGameState } from "./shared/multiplayer-types";
 
 type Player = {
   id: string;
   name: string;
 };
 
-type GamePhase = "setup" | "rounds" | "category" | "playing" | "selectLoser" | "scoreboard" | "gameOver";
+type GamePhase = "modeSelection" | "multiplayerModeSelection" | "hostSetup" | "clientSetup" | "waiting" | "setup" | "rounds" | "category" | "playing" | "selectLoser" | "scoreboard" | "gameOver";
 
 type PlayerScore = {
   playerId: string;
@@ -19,13 +29,45 @@ type PlayerScore = {
   losses: number;
 };
 
+type GameMode = "single" | "multi";
+type MultiplayerMode = "host" | "client";
+
 export default function BombGamePage() {
   const t = useTranslations();
   const params = useParams();
+  const searchParams = useSearchParams();
   const locale = params.locale as AppLocale;
   
   const categories = locale === "de" ? categoriesDE : categoriesEN;
-  const [gamePhase, setGamePhase] = useState<GamePhase>("setup");
+  
+  // Game Mode State
+  const [gameMode, setGameMode] = useState<GameMode | null>(null);
+  const [multiplayerMode, setMultiplayerMode] = useState<MultiplayerMode | null>(null);
+  const [gamePhase, setGamePhase] = useState<GamePhase>("modeSelection");
+  const [mounted, setMounted] = useState(false);
+
+  // Debug: Log when component loads (only on client)
+  useEffect(() => {
+    console.log("🎮 Bomb Game Page loaded with Multiplayer support!");
+    console.log("🔍 Initial GamePhase:", gamePhase);
+    setMounted(true);
+  }, []);
+
+  // Debug: Track gamePhase changes
+  useEffect(() => {
+    if (mounted) {
+      console.log(
+        "🔍 GamePhase geändert zu:",
+        gamePhase,
+        "GameMode:",
+        gameMode,
+        "MultiplayerMode:",
+        multiplayerMode
+      );
+    }
+  }, [mounted, gamePhase, gameMode, multiplayerMode]);
+  
+  // Single Player State
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>("casual");
@@ -37,6 +79,36 @@ export default function BombGamePage() {
   const [totalRounds, setTotalRounds] = useState(5);
   const [currentRound, setCurrentRound] = useState(1);
   const [playerScores, setPlayerScores] = useState<PlayerScore[]>([]);
+  
+  // Multiplayer State
+  const [hostGameState, setHostGameState] = useState<HostGameState | null>(null);
+  const [clientGameState, setClientGameState] = useState<ClientGameState | null>(null);
+
+  // Handle URL parameters for direct joining (client-side only)
+  useEffect(() => {
+    // Only run on client-side to avoid hydration mismatch
+    if (typeof window === 'undefined') return;
+
+    const joinParam = searchParams.get('join');
+    
+    if (joinParam) {
+      // Direct join from share link
+      try {
+        const params = new URLSearchParams(joinParam);
+        const roomId = params.get('roomId');
+        const hostName = params.get('hostName');
+        
+        if (roomId && hostName) {
+          console.log(`🔗 Auto-joining room ${roomId} hosted by ${hostName}`);
+          setGameMode("multi");
+          setMultiplayerMode("client");
+          setGamePhase("clientSetup");
+        }
+      } catch (error) {
+        console.error('Failed to parse join URL:', error);
+      }
+    }
+  }, [searchParams]);
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const explosionRef = useRef<HTMLAudioElement>(null);
@@ -139,10 +211,15 @@ export default function BombGamePage() {
   };
 
   const newGame = () => {
-    setGamePhase("setup");
+    // Reset to mode selection for new game
+    setGameMode(null);
+    setMultiplayerMode(null);
+    setGamePhase("modeSelection");
     setCurrentRound(1);
     setPlayerScores([]);
     setIsGameActive(false);
+    setHostGameState(null);
+    setClientGameState(null);
   };
 
   const showScoreboard = () => {
@@ -151,6 +228,125 @@ export default function BombGamePage() {
 
   const backToCategory = () => {
     setGamePhase("category");
+  };
+
+  // Game Mode Handlers
+  const handleModeSelect = (mode: GameMode) => {
+    setGameMode(mode);
+    if (mode === "single") {
+      setGamePhase("setup");
+    } else {
+      setGamePhase("multiplayerModeSelection");
+    }
+  };
+
+  const handleMultiplayerModeSelect = (mode: MultiplayerMode) => {
+    setMultiplayerMode(mode);
+    if (mode === "host") {
+      setGamePhase("hostSetup");
+    } else {
+      setGamePhase("clientSetup");
+    }
+  };
+
+  const handleHostGameStateChange = (gameState: HostGameState) => {
+    setHostGameState(gameState);
+    // Sync some values to single player state for compatibility
+    setSelectedCategory(gameState.selectedCategory);
+    setCurrentWord(gameState.currentWord);
+    setIsGameActive(gameState.isGameActive);
+    setBombTimer(gameState.bombTimer);
+    setTotalRounds(gameState.totalRounds);
+    setCurrentRound(gameState.currentRound);
+    setCurrentPlayerIndex(gameState.currentPlayerIndex);
+    setPlayerScores(gameState.playerScores);
+    
+    // Convert multiplayer players to single player format for compatibility
+    const simplePlayers: Player[] = gameState.players.map(p => ({
+      id: p.id,
+      name: p.name
+    }));
+    setPlayers(simplePlayers);
+    
+    // Update game phase (but not if in multiplayer setup phases)
+    if (gameState.gamePhase !== "waiting" && 
+        !["modeSelection", "multiplayerModeSelection", "hostSetup", "clientSetup"].includes(gamePhase)) {
+      setGamePhase(gameState.gamePhase);
+    }
+  };
+
+  const handleClientGameStateChange = (gameState: ClientGameState) => {
+    setClientGameState(gameState);
+    // Sync values for UI display
+    setSelectedCategory(gameState.selectedCategory);
+    setCurrentWord(gameState.currentWord);
+    setIsGameActive(gameState.isGameActive);
+    setTotalRounds(gameState.totalRounds);
+    setCurrentRound(gameState.currentRound);
+    setCurrentPlayerIndex(gameState.currentPlayerIndex);
+    setPlayerScores(gameState.playerScores);
+    
+    // Convert multiplayer players to single player format for compatibility
+    const simplePlayers: Player[] = gameState.players.map(p => ({
+      id: p.id,
+      name: p.name
+    }));
+    setPlayers(simplePlayers);
+    
+    // Update game phase (but preserve multiplayer flow)
+    if (!["modeSelection", "multiplayerModeSelection", "hostSetup", "clientSetup"].includes(gamePhase)) {
+      setGamePhase(gameState.gamePhase);
+    }
+  };
+
+  // Back handlers for nested navigation
+  const handleBackToModeSelection = () => {
+    setGameMode(null);
+    setMultiplayerMode(null);
+    setGamePhase("modeSelection");
+  };
+
+  const handleBackToMultiplayerModeSelection = () => {
+    setMultiplayerMode(null);
+    setGamePhase("multiplayerModeSelection");
+  };
+
+  // Start multiplayer game from waiting room
+  const handleStartMultiplayerGame = () => {
+    if (multiplayerMode === "host" && hostGameState && hostGameState.players.length >= 2) {
+      setGamePhase("rounds");
+    }
+  };
+
+  // Leave multiplayer room
+  const handleLeaveRoom = () => {
+    // Disconnect all WebRTC connections
+    // webRTCManager.disconnectAll(); // Uncomment when WebRTC is properly implemented
+    
+    // Reset multiplayer state
+    setHostGameState(null);
+    setClientGameState(null);
+    setMultiplayerMode(null);
+    setGameMode(null);
+    setGamePhase("modeSelection");
+  };
+
+  // Handle direct join from share link
+  const handleDirectJoin = async (roomId: string, hostName: string, playerName?: string) => {
+    try {
+      console.log('🔗 Direct join:', { roomId, hostName, playerName });
+      
+      // If player name provided, auto-join
+      if (playerName) {
+                    // This would trigger auto-join in PeerClientSetup
+        // For now just log it
+        console.log(`Auto-joining room ${roomId} as ${playerName}`);
+      }
+      
+    } catch (error) {
+      console.error('Failed to auto-join:', error);
+      setGamePhase("modeSelection");
+    }
   };
 
   return (
@@ -167,10 +363,80 @@ export default function BombGamePage() {
         <h1 className="text-3xl md:text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-purple-600 drop-shadow-lg">
           💣 {t("bombParty")} 💣
         </h1>
+        
+        {/* Mode Indicator */}
+        {gameMode && (
+          <div className="text-sm text-white/60 mb-2">
+            {gameMode === "single" ? "📱 Einzelnes Handy" : 
+             multiplayerMode === "host" ? "👑 Host Modus" : 
+             multiplayerMode === "client" ? "📱 Client Modus" : 
+             "🌐 Multiplayer"}
+          </div>
+        )}
       </div>
 
-      {/* Player Setup Phase */}
-      {gamePhase === "setup" && (
+      {/* Only render content when mounted to prevent hydration issues */}
+      {mounted && (
+        <>
+          {/* Game Mode Selection */}
+          {gamePhase === "modeSelection" && (
+            <GameModeSelection onModeSelect={handleModeSelect} />
+          )}
+
+          {/* Multiplayer Mode Selection */}
+          {gamePhase === "multiplayerModeSelection" && (
+            <MultiplayerModeSelection 
+              onModeSelect={handleMultiplayerModeSelect}
+              onBack={handleBackToModeSelection}
+            />
+          )}
+
+          {/* P2P Host Setup */}
+          {gamePhase === "hostSetup" && (
+            <PeerHostSetup 
+              onGameStateChange={handleHostGameStateChange}
+              onBack={handleBackToMultiplayerModeSelection}
+            />
+          )}
+
+          {/* P2P Client Setup */}
+          {gamePhase === "clientSetup" && (
+            <PeerClientSetup 
+              onGameStateChange={handleClientGameStateChange}
+              onBack={handleBackToMultiplayerModeSelection}
+            />
+          )}
+
+          {/* Multiplayer Waiting Room */}
+          {gamePhase === "waiting" && gameMode === "multi" && (
+            <WaitingRoom
+              gameMode={multiplayerMode!}
+              hostGameState={hostGameState || undefined}
+              clientGameState={clientGameState || undefined}
+              onStartGame={multiplayerMode === "host" ? handleStartMultiplayerGame : undefined}
+              onLeaveRoom={handleLeaveRoom}
+            />
+          )}
+        </>
+      )}
+
+
+
+        {/* SIMPLE DEBUG */}
+        <div className="text-center mb-4 text-green-400 text-sm">
+          🎯 Phase: {gamePhase} | Mode: {gameMode || "null"} | Multi: {multiplayerMode || "null"} | Mounted: {mounted ? "✅" : "❌"}
+        </div>
+
+        {/* FORCE RENDER WITHOUT MOUNTED CHECK */}
+        {!mounted && gamePhase === "modeSelection" && (
+          <div className="text-center">
+            <div className="text-lg text-yellow-400 mb-4">⚡ Force Rendering (Mount Issue)</div>
+            <GameModeSelection onModeSelect={handleModeSelect} />
+          </div>
+        )}
+
+      {/* Player Setup Phase (ONLY for single player mode) */}
+      {gamePhase === "setup" && gameMode === "single" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 mb-6">
             <h2 className="text-2xl md:text-3xl font-black mb-6 text-center text-yellow-300">
@@ -238,7 +504,7 @@ export default function BombGamePage() {
       )}
 
       {/* Rounds Selection Phase */}
-      {gamePhase === "rounds" && (
+      {mounted && gamePhase === "rounds" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 mb-6">
             <h2 className="text-2xl md:text-3xl font-black mb-6 text-center text-yellow-300">
@@ -277,7 +543,7 @@ export default function BombGamePage() {
       )}
 
       {/* Category Selection Phase */}
-      {gamePhase === "category" && (
+      {mounted && gamePhase === "category" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 mb-6">
             <h2 className="text-2xl md:text-3xl font-black mb-6 text-center text-yellow-300">
@@ -319,7 +585,7 @@ export default function BombGamePage() {
       )}
 
       {/* Playing Phase */}
-      {gamePhase === "playing" && (
+      {mounted && gamePhase === "playing" && (
         <div className="max-w-4xl mx-auto">
           <div className="cr-card p-6 md:p-8 mb-6">
             
@@ -327,11 +593,22 @@ export default function BombGamePage() {
             <div className="text-center mb-6">
               <div className="mb-4">
                 <span className="text-lg md:text-xl text-yellow-300 font-bold">
-                  {t("passPhone")}:
+                  {gameMode === "single" ? t("passPhone") : "Aktueller Spieler"}:
                 </span>
                 <div className="text-2xl md:text-4xl font-black text-white mt-2">
                   🎯 {players[currentPlayerIndex]?.name}
                 </div>
+                
+                {/* Multiplayer Turn Indicator */}
+                {gameMode === "multi" && clientGameState && (
+                  <div className="mt-2">
+                    {clientGameState.isMyTurn ? (
+                      <div className="text-green-400 font-bold">✨ Du bist dran!</div>
+                    ) : (
+                      <div className="text-white/60">Warte auf {players[currentPlayerIndex]?.name}...</div>
+                    )}
+                  </div>
+                )}
               </div>
               
               {/* Bomb animation without timer */}
@@ -355,13 +632,52 @@ export default function BombGamePage() {
             
             {/* Next Player Button */}
             <div className="text-center">
-              <button
-                onClick={nextPlayer}
-                className="cr-button-primary px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-black text-white drop-shadow-lg"
-              >
-                ✅ {t("nextWord")} - Nächster Spieler
-              </button>
+              {/* Single Player or Host can always click */}
+              {(gameMode === "single" || (gameMode === "multi" && multiplayerMode === "host")) && (
+                <button
+                  onClick={nextPlayer}
+                  className="cr-button-primary px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-black text-white drop-shadow-lg"
+                >
+                  ✅ {t("nextWord")} - Nächster Spieler
+                </button>
+              )}
+              
+              {/* Client can only click when it's their turn */}
+              {gameMode === "multi" && multiplayerMode === "client" && clientGameState && (
+                <button
+                  onClick={nextPlayer}
+                  disabled={!clientGameState.isMyTurn}
+                  className={`px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-black drop-shadow-lg transition-all ${
+                    clientGameState.isMyTurn 
+                      ? "cr-button-primary text-white" 
+                      : "bg-gray-500/50 text-gray-300 cursor-not-allowed opacity-50"
+                  }`}
+                >
+                  {clientGameState.isMyTurn 
+                    ? "✅ Weiter - Nächster Spieler" 
+                    : "⏳ Warten auf deinen Zug..."
+                  }
+                </button>
+              )}
             </div>
+            
+            {/* Connection Status for Multiplayer */}
+            {gameMode === "multi" && (
+              <div className="mt-4 text-center text-sm">
+                {multiplayerMode === "host" && hostGameState && (
+                  <div className="text-green-400">
+                    👑 Host - {hostGameState.players.length} Spieler verbunden
+                  </div>
+                )}
+                {multiplayerMode === "client" && clientGameState && (
+                  <div className={`${
+                    clientGameState.connectionStatus === "connected" ? "text-green-400" : "text-red-400"
+                  }`}>
+                    📱 {clientGameState.connectionStatus === "connected" ? "Verbunden" : "Verbindung unterbrochen"}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           
           {/* Players List During Game */}
@@ -377,6 +693,8 @@ export default function BombGamePage() {
                       : 'bg-white/20 text-white'
                   }`}
                 >
+                  {/* Show host crown for multiplayer */}
+                  {gameMode === "multi" && hostGameState?.players.find(p => p.id === player.id)?.isHost && "👑 "}
                   {player.name} {index === currentPlayerIndex && '👈'}
                 </div>
               ))}
@@ -386,7 +704,7 @@ export default function BombGamePage() {
       )}
 
       {/* Select Loser Phase */}
-      {gamePhase === "selectLoser" && (
+      {mounted && gamePhase === "selectLoser" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 text-center">
             <div className="text-6xl md:text-8xl mb-6">💥</div>
@@ -397,34 +715,51 @@ export default function BombGamePage() {
               {t("whoLostTitle")}
             </h3>
             
-            <div className="mb-6">
-              <select 
-                value={selectedLoser}
-                onChange={(e) => setSelectedLoser(e.target.value)}
-                className="cr-select px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
-              >
-                <option value="">{t("selectLoser")}</option>
-                {players.map(player => (
-                  <option key={player.id} value={player.id}>
-                    {player.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {/* Only Host can select loser in multiplayer */}
+            {(gameMode === "single" || (gameMode === "multi" && multiplayerMode === "host")) && (
+              <>
+                <div className="mb-6">
+                  <select 
+                    value={selectedLoser}
+                    onChange={(e) => setSelectedLoser(e.target.value)}
+                    className="cr-select px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
+                  >
+                    <option value="">{t("selectLoser")}</option>
+                    {players.map(player => (
+                      <option key={player.id} value={player.id}>
+                        {player.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                <button
+                  onClick={confirmLoser}
+                  disabled={!selectedLoser}
+                  className="cr-button-primary px-8 py-4 text-xl font-black disabled:opacity-50 disabled:cursor-not-allowed w-full"
+                >
+                  ✅ {t("confirmLoser")}
+                </button>
+              </>
+            )}
             
-            <button
-              onClick={confirmLoser}
-              disabled={!selectedLoser}
-              className="cr-button-primary px-8 py-4 text-xl font-black disabled:opacity-50 disabled:cursor-not-allowed w-full"
-            >
-              ✅ {t("confirmLoser")}
-            </button>
+            {/* Client waits for host decision */}
+            {gameMode === "multi" && multiplayerMode === "client" && (
+              <div className="space-y-4">
+                <div className="text-yellow-300 text-lg">
+                  ⏳ Der Host entscheidet, wer verloren hat...
+                </div>
+                <div className="text-white/60">
+                  Warte auf die Entscheidung des Hosts
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
 
       {/* Scoreboard Phase */}
-      {gamePhase === "scoreboard" && (
+      {mounted && gamePhase === "scoreboard" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8">
             <h2 className="text-2xl md:text-3xl font-black mb-6 text-center text-yellow-300">
@@ -471,7 +806,7 @@ export default function BombGamePage() {
       )}
 
       {/* Final Game Over Phase */}
-      {gamePhase === "gameOver" && (
+      {mounted && gamePhase === "gameOver" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 text-center">
             <div className="text-6xl md:text-8xl mb-6">🏆</div>
