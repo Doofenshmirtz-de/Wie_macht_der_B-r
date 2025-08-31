@@ -7,7 +7,6 @@ type GameModeSelectionProps = {
 };
 
 export default function GameModeSelection({ onModeSelect }: GameModeSelectionProps) {
-  const t = useTranslations();
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -37,7 +36,7 @@ export default function GameModeSelection({ onModeSelect }: GameModeSelectionPro
                 <span className="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">Bewährt</span>
               </div>
               <button className="cr-button-primary w-full py-3 text-lg font-black group-hover:shadow-lg">
-                🎯 Los geht's!
+                🎯 Los geht&apos;s!
               </button>
             </div>
           </div>
@@ -50,9 +49,9 @@ export default function GameModeSelection({ onModeSelect }: GameModeSelectionPro
               <h3 className="text-xl font-black text-yellow-300 mb-3">
                 Mehrere Handys
               </h3>
-              <p className="text-white/80 text-sm mb-4">
-                Multiplayer Modus: Jeder Spieler nutzt sein eigenes Gerät über QR-Code
-              </p>
+                          <p className="text-white/80 text-sm mb-4">
+              Multiplayer Modus: Jeder Spieler nutzt sein eigenes Gerät über Peer-to-Peer Verbindungen
+            </p>
               <div className="flex flex-wrap justify-center gap-2 mb-4">
                 <span className="bg-orange-500/20 text-orange-400 px-2 py-1 rounded text-xs">Neu!</span>
                 <span className="bg-pink-500/20 text-pink-400 px-2 py-1 rounded text-xs">Online</span>
@@ -67,7 +66,7 @@ export default function GameModeSelection({ onModeSelect }: GameModeSelectionPro
         
         <div className="mt-8 text-center">
           <div className="text-sm text-white/60">
-            💡 <strong>Tipp:</strong> Multiplayer funktioniert am besten wenn alle im selben WLAN sind
+            💡 <strong>Tipp:</strong> P2P funktioniert am besten wenn alle im selben WLAN sind
           </div>
         </div>
       </div>

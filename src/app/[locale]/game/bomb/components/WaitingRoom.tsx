@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { MultiplayerPlayer, HostGameState, ClientGameState } from "../shared/multiplayer-types";
+import type { HostGameState, ClientGameState } from "../shared/multiplayer-types";
 
 type WaitingRoomProps = {
   gameMode: "host" | "client";
@@ -18,7 +18,6 @@ export default function WaitingRoom({
   onStartGame, 
   onLeaveRoom 
 }: WaitingRoomProps) {
-  const t = useTranslations();
 
   // Get players list based on mode
   const players = gameMode === "host" 
@@ -41,10 +40,10 @@ export default function WaitingRoom({
         {/* Room Info */}
         <div className="text-center mb-6">
           <div className="text-lg text-white/80 mb-2">
-            Room: <strong className="text-yellow-300">{roomId}</strong>
+            P2P Room: <strong className="text-yellow-300">{roomId}</strong>
           </div>
           <div className="text-sm text-white/60">
-            {gameMode === "host" ? "👑 Du bist der Host" : "📱 Du bist ein Client"}
+            {gameMode === "host" ? "👑 Du bist der P2P Host" : "📱 Du bist P2P verbunden"}
           </div>
         </div>
 
@@ -73,9 +72,9 @@ export default function WaitingRoom({
                     player.connectionStatus === 'connecting' ? 'bg-yellow-500/20 text-yellow-400' :
                     'bg-red-500/20 text-red-400'
                   }`}>
-                    {player.connectionStatus === 'connected' ? '✅' :
-                     player.connectionStatus === 'connecting' ? '🔄' :
-                     '❌'}
+                    {                    player.connectionStatus === 'connected' ? '✅ P2P' :
+                     player.connectionStatus === 'connecting' ? '🔄 P2P...' :
+                     '❌ Fehler'}
                   </span>
                 )}
               </div>
@@ -144,8 +143,8 @@ export default function WaitingRoom({
                   : "bg-red-500/20 text-red-400"
               }`}>
                 {clientGameState.connectionStatus === "connected" 
-                  ? "✅ Verbunden mit Host" 
-                  : "❌ Verbindung unterbrochen"}
+                  ? "✅ P2P mit Host verbunden" 
+                  : "❌ P2P Verbindung unterbrochen"}
               </div>
             )}
           </div>
@@ -164,12 +163,12 @@ export default function WaitingRoom({
 
       {/* Instructions */}
       <div className="cr-card p-4">
-        <h4 className="text-lg font-bold text-yellow-300 mb-3 text-center">💡 Wie funktioniert's?</h4>
+        <h4 className="text-lg font-bold text-yellow-300 mb-3 text-center">💡 Wie funktioniert&apos;s?</h4>
         <div className="space-y-2 text-sm text-white/80">
-          <div>• <strong>Host:</strong> Verwaltet das Spiel und entscheidet bei Explosionen</div>
-          <div>• <strong>Spieler:</strong> Sehen alle dasselbe Wort, aber nicht den Timer</div>
-          <div>• <strong>Zug:</strong> Nur der aktuelle Spieler kann "Weiter" klicken</div>
-          <div>• <strong>Explosion:</strong> Zufällig nach 20-60 Sekunden - Host entscheidet wer trinkt</div>
+          <div>• <strong>P2P Host:</strong> Koordiniert das Spiel und entscheidet bei Explosionen</div>
+          <div>• <strong>P2P Clients:</strong> Sehen alle dasselbe Wort, aber nicht den Timer</div>
+          <div>• <strong>WebRTC:</strong> Direkte Verbindungen zwischen allen Geräten</div>
+          <div>• <strong>Privat:</strong> Keine Daten über externe Server</div>
         </div>
       </div>
     </div>

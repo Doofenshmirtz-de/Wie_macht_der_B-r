@@ -25,6 +25,9 @@ const nextConfig: NextConfig = {
     scrollRestoration: true,
   },
 
+  // External packages for server components
+  serverExternalPackages: ['socket.io'],
+
   // Compiler optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

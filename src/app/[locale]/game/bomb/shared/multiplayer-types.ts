@@ -1,5 +1,4 @@
-// Multiplayer Type Definitions
-import type SimplePeer from "simple-peer";
+// Multiplayer Type Definitions for Peer-to-Peer System
 
 export type ConnectionStatus = "disconnected" | "connecting" | "connected" | "error";
 
@@ -9,7 +8,6 @@ export type MultiplayerPlayer = {
   isHost: boolean;
   connectionId?: string;
   connectionStatus: ConnectionStatus;
-  peer?: SimplePeer.Instance;
 };
 
 export type GameMode = "single" | "multi";
@@ -40,7 +38,7 @@ export type HostGameState = {
     losses: number;
   }>;
   gamePhase: "setup" | "waiting" | "rounds" | "category" | "playing" | "selectLoser" | "scoreboard" | "gameOver";
-  connections: Map<string, SimplePeer.Instance>;
+  // WebRTC connections are managed by peer-utils.ts
 };
 
 // Client-specific state (no sensitive data)

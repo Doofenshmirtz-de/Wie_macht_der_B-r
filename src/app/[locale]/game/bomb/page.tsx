@@ -2,15 +2,17 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { categoriesDE, categoriesEN } from "./shared/categories";
 import type { AppLocale } from "@/i18n/routing";
 import { useParams } from "next/navigation";
 
-// Import Multiplayer Components
+
+// Import Multiplayer Components (P2P System)
 import GameModeSelection from "./components/GameModeSelection";
 import MultiplayerModeSelection from "./components/MultiplayerModeSelection";
-import HostSetup from "./components/HostSetup";
-import ClientSetup from "./components/ClientSetup";
+import PeerHostSetup from "./components/PeerHostSetup";
+import PeerClientSetup from "./components/PeerClientSetup";
 import WaitingRoom from "./components/WaitingRoom";
 import type { HostGameState, ClientGameState } from "./shared/multiplayer-types";
 
@@ -33,10 +35,8 @@ type MultiplayerMode = "host" | "client";
 export default function BombGamePage() {
   const t = useTranslations();
   const params = useParams();
+  const searchParams = useSearchParams();
   const locale = params.locale as AppLocale;
-  
-  // Debug: Log when component loads
-  console.log("🎮 Bomb Game Page loaded with Multiplayer support!");
   
   const categories = locale === "de" ? categoriesDE : categoriesEN;
   
@@ -44,6 +44,28 @@ export default function BombGamePage() {
   const [gameMode, setGameMode] = useState<GameMode | null>(null);
   const [multiplayerMode, setMultiplayerMode] = useState<MultiplayerMode | null>(null);
   const [gamePhase, setGamePhase] = useState<GamePhase>("modeSelection");
+  const [mounted, setMounted] = useState(false);
+
+  // Debug: Log when component loads (only on client)
+  useEffect(() => {
+    console.log("🎮 Bomb Game Page loaded with Multiplayer support!");
+    console.log("🔍 Initial GamePhase:", gamePhase);
+    setMounted(true);
+  }, []);
+
+  // Debug: Track gamePhase changes
+  useEffect(() => {
+    if (mounted) {
+      console.log(
+        "🔍 GamePhase geändert zu:",
+        gamePhase,
+        "GameMode:",
+        gameMode,
+        "MultiplayerMode:",
+        multiplayerMode
+      );
+    }
+  }, [mounted, gamePhase, gameMode, multiplayerMode]);
   
   // Single Player State
   const [players, setPlayers] = useState<Player[]>([]);
@@ -61,6 +83,32 @@ export default function BombGamePage() {
   // Multiplayer State
   const [hostGameState, setHostGameState] = useState<HostGameState | null>(null);
   const [clientGameState, setClientGameState] = useState<ClientGameState | null>(null);
+
+  // Handle URL parameters for direct joining (client-side only)
+  useEffect(() => {
+    // Only run on client-side to avoid hydration mismatch
+    if (typeof window === 'undefined') return;
+
+    const joinParam = searchParams.get('join');
+    
+    if (joinParam) {
+      // Direct join from share link
+      try {
+        const params = new URLSearchParams(joinParam);
+        const roomId = params.get('roomId');
+        const hostName = params.get('hostName');
+        
+        if (roomId && hostName) {
+          console.log(`🔗 Auto-joining room ${roomId} hosted by ${hostName}`);
+          setGameMode("multi");
+          setMultiplayerMode("client");
+          setGamePhase("clientSetup");
+        }
+      } catch (error) {
+        console.error('Failed to parse join URL:', error);
+      }
+    }
+  }, [searchParams]);
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const explosionRef = useRef<HTMLAudioElement>(null);
@@ -220,8 +268,9 @@ export default function BombGamePage() {
     }));
     setPlayers(simplePlayers);
     
-    // Update game phase
-    if (gameState.gamePhase !== "waiting") {
+    // Update game phase (but not if in multiplayer setup phases)
+    if (gameState.gamePhase !== "waiting" && 
+        !["modeSelection", "multiplayerModeSelection", "hostSetup", "clientSetup"].includes(gamePhase)) {
       setGamePhase(gameState.gamePhase);
     }
   };
@@ -244,8 +293,10 @@ export default function BombGamePage() {
     }));
     setPlayers(simplePlayers);
     
-    // Update game phase
-    setGamePhase(gameState.gamePhase);
+    // Update game phase (but preserve multiplayer flow)
+    if (!["modeSelection", "multiplayerModeSelection", "hostSetup", "clientSetup"].includes(gamePhase)) {
+      setGamePhase(gameState.gamePhase);
+    }
   };
 
   // Back handlers for nested navigation
@@ -280,6 +331,24 @@ export default function BombGamePage() {
     setGamePhase("modeSelection");
   };
 
+  // Handle direct join from share link
+  const handleDirectJoin = async (roomId: string, hostName: string, playerName?: string) => {
+    try {
+      console.log('🔗 Direct join:', { roomId, hostName, playerName });
+      
+      // If player name provided, auto-join
+      if (playerName) {
+                    // This would trigger auto-join in PeerClientSetup
+        // For now just log it
+        console.log(`Auto-joining room ${roomId} as ${playerName}`);
+      }
+      
+    } catch (error) {
+      console.error('Failed to auto-join:', error);
+      setGamePhase("modeSelection");
+    }
+  };
+
   return (
     <div className="min-h-screen p-4 md:p-6 text-white">
       <audio ref={audioRef} preload="auto">
@@ -306,54 +375,68 @@ export default function BombGamePage() {
         )}
       </div>
 
-      {/* Game Mode Selection */}
-      {gamePhase === "modeSelection" && (
+      {/* Only render content when mounted to prevent hydration issues */}
+      {mounted && (
         <>
-          {/* Debug: Diese Nachricht sollte sichtbar sein wenn gamePhase = "modeSelection" */}
-          <div className="text-center mb-4 text-green-400 font-bold">
-            🎮 Multiplayer Version geladen! GamePhase: {gamePhase}
-          </div>
-          <GameModeSelection onModeSelect={handleModeSelect} />
+          {/* Game Mode Selection */}
+          {gamePhase === "modeSelection" && (
+            <GameModeSelection onModeSelect={handleModeSelect} />
+          )}
+
+          {/* Multiplayer Mode Selection */}
+          {gamePhase === "multiplayerModeSelection" && (
+            <MultiplayerModeSelection 
+              onModeSelect={handleMultiplayerModeSelect}
+              onBack={handleBackToModeSelection}
+            />
+          )}
+
+          {/* P2P Host Setup */}
+          {gamePhase === "hostSetup" && (
+            <PeerHostSetup 
+              onGameStateChange={handleHostGameStateChange}
+              onBack={handleBackToMultiplayerModeSelection}
+            />
+          )}
+
+          {/* P2P Client Setup */}
+          {gamePhase === "clientSetup" && (
+            <PeerClientSetup 
+              onGameStateChange={handleClientGameStateChange}
+              onBack={handleBackToMultiplayerModeSelection}
+            />
+          )}
+
+          {/* Multiplayer Waiting Room */}
+          {gamePhase === "waiting" && gameMode === "multi" && (
+            <WaitingRoom
+              gameMode={multiplayerMode!}
+              hostGameState={hostGameState || undefined}
+              clientGameState={clientGameState || undefined}
+              onStartGame={multiplayerMode === "host" ? handleStartMultiplayerGame : undefined}
+              onLeaveRoom={handleLeaveRoom}
+            />
+          )}
         </>
       )}
 
-      {/* Multiplayer Mode Selection */}
-      {gamePhase === "multiplayerModeSelection" && (
-        <MultiplayerModeSelection 
-          onModeSelect={handleMultiplayerModeSelect}
-          onBack={handleBackToModeSelection}
-        />
-      )}
 
-      {/* Host Setup */}
-      {gamePhase === "hostSetup" && (
-        <HostSetup 
-          onGameStateChange={handleHostGameStateChange}
-          onBack={handleBackToMultiplayerModeSelection}
-        />
-      )}
 
-      {/* Client Setup */}
-      {gamePhase === "clientSetup" && (
-        <ClientSetup 
-          onGameStateChange={handleClientGameStateChange}
-          onBack={handleBackToMultiplayerModeSelection}
-        />
-      )}
+        {/* SIMPLE DEBUG */}
+        <div className="text-center mb-4 text-green-400 text-sm">
+          🎯 Phase: {gamePhase} | Mode: {gameMode || "null"} | Multi: {multiplayerMode || "null"} | Mounted: {mounted ? "✅" : "❌"}
+        </div>
 
-      {/* Multiplayer Waiting Room */}
-      {gamePhase === "waiting" && gameMode === "multi" && (
-        <WaitingRoom
-          gameMode={multiplayerMode!}
-          hostGameState={hostGameState || undefined}
-          clientGameState={clientGameState || undefined}
-          onStartGame={multiplayerMode === "host" ? handleStartMultiplayerGame : undefined}
-          onLeaveRoom={handleLeaveRoom}
-        />
-      )}
+        {/* FORCE RENDER WITHOUT MOUNTED CHECK */}
+        {!mounted && gamePhase === "modeSelection" && (
+          <div className="text-center">
+            <div className="text-lg text-yellow-400 mb-4">⚡ Force Rendering (Mount Issue)</div>
+            <GameModeSelection onModeSelect={handleModeSelect} />
+          </div>
+        )}
 
-      {/* Player Setup Phase */}
-      {gamePhase === "setup" && (
+      {/* Player Setup Phase (ONLY for single player mode) */}
+      {gamePhase === "setup" && gameMode === "single" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 mb-6">
             <h2 className="text-2xl md:text-3xl font-black mb-6 text-center text-yellow-300">
@@ -421,7 +504,7 @@ export default function BombGamePage() {
       )}
 
       {/* Rounds Selection Phase */}
-      {gamePhase === "rounds" && (
+      {mounted && gamePhase === "rounds" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 mb-6">
             <h2 className="text-2xl md:text-3xl font-black mb-6 text-center text-yellow-300">
@@ -460,7 +543,7 @@ export default function BombGamePage() {
       )}
 
       {/* Category Selection Phase */}
-      {gamePhase === "category" && (
+      {mounted && gamePhase === "category" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 mb-6">
             <h2 className="text-2xl md:text-3xl font-black mb-6 text-center text-yellow-300">
@@ -502,7 +585,7 @@ export default function BombGamePage() {
       )}
 
       {/* Playing Phase */}
-      {gamePhase === "playing" && (
+      {mounted && gamePhase === "playing" && (
         <div className="max-w-4xl mx-auto">
           <div className="cr-card p-6 md:p-8 mb-6">
             
@@ -621,7 +704,7 @@ export default function BombGamePage() {
       )}
 
       {/* Select Loser Phase */}
-      {gamePhase === "selectLoser" && (
+      {mounted && gamePhase === "selectLoser" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 text-center">
             <div className="text-6xl md:text-8xl mb-6">💥</div>
@@ -676,7 +759,7 @@ export default function BombGamePage() {
       )}
 
       {/* Scoreboard Phase */}
-      {gamePhase === "scoreboard" && (
+      {mounted && gamePhase === "scoreboard" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8">
             <h2 className="text-2xl md:text-3xl font-black mb-6 text-center text-yellow-300">
@@ -723,7 +806,7 @@ export default function BombGamePage() {
       )}
 
       {/* Final Game Over Phase */}
-      {gamePhase === "gameOver" && (
+      {mounted && gamePhase === "gameOver" && (
         <div className="max-w-2xl mx-auto">
           <div className="cr-card p-6 md:p-8 text-center">
             <div className="text-6xl md:text-8xl mb-6">🏆</div>

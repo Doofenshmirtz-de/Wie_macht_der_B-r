@@ -8,7 +8,6 @@ type MultiplayerModeSelectionProps = {
 };
 
 export default function MultiplayerModeSelection({ onModeSelect, onBack }: MultiplayerModeSelectionProps) {
-  const t = useTranslations();
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -30,17 +29,17 @@ export default function MultiplayerModeSelection({ onModeSelect, onBack }: Multi
                 Gruppe erstellen
               </h3>
               <p className="text-white/80 text-sm mb-4">
-                Du wirst der Gastgeber und verwaltest das Spiel. Andere können über QR-Code beitreten.
+                Du wirst der Host und verwaltest das Spiel. Andere verbinden sich direkt via P2P.
               </p>
               <div className="flex flex-wrap justify-center gap-2 mb-4">
                 <span className="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded text-xs">Host</span>
-                <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">QR-Code</span>
+                <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs">P2P</span>
                 <span className="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs">Bis 16 Spieler</span>
               </div>
               <div className="text-xs text-white/60 mb-4">
                 ✅ Spiel steuern<br/>
                 ✅ Kategorien wählen<br/>
-                ✅ QR-Code teilen
+                ✅ Share-Link teilen
               </div>
               <button className="cr-button-primary w-full py-3 text-lg font-black group-hover:shadow-lg">
                 👑 Host werden
@@ -57,20 +56,20 @@ export default function MultiplayerModeSelection({ onModeSelect, onBack }: Multi
                 Gruppe beitreten
               </h3>
               <p className="text-white/80 text-sm mb-4">
-                Scanne den QR-Code des Gastgebers oder gib den Room-Code ein.
+                Füge den Share-Link oder Room-Code des Hosts ein und verbinde dich direkt.
               </p>
               <div className="flex flex-wrap justify-center gap-2 mb-4">
                 <span className="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs">Client</span>
-                <span className="bg-pink-500/20 text-pink-400 px-2 py-1 rounded text-xs">QR-Scanner</span>
+                <span className="bg-pink-500/20 text-pink-400 px-2 py-1 rounded text-xs">WebRTC</span>
                 <span className="bg-orange-500/20 text-orange-400 px-2 py-1 rounded text-xs">Einfach</span>
               </div>
               <div className="text-xs text-white/60 mb-4">
-                ✅ QR-Code scannen<br/>
+                ✅ Share-Link eingeben<br/>
                 ✅ Namen eingeben<br/>
                 ✅ Mitspielen
               </div>
               <button className="cr-button-primary w-full py-3 text-lg font-black group-hover:shadow-lg bg-gradient-to-r from-purple-600 to-pink-600">
-                📷 Beitreten
+                🔗 P2P Beitreten
               </button>
             </div>
           </div>
@@ -87,7 +86,7 @@ export default function MultiplayerModeSelection({ onModeSelect, onBack }: Multi
         
         <div className="mt-6 text-center">
           <div className="text-sm text-white/60">
-            💡 <strong>Host-Tipp:</strong> Der Host verwaltet das ganze Spiel und sollte die beste Internetverbindung haben
+            💡 <strong>P2P-Tipp:</strong> Der Host koordiniert das Spiel, alle verbinden sich direkt miteinander
           </div>
         </div>
       </div>
