@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { categoriesDE, categoriesEN } from "./shared/categories";
@@ -32,7 +32,7 @@ type PlayerScore = {
 type GameMode = "single" | "multi";
 type MultiplayerMode = "host" | "client";
 
-export default function BombGamePage() {
+function BombGamePageContent() {
   const t = useTranslations();
   const params = useParams();
   const searchParams = useSearchParams();
@@ -845,4 +845,13 @@ export default function BombGamePage() {
   );
 }
 
+export default function BombGamePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-white text-xl">Loading...</div>
+    </div>}>
+      <BombGamePageContent />
+    </Suspense>
+  );
+}
 
