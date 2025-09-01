@@ -1,7 +1,7 @@
 // WebRTC Peer-to-Peer Management with SimplePeer
 import SimplePeer from 'simple-peer';
 import { signalingManager, SignalingMessage } from './signaling-utils';
-import type { MultiplayerPlayer, GameMessage } from '../shared/multiplayer-types';
+import type { MultiplayerPlayer, GameMessage, MessageType, ClientGameState } from '../shared/multiplayer-types';
 
 // WebRTC Configuration
 const PEER_CONFIG = {
@@ -198,8 +198,8 @@ export class HostPeerManager {
     console.log(`👑 Host received game message from ${clientId}:`, message.type);
     
     // Handle join-request specially to update player name
-    if (message.type === 'join-request') {
-      const { playerName } = message.data;
+    if (message.type === 'join-request' && message.data && typeof message.data === 'object' && 'playerName' in message.data) {
+      const { playerName } = message.data as { playerName: string };
       const player = this.players.get(clientId);
       if (player && playerName) {
         player.name = playerName;
