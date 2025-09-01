@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 
 import { HostPeerManager } from "../utils/peer-utils";
 import { generateShareLink, signalingManager } from "../utils/signaling-utils";
-import type { MultiplayerPlayer, HostGameState, PlayerActionData, JoinRequestData } from "../shared/multiplayer-types";
+import type { MultiplayerPlayer, HostGameState, ClientGameState, PlayerActionData, JoinRequestData } from "../shared/multiplayer-types";
 
 type PeerHostSetupProps = {
   onGameStateChange: (gameState: HostGameState) => void;
@@ -21,6 +21,7 @@ export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSet
   const [players, setPlayers] = useState<MultiplayerPlayer[]>([]);
   const [connectionStatus, setConnectionStatus] = useState("Bereit Room zu erstellen");
   const [error, setError] = useState("");
+  const [currentGameState, setCurrentGameState] = useState<HostGameState | null>(null);
 
   const hostManagerRef = useRef<HostPeerManager | null>(null);
   const hostIdRef = useRef<string>("");
@@ -81,6 +82,7 @@ export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSet
       // Setup host manager event handlers
       setupHostManagerEvents(hostManager, initialGameState);
       
+      setCurrentGameState(initialGameState);
       onGameStateChange(initialGameState);
 
     } catch (error) {
@@ -115,6 +117,7 @@ export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSet
           losses: 0
         }))
       };
+      setCurrentGameState(updatedGameState);
       onGameStateChange(updatedGameState);
     }, 1000);
 
@@ -164,14 +167,43 @@ export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSet
 
   // Start game
   const startGame = () => {
-    if (players.length < 2) return;
+    if (players.length < 2 || !currentGameState || !hostManagerRef.current) return;
+    
+    // Update game state to start rounds
+    const updatedGameState: HostGameState = {
+      ...currentGameState,
+      gamePhase: "rounds",
+      isGameActive: true
+    };
+    
+    setCurrentGameState(updatedGameState);
+    onGameStateChange(updatedGameState);
+    
+    // Create client game state (without sensitive host data)
+    const clientGameState: ClientGameState = {
+      roomId: updatedGameState.roomId,
+      playerName: "", // Will be set by each client individually
+      players: updatedGameState.players.map(p => ({
+        id: p.id,
+        name: p.name,
+        isHost: p.isHost,
+        connectionStatus: p.connectionStatus
+      })),
+      currentPlayerIndex: updatedGameState.currentPlayerIndex,
+      selectedCategory: updatedGameState.selectedCategory,
+      currentWord: updatedGameState.currentWord,
+      isGameActive: updatedGameState.isGameActive,
+      showTimer: true,
+      totalRounds: updatedGameState.totalRounds,
+      currentRound: updatedGameState.currentRound,
+      playerScores: updatedGameState.playerScores,
+      gamePhase: updatedGameState.gamePhase,
+      isMyTurn: false, // Will be calculated by each client
+      connectionStatus: "connected"
+    };
     
     // Broadcast game start to all clients
-    if (hostManagerRef.current) {
-      hostManagerRef.current.broadcastGameState({
-        phase: "rounds"
-      });
-    }
+    hostManagerRef.current.broadcastGameState(clientGameState);
   };
 
   // Cleanup on unmount
