@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useTranslations } from "next-intl";
+
 import { HostPeerManager } from "../utils/peer-utils";
 import { generateShareLink, signalingManager } from "../utils/signaling-utils";
-import type { MultiplayerPlayer, HostGameState } from "../shared/multiplayer-types";
+import type { MultiplayerPlayer, HostGameState, PlayerActionData, JoinRequestData } from "../shared/multiplayer-types";
 
 type PeerHostSetupProps = {
   onGameStateChange: (gameState: HostGameState) => void;
@@ -12,7 +12,7 @@ type PeerHostSetupProps = {
 };
 
 export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSetupProps) {
-  const t = useTranslations();
+
   const [hostName, setHostName] = useState("");
   const [roomId, setRoomId] = useState("");
   const [shareLink, setShareLink] = useState("");
@@ -93,8 +93,9 @@ export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSet
   // Setup host manager event handlers
   const setupHostManagerEvents = (hostManager: HostPeerManager, gameState: HostGameState) => {
     // Handle player actions
-    hostManager.onMessage("player-action", (peerId: string, data: any) => {
-      console.log(`Player action from ${peerId}:`, data);
+    hostManager.onMessage("player-action", (peerId: string, data: unknown) => {
+      const actionData = data as PlayerActionData;
+      console.log(`Player action from ${peerId}:`, actionData);
       // Handle player actions like "next-player", etc.
     });
 
@@ -117,8 +118,9 @@ export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSet
       onGameStateChange(updatedGameState);
     }, 1000);
 
-    hostManager.onMessage("join-request", (peerId: string, data: any) => {
-      console.log(`Join request from ${peerId}:`, data);
+    hostManager.onMessage("join-request", (peerId: string, data: unknown) => {
+      const joinRequest = data as JoinRequestData;
+      console.log(`Join request from ${peerId}:`, joinRequest);
       
       // Send welcome message to client
       hostManager.sendToClient(peerId, "join-response", {

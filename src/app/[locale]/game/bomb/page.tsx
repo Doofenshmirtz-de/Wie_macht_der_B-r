@@ -51,7 +51,7 @@ export default function BombGamePage() {
     console.log("🎮 Bomb Game Page loaded with Multiplayer support!");
     console.log("🔍 Initial GamePhase:", gamePhase);
     setMounted(true);
-  }, []);
+  }, [gamePhase]);
 
   // Debug: Track gamePhase changes
   useEffect(() => {
@@ -331,23 +331,7 @@ export default function BombGamePage() {
     setGamePhase("modeSelection");
   };
 
-  // Handle direct join from share link
-  const handleDirectJoin = async (roomId: string, hostName: string, playerName?: string) => {
-    try {
-      console.log('🔗 Direct join:', { roomId, hostName, playerName });
-      
-      // If player name provided, auto-join
-      if (playerName) {
-                    // This would trigger auto-join in PeerClientSetup
-        // For now just log it
-        console.log(`Auto-joining room ${roomId} as ${playerName}`);
-      }
-      
-    } catch (error) {
-      console.error('Failed to auto-join:', error);
-      setGamePhase("modeSelection");
-    }
-  };
+
 
   return (
     <div className="min-h-screen p-4 md:p-6 text-white">

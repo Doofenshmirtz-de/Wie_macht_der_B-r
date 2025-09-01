@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+
 
 type MultiplayerModeSelectionProps = {
   onModeSelect: (mode: "host" | "client") => void;

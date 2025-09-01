@@ -21,7 +21,7 @@ export class HostPeerManager {
   private hostName: string;
   private connections: Map<string, SimplePeer.Instance> = new Map();
   private players: Map<string, MultiplayerPlayer> = new Map();
-  private messageHandlers: Map<string, (peerId: string, data: any) => void> = new Map();
+  private messageHandlers: Map<string, (peerId: string, data: unknown) => void> = new Map();
 
   constructor(hostId: string, hostName: string) {
     this.hostId = hostId;
@@ -101,7 +101,7 @@ export class HostPeerManager {
       this.setupPeerEvents(clientId, peer);
 
       // Set remote offer - this should trigger answer generation
-      peer.signal(offer as any);
+      peer.signal(offer as SimplePeer.SignalData);
       
       console.log(`👑 Host setup peer connection for ${clientId}, waiting for answer...`);
 
@@ -119,7 +119,7 @@ export class HostPeerManager {
         return;
       }
 
-      peer.signal(answer as any);
+      peer.signal(answer as SimplePeer.SignalData);
     } catch (error) {
       console.error(`Failed to handle answer from ${clientId}:`, error);
     }
@@ -131,7 +131,7 @@ export class HostPeerManager {
       const peer = this.connections.get(clientId);
       if (!peer) return;
 
-      peer.signal(candidate as any);
+      peer.signal(candidate as SimplePeer.SignalData);
     } catch (error) {
       console.error(`Failed to handle ICE candidate from ${clientId}:`, error);
     }
@@ -143,8 +143,8 @@ export class HostPeerManager {
       // Send signal data via signaling server
       if (data.type === 'answer') {
         await signalingManager.sendAnswer(this.roomId, 'host', clientId, data);
-      } else if ((data as any).candidate) {
-        await signalingManager.sendIceCandidate(this.roomId, 'host', clientId, data as any);
+      } else if ('candidate' in data && data.candidate) {
+        await signalingManager.sendIceCandidate(this.roomId, 'host', clientId, data.candidate);
       }
     });
 
@@ -230,7 +230,7 @@ export class HostPeerManager {
   }
 
   // Broadcast game state to all connected clients
-  broadcastGameState(gameState: any): void {
+  broadcastGameState(gameState: ClientGameState): void {
     const message: GameMessage = {
       type: 'game-state-update',
       senderId: this.hostId,
@@ -250,14 +250,14 @@ export class HostPeerManager {
   }
 
   // Send message to specific client
-  sendToClient(clientId: string, messageType: string, data?: any): boolean {
+  sendToClient(clientId: string, messageType: string, data?: unknown): boolean {
     const peer = this.connections.get(clientId);
     if (!peer || !peer.connected) {
       return false;
     }
 
     const message: GameMessage = {
-      type: messageType as any,
+      type: messageType as MessageType,
       senderId: this.hostId,
       timestamp: Date.now(),
       data
@@ -273,7 +273,7 @@ export class HostPeerManager {
   }
 
   // Register message handler
-  onMessage(messageType: string, handler: (peerId: string, data: any) => void): void {
+  onMessage(messageType: string, handler: (peerId: string, data: unknown) => void): void {
     this.messageHandlers.set(messageType, handler);
   }
 
@@ -321,7 +321,7 @@ export class ClientPeerManager {
   private clientName: string;
   private hostConnection: SimplePeer.Instance | null = null;
   private connectionStatus: PeerConnectionStatus = "disconnected";
-  private messageHandlers: Map<string, (data: any) => void> = new Map();
+  private messageHandlers: Map<string, (data: unknown) => void> = new Map();
 
   constructor(clientId: string, clientName: string) {
     this.clientId = clientId;
@@ -367,9 +367,9 @@ export class ClientPeerManager {
     this.hostConnection.on('signal', async (data) => {
       // Send signal data to host via signaling server
       if (data.type === 'offer') {
-        await signalingManager.sendOffer(this.roomId, this.clientId, 'host', data as any);
-      } else if ((data as any).candidate) {
-        await signalingManager.sendIceCandidate(this.roomId, this.clientId, 'host', data as any);
+        await signalingManager.sendOffer(this.roomId, this.clientId, 'host', data);
+      } else if ('candidate' in data && data.candidate) {
+        await signalingManager.sendIceCandidate(this.roomId, this.clientId, 'host', data);
       }
     });
 
@@ -416,10 +416,10 @@ export class ClientPeerManager {
 
     switch (type) {
       case 'answer':
-        this.hostConnection.signal(data as any);
+        this.hostConnection.signal(data as SimplePeer.SignalData);
         break;
       case 'ice':
-        this.hostConnection.signal(data as any);
+        this.hostConnection.signal(data as SimplePeer.SignalData);
         break;
     }
   }
@@ -433,14 +433,14 @@ export class ClientPeerManager {
   }
 
   // Send message to host
-  sendToHost(messageType: string, data?: any): boolean {
+  sendToHost(messageType: string, data?: unknown): boolean {
     if (!this.hostConnection || !this.hostConnection.connected) {
       console.warn('Cannot send message: not connected to host');
       return false;
     }
 
     const message: GameMessage = {
-      type: messageType as any,
+      type: messageType as MessageType,
       senderId: this.clientId,
       timestamp: Date.now(),
       data
@@ -456,7 +456,7 @@ export class ClientPeerManager {
   }
 
   // Register message handler
-  onMessage(messageType: string, handler: (data: any) => void): void {
+  onMessage(messageType: string, handler: (data: unknown) => void): void {
     this.messageHandlers.set(messageType, handler);
   }
 

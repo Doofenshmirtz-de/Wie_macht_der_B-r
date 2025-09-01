@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useTranslations } from "next-intl";
+
 import { ClientPeerManager } from "../utils/peer-utils";
 import { parseShareLink, signalingManager } from "../utils/signaling-utils";
-import type { ClientGameState, MultiplayerPlayer } from "../shared/multiplayer-types";
+import type { ClientGameState, MultiplayerPlayer, JoinResponseData, GameStateUpdateData } from "../shared/multiplayer-types";
 
 type PeerClientSetupProps = {
   onGameStateChange: (gameState: ClientGameState) => void;
@@ -12,7 +12,7 @@ type PeerClientSetupProps = {
 };
 
 export default function PeerClientSetup({ onGameStateChange, onBack }: PeerClientSetupProps) {
-  const t = useTranslations();
+
   const [playerName, setPlayerName] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [shareUrl, setShareUrl] = useState("");
@@ -49,7 +49,7 @@ export default function PeerClientSetup({ onGameStateChange, onBack }: PeerClien
       }
 
       await joinRoom(linkData.roomId);
-    } catch (error) {
+    } catch {
       setError("Fehler beim Parsen der URL");
     }
   };
@@ -69,7 +69,7 @@ export default function PeerClientSetup({ onGameStateChange, onBack }: PeerClien
       clientManagerRef.current = clientManager;
 
       // Setup client manager event handlers
-      setupClientManagerEvents(clientManager, roomId);
+      setupClientManagerEvents(clientManager);
 
       // Connect to host
       const connected = await clientManager.connectToHost(roomId.toUpperCase());
@@ -100,19 +100,26 @@ export default function PeerClientSetup({ onGameStateChange, onBack }: PeerClien
   };
 
   // Setup client manager event handlers
-  const setupClientManagerEvents = (clientManager: ClientPeerManager, roomId: string) => {
+  const setupClientManagerEvents = (clientManager: ClientPeerManager) => {
     // Handle join response from host
-    clientManager.onMessage("join-response", (data: any) => {
-      if (data.success) {
+    clientManager.onMessage("join-response", (data: unknown) => {
+      const joinData = data as JoinResponseData;
+      if (joinData.success) {
         setConnectionStatus("✅ Erfolgreich beigetreten!");
         setIsJoining(false);
 
         // Create client game state from host response
-        const hostGameState = data.gameState;
+        const hostGameState = joinData.gameState;
+        if (!hostGameState) {
+          setError("Keine Spiel-Daten vom Host erhalten");
+          setIsJoining(false);
+          return;
+        }
+        
         const clientState: ClientGameState = {
           roomId: hostGameState.roomId,
           playerName: playerName.trim(),
-          players: hostGameState.players.map((p: any) => ({
+          players: hostGameState.players.map((p: MultiplayerPlayer) => ({
             id: p.id,
             name: p.name,
             isHost: p.isHost,
@@ -134,17 +141,18 @@ export default function PeerClientSetup({ onGameStateChange, onBack }: PeerClien
         onGameStateChange(clientState);
 
       } else {
-        setError(data.error || "Beitritt fehlgeschlagen");
+        setError(joinData.error || "Beitritt fehlgeschlagen");
         setIsJoining(false);
       }
     });
 
     // Handle game state updates from host
-    clientManager.onMessage("game-state-update", (gameState: any) => {
+    clientManager.onMessage("game-state-update", (data: unknown) => {
+      const gameState = data as GameStateUpdateData;
       console.log("Game state updated:", gameState);
       
       // Update client game state
-      setConnectionStatus(`${gameState.players?.length || 0} Spieler im Raum`);
+      setConnectionStatus(`${gameState.gameState.players?.length || 0} Spieler im Raum`);
       // Additional game state sync logic will be implemented in phase 7
     });
 
