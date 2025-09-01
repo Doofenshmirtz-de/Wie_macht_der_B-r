@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+
 import type { HostGameState, ClientGameState } from "../shared/multiplayer-types";
 
 type WaitingRoomProps = {

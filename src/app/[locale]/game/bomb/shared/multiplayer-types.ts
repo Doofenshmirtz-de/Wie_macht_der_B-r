@@ -82,7 +82,7 @@ export type GameMessage = {
   type: MessageType;
   senderId: string;
   timestamp: number;
-  data?: any;
+  data?: JoinRequestData | JoinResponseData | GameStateUpdateData | PlayerActionData | { error: string } | Record<string, unknown>;
 };
 
 export type JoinRequestData = {
@@ -99,7 +99,7 @@ export type JoinResponseData = {
 
 export type PlayerActionData = {
   action: "next-player" | "confirm-loser" | "start-game";
-  data?: any;
+  data?: { loserId?: string; gameConfig?: Record<string, unknown> } | Record<string, unknown>;
 };
 
 export type GameStateUpdateData = {

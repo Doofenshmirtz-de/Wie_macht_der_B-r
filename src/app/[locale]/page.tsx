@@ -178,7 +178,7 @@ export default function Home() {
               </p>
               <LocaleLink href="/game/bomb">
                 <button className="cr-button-primary px-10 py-4 text-xl font-bold hover:scale-105 transition-all duration-300">
-                  LOS GEHT'S! 🚀
+                  LOS GEHT&apos;S! 🚀
                 </button>
               </LocaleLink>
             </div>

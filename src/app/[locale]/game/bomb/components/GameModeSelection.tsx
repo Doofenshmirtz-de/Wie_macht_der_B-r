@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+
 
 type GameModeSelectionProps = {
   onModeSelect: (mode: "single" | "multi") => void;
