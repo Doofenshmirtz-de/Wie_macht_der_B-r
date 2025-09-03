@@ -5,6 +5,8 @@ import { setRequestLocale, getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import type { AppLocale } from "@/i18n/routing";
 import { Header } from "../ui/Header";
+import { SoundProvider } from "../providers/SoundProvider";
+import { SettingsProvider } from "../providers/SettingsProvider";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -30,12 +32,16 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <div className="min-h-screen">
-        <div className="relative overflow-hidden">
-          <Header />
-          {children}
-        </div>
-      </div>
+      <SettingsProvider>
+        <SoundProvider>
+          <div className="min-h-screen">
+            <div className="relative overflow-hidden">
+              <Header />
+              {children}
+            </div>
+          </div>
+        </SoundProvider>
+      </SettingsProvider>
     </NextIntlClientProvider>
   );
 }

@@ -75,25 +75,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Call to Action Buttons */}
-          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <LocaleLink href="/game/bomb" className="group">
-              <button className="cr-button-primary px-8 py-4 text-xl font-bold text-white hover:scale-105 transition-all duration-300 shadow-2xl">
-                <span className="flex items-center gap-3">
-                  <Image src="/bomb.svg" alt="Bomb Party Trinkspiel Icon" width={24} height={24} />
-                  JETZT SPIELEN!
-                  <div className="w-2 h-2 bg-yellow-300 rounded-full animate-ping"></div>
-                </span>
-              </button>
-            </LocaleLink>
-            
-            <button className="group relative px-6 py-3 text-lg font-bold text-yellow-300 border-2 border-yellow-400/50 rounded-xl hover:border-yellow-300 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-yellow-400/25">
-              <span className="flex items-center gap-2">
-                <Image src="/icons/gear.svg" alt="Anleitung und Einstellungen für Trinkspiele" width={20} height={20} />
-                Anleitung
-              </span>
-            </button>
-          </div>
+
         </section>
 
         {/* Game Selection Section */}
@@ -165,25 +147,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Footer Call to Action */}
-        <section className="mt-20 text-center pb-12">
-          <div className="relative inline-block">
-            <div className="absolute -inset-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl blur opacity-30"></div>
-            <div className="relative bg-gradient-to-r from-gray-800 to-gray-900 border border-yellow-400/30 rounded-xl p-8">
-              <h3 className="text-3xl font-bold text-yellow-300 mb-4">
-                Bereit für die Party? 🎉
-              </h3>
-              <p className="text-white/90 text-lg mb-6">
-                Sammle deine Freunde und startet das ultimative Trinkspielerlebnis!
-              </p>
-              <LocaleLink href="/game/bomb">
-                <button className="cr-button-primary px-10 py-4 text-xl font-bold hover:scale-105 transition-all duration-300">
-                  LOS GEHT&apos;S! 🚀
-                </button>
-              </LocaleLink>
-            </div>
-          </div>
-        </section>
+
       </div>
     </main>
   );
@@ -270,7 +234,7 @@ function EpicGameCard({
               alt={`${title} - ${subtitle} Trinkspiel für ${players} online spielen`} 
               fill 
               sizes="420px"
-              className="object-cover group-hover:scale-110 transition-transform duration-500" 
+              className="object-cover object-top group-hover:scale-110 transition-transform duration-500" 
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
