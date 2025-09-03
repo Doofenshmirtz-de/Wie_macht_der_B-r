@@ -117,7 +117,6 @@ function BombGamePageContent() {
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const explosionRef = useRef<HTMLAudioElement>(null);
-  const tickIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Hidden bomb timer effect - players don't see countdown
   useEffect(() => {
@@ -152,10 +151,11 @@ function BombGamePageContent() {
       
       return () => {
         // Tick sound stoppen wenn nicht mehr aktiv
-        if (audioRef.current) {
-          audioRef.current.pause();
-          audioRef.current.currentTime = 0;
-          audioRef.current.loop = false;
+        const audio = audioRef.current;
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0;
+          audio.loop = false;
         }
       };
     } else if (audioRef.current) {

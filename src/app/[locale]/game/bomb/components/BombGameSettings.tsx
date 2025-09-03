@@ -83,9 +83,9 @@ export function BombGameSettings({ isOpen, onClose }: BombGameSettingsProps) {
                 <div className="space-y-2">
                   <h4 className="font-bold text-yellow-200">🎮 Spielablauf:</h4>
                   <ul className="space-y-1 ml-4">
-                    <li>• Jeder Spieler sieht die gleiche Kategorie (z.B. "Automarken")</li>
-                    <li>• Finde einen Begriff der zur Kategorie passt (z.B. "BMW", "Audi")</li>
-                    <li>• Sage dein Wort laut und drücke "Nächster Spieler"</li>
+                    <li>• Jeder Spieler sieht die gleiche Kategorie (z.B. &quot;Automarken&quot;)</li>
+                    <li>• Finde einen Begriff der zur Kategorie passt (z.B. &quot;BMW&quot;, &quot;Audi&quot;)</li>
+                    <li>• Sage dein Wort laut und drücke &quot;Nächster Spieler&quot;</li>
                     <li>• Die Bombe kann jederzeit explodieren!</li>
                     <li>• Wer die Bombe hat wenn sie explodiert, verliert die Runde</li>
                   </ul>
