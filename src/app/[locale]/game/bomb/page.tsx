@@ -15,6 +15,9 @@ import PeerHostSetup from "./components/PeerHostSetup";
 import PeerClientSetup from "./components/PeerClientSetup";
 import WaitingRoom from "./components/WaitingRoom";
 import type { HostGameState, ClientGameState } from "./shared/multiplayer-types";
+import { useSettings } from "../../../providers/SettingsProvider";
+import { BombGameSettings } from "./components/BombGameSettings";
+import Image from "next/image";
 
 type Player = {
   id: string;
@@ -37,6 +40,8 @@ function BombGamePageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const locale = params.locale as AppLocale;
+  const { getRandomBombTimer } = useSettings();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   
   const categories = locale === "de" ? categoriesDE : categoriesEN;
   
@@ -112,20 +117,54 @@ function BombGamePageContent() {
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const explosionRef = useRef<HTMLAudioElement>(null);
+  const tickIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Hidden bomb timer effect - players don't see countdown
   useEffect(() => {
     let timeout: NodeJS.Timeout;
     if (isGameActive && bombTimer > 0) {
+      console.log('💣 Bomb Timer startet! Explodiert in', bombTimer, 'Sekunden');
       timeout = setTimeout(() => {
+        console.log('💥 BOOM! Bombe explodiert nach', bombTimer, 'Sekunden');
         // BOOM! Game stops, select who lost
         setIsGameActive(false);
         setGamePhase("selectLoser");
         explosionRef.current?.play();
       }, bombTimer * 1000);
     }
-    return () => clearTimeout(timeout);
+    return () => {
+      if (timeout) {
+        console.log('🔄 Bomb Timer wurde zurückgesetzt');
+        clearTimeout(timeout);
+      }
+    };
   }, [isGameActive, bombTimer]);
+
+  // Tick sound loop effect - kontinuierlicher Tick während das Spiel läuft
+  useEffect(() => {
+    if (isGameActive && audioRef.current) {
+      // Tick sound konfigurieren für Loop
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.3;
+      
+      // Tick sound starten
+      audioRef.current.play().catch(console.warn);
+      
+      return () => {
+        // Tick sound stoppen wenn nicht mehr aktiv
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+          audioRef.current.loop = false;
+        }
+      };
+    } else if (audioRef.current) {
+      // Sicherstellen dass Tick sound gestoppt wird
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current.loop = false;
+    }
+  }, [isGameActive]);
 
   // Initialize player scores when players change
   useEffect(() => {
@@ -165,14 +204,23 @@ function BombGamePageContent() {
   };
 
   const startGame = () => {
-    // Random bomb timer between 20-60 seconds (hidden from players)
-    const randomTime = Math.floor(Math.random() * 41) + 20; // 20-60 seconds
+    // Random bomb timer basierend auf Benutzereinstellungen (hidden from players)
+    let randomTime;
+    try {
+      randomTime = getRandomBombTimer();
+    } catch (error) {
+      console.warn('Settings provider not available, using default timer:', error);
+      // Fallback: 30-120 Sekunden
+      randomTime = Math.floor(Math.random() * 91) + 30; 
+    }
+    
+    console.log('🕐 Bomb Timer gesetzt auf:', randomTime, 'Sekunden');
     setBombTimer(randomTime);
     setIsGameActive(true);
     setCurrentPlayerIndex(0);
     setGamePhase("playing");
     generateWord();
-    audioRef.current?.play();
+    // Tick sound wird jetzt automatisch durch useEffect gestartet
   };
 
   const generateWord = () => {
@@ -185,7 +233,7 @@ function BombGamePageContent() {
     if (isGameActive) {
       // Move to next player - same word for everyone!
       setCurrentPlayerIndex((prev) => (prev + 1) % players.length);
-      audioRef.current?.play();
+      // Tick sound läuft bereits kontinuierlich - kein manueller play() nötig
     }
   };
 
@@ -364,7 +412,22 @@ function BombGamePageContent() {
         <>
           {/* Game Mode Selection */}
           {gamePhase === "modeSelection" && (
-            <GameModeSelection onModeSelect={handleModeSelect} />
+            <div>
+              <GameModeSelection onModeSelect={handleModeSelect} />
+              
+              {/* Settings Button - unter den Kacheln */}
+              <div className="text-center mt-8">
+                <button
+                  onClick={() => setIsSettingsOpen(true)}
+                  className="group relative px-6 py-3 rounded-xl overflow-hidden border-2 border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-orange-500/80 to-red-600/80 transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg mx-auto"
+                  aria-label="Bomb Party Einstellungen öffnen"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+                  <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
+                  <span className="text-white font-bold text-lg drop-shadow-lg">Einstellungen</span>
+                </button>
+              </div>
+            </div>
           )}
 
           {/* Multiplayer Mode Selection */}
@@ -406,18 +469,42 @@ function BombGamePageContent() {
 
 
 
-        {/* SIMPLE DEBUG */}
-        <div className="text-center mb-4 text-green-400 text-sm">
-          🎯 Phase: {gamePhase} | Mode: {gameMode || "null"} | Multi: {multiplayerMode || "null"} | Mounted: {mounted ? "✅" : "❌"}
-        </div>
-
-        {/* FORCE RENDER WITHOUT MOUNTED CHECK */}
-        {!mounted && gamePhase === "modeSelection" && (
-          <div className="text-center">
-            <div className="text-lg text-yellow-400 mb-4">⚡ Force Rendering (Mount Issue)</div>
-            <GameModeSelection onModeSelect={handleModeSelect} />
+        {/* Nutzerfreundliche Status-Anzeige */}
+        {gameMode && (
+          <div className="text-center mb-4">
+            <div className="inline-flex items-center gap-4 bg-white/10 rounded-xl px-4 py-2 text-sm">
+              {gameMode === "single" && (
+                <>
+                  <span className="text-blue-300">📱 Einzelspiel</span>
+                  {players.length > 0 && (
+                    <span className="text-yellow-300">👥 {players.length} Spieler</span>
+                  )}
+                </>
+              )}
+              {gameMode === "multi" && multiplayerMode === "host" && (
+                <>
+                  <span className="text-purple-300">👑 Host</span>
+                  {hostGameState && (
+                    <span className="text-yellow-300">👥 {hostGameState.players.length} Spieler</span>
+                  )}
+                </>
+              )}
+              {gameMode === "multi" && multiplayerMode === "client" && (
+                <>
+                  <span className="text-green-300">📱 Teilnehmer</span>
+                  {clientGameState && (
+                    <span className="text-yellow-300">👥 {clientGameState.players.length} Spieler</span>
+                  )}
+                </>
+              )}
+              {currentRound > 1 && (
+                <span className="text-orange-300">🎯 Runde {currentRound}/{totalRounds}</span>
+              )}
+            </div>
           </div>
         )}
+
+
 
       {/* Player Setup Phase (ONLY for single player mode) */}
       {gamePhase === "setup" && gameMode === "single" && (
@@ -841,6 +928,12 @@ function BombGamePageContent() {
           </div>
         </div>
       )}
+      
+      {/* Bomb Game Settings Modal */}
+      <BombGameSettings
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
     </div>
   );
 }

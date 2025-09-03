@@ -1,11 +1,68 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 
-// Redis client configuration
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+// In-memory storage for development (fallback when Redis is not available)
+const inMemoryStore = new Map<string, string[]>();
+
+// Redis client configuration with fallback
+let redis: Redis | null = null;
+try {
+  if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+    redis = new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    });
+    console.log('✅ Redis connected successfully');
+  } else {
+    console.warn('⚠️ Redis not configured, using in-memory storage for development');
+  }
+} catch (error) {
+  console.warn('⚠️ Failed to initialize Redis, falling back to in-memory storage:', error);
+  redis = null;
+}
+
+// Storage interface for both Redis and in-memory
+const storage = {
+  async lpush(key: string, value: string): Promise<void> {
+    if (redis) {
+      await redis.lpush(key, value);
+    } else {
+      if (!inMemoryStore.has(key)) {
+        inMemoryStore.set(key, []);
+      }
+      inMemoryStore.get(key)!.unshift(value);
+    }
+  },
+  
+  async lrange(key: string, start: number, stop: number): Promise<string[]> {
+    if (redis) {
+      return await redis.lrange(key, start, stop) as string[];
+    } else {
+      const list = inMemoryStore.get(key) || [];
+      if (stop === -1) return list;
+      return list.slice(start, stop + 1);
+    }
+  },
+  
+  async expire(key: string, seconds: number): Promise<void> {
+    if (redis) {
+      await redis.expire(key, seconds);
+    } else {
+      // In-memory cleanup after TTL (simplified)
+      setTimeout(() => {
+        inMemoryStore.delete(key);
+      }, seconds * 1000);
+    }
+  },
+  
+  async del(key: string): Promise<void> {
+    if (redis) {
+      await redis.del(key);
+    } else {
+      inMemoryStore.delete(key);
+    }
+  }
+};
 
 // Signaling message types
 interface SignalingMessage {
@@ -54,12 +111,12 @@ export async function POST(
       timestamp: Date.now()
     };
 
-    // Store message in Redis with room-based key
+    // Store message with room-based key
     const key = `room:${roomId}:messages`;
-    await redis.lpush(key, JSON.stringify(message));
+    await storage.lpush(key, JSON.stringify(message));
     
     // Set TTL of 1 hour for auto cleanup
-    await redis.expire(key, 3600);
+    await storage.expire(key, 3600);
     
     console.log(`📡 Signaling message sent to room ${roomId}:`, {
       type: message.type,
@@ -100,9 +157,9 @@ export async function GET(
       );
     }
 
-    // Get messages from Redis
+    // Get messages from storage
     const key = `room:${roomId}:messages`;
-    const rawMessages = await redis.lrange(key, 0, -1);
+    const rawMessages = await storage.lrange(key, 0, -1);
     
     if (!rawMessages || rawMessages.length === 0) {
       return NextResponse.json({ messages: [] });
@@ -162,7 +219,7 @@ export async function DELETE(
     const roomId = resolvedParams.id;
     const key = `room:${roomId}:messages`;
     
-    await redis.del(key);
+    await storage.del(key);
     
     console.log(`🧹 Cleaned up messages for room ${roomId}`);
     
