@@ -13,12 +13,15 @@ export function Header() {
   const locale = useLocale();
   
   // Safe href that falls back to root if pathname is not in defined routes
-  const getValidHref = (path: string): "/" | "/game/bomb" => {
+  const getValidHref = (path: string): "/" | "/game/bomb" | "/game/truthordare" => {
     if (path === "/" || path === "/de" || path === "/en" || path === "/de/" || path === "/en/") {
       return "/";
     }
     if (path.includes("/game/bomb")) {
       return "/game/bomb";
+    }
+    if (path.includes("/game/truthordare")) {
+      return "/game/truthordare";
     }
     return "/";
   };

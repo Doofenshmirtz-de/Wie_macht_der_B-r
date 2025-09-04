@@ -50,7 +50,13 @@
   "scoreboard": "Scoreboard",
   "losses": "Verluste",
   "winner": "Gewinner",
-  "passPhone": "Handy weitergeben an"
+  "passPhone": "Handy weitergeben an",
+  "truthOrDare": "Wahrheit oder Pflicht",
+  "truth": "Wahrheit",
+  "dare": "Pflicht",
+  "swipeLeft": "Nach links swipen für Wahrheit",
+  "swipeRight": "Nach rechts swipen für Pflicht",
+  "nextRound": "Nächste Runde"
 }
 
 

@@ -1,13 +1,14 @@
 "use client";
 
-
+import Image from "next/image";
 
 type MultiplayerModeSelectionProps = {
   onModeSelect: (mode: "host" | "client") => void;
   onBack: () => void;
+  onOpenSettings: () => void;
 };
 
-export default function MultiplayerModeSelection({ onModeSelect, onBack }: MultiplayerModeSelectionProps) {
+export default function MultiplayerModeSelection({ onModeSelect, onBack, onOpenSettings }: MultiplayerModeSelectionProps) {
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -75,12 +76,23 @@ export default function MultiplayerModeSelection({ onModeSelect, onBack }: Multi
           </div>
         </div>
         
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-center space-y-4">
           <button 
             onClick={onBack}
             className="cr-button-danger px-6 py-3 text-lg font-black"
           >
             ⬅️ Zurück
+          </button>
+          
+          {/* Settings Button */}
+          <button
+            onClick={onOpenSettings}
+            className="group relative px-6 py-3 rounded-xl overflow-hidden border-2 border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-orange-500/80 to-red-600/80 transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg mx-auto"
+            aria-label="Bomb Party Einstellungen öffnen"
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+            <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
+            <span className="text-white font-bold text-lg drop-shadow-lg">Einstellungen</span>
           </button>
         </div>
         
