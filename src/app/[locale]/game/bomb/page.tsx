@@ -166,16 +166,25 @@ function BombGamePageContent() {
     }
   }, [isGameActive]);
 
-  // Initialize player scores when players change
+  // Initialize and synchronize player scores when players change
   useEffect(() => {
-    if (players.length > 0 && playerScores.length === 0) {
-      setPlayerScores(players.map(player => ({
-        playerId: player.id,
-        playerName: player.name,
-        losses: 0
-      })));
+    if (players.length > 0) {
+      setPlayerScores(prevScores => {
+        // Get existing scores to preserve loss counts
+        const existingScoresMap = new Map(prevScores.map(score => [score.playerId, score.losses]));
+        
+        // Create new scores array with all current players
+        return players.map(player => ({
+          playerId: player.id,
+          playerName: player.name,
+          losses: existingScoresMap.get(player.id) || 0 // Preserve existing losses or default to 0
+        }));
+      });
+    } else {
+      // Clear scores when no players
+      setPlayerScores([]);
     }
-  }, [players, playerScores.length]);
+  }, [players]);
 
   // Player management
   const addPlayer = () => {
@@ -265,9 +274,12 @@ function BombGamePageContent() {
     setGamePhase("modeSelection");
     setCurrentRound(1);
     setPlayerScores([]);
+    setPlayers([]); // Clear players to ensure clean restart
     setIsGameActive(false);
     setHostGameState(null);
     setClientGameState(null);
+    setSelectedLoser("");
+    setNewPlayerName("");
   };
 
   const showScoreboard = () => {
@@ -435,6 +447,7 @@ function BombGamePageContent() {
             <MultiplayerModeSelection 
               onModeSelect={handleMultiplayerModeSelect}
               onBack={handleBackToModeSelection}
+              onOpenSettings={() => setIsSettingsOpen(true)}
             />
           )}
 
@@ -443,6 +456,7 @@ function BombGamePageContent() {
             <PeerHostSetup 
               onGameStateChange={handleHostGameStateChange}
               onBack={handleBackToMultiplayerModeSelection}
+              onOpenSettings={() => setIsSettingsOpen(true)}
             />
           )}
 
@@ -451,6 +465,7 @@ function BombGamePageContent() {
             <PeerClientSetup 
               onGameStateChange={handleClientGameStateChange}
               onBack={handleBackToMultiplayerModeSelection}
+              onOpenSettings={() => setIsSettingsOpen(true)}
             />
           )}
 
@@ -462,6 +477,7 @@ function BombGamePageContent() {
               clientGameState={clientGameState || undefined}
               onStartGame={multiplayerMode === "host" ? handleStartMultiplayerGame : undefined}
               onLeaveRoom={handleLeaveRoom}
+              onOpenSettings={() => setIsSettingsOpen(true)}
             />
           )}
         </>
@@ -571,6 +587,19 @@ function BombGamePageContent() {
               </button>
             </div>
           </div>
+          
+          {/* Settings Button */}
+          <div className="text-center mt-6">
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="group relative px-6 py-3 rounded-xl overflow-hidden border-2 border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-orange-500/80 to-red-600/80 transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg mx-auto"
+              aria-label="Bomb Party Einstellungen öffnen"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+              <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
+              <span className="text-white font-bold text-lg drop-shadow-lg">Einstellungen</span>
+            </button>
+          </div>
         </div>
       )}
 
@@ -586,7 +615,7 @@ function BombGamePageContent() {
               <select 
                 value={totalRounds}
                 onChange={(e) => setTotalRounds(Number(e.target.value))}
-                className="cr-select px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
+                className="cr-select-enhanced px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
               >
                 <option value={3}>3 Runden</option>
                 <option value={5}>5 Runden</option>
@@ -610,6 +639,19 @@ function BombGamePageContent() {
               </button>
             </div>
           </div>
+          
+          {/* Settings Button */}
+          <div className="text-center mt-6">
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="group relative px-6 py-3 rounded-xl overflow-hidden border-2 border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-orange-500/80 to-red-600/80 transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg mx-auto"
+              aria-label="Bomb Party Einstellungen öffnen"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+              <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
+              <span className="text-white font-bold text-lg drop-shadow-lg">Einstellungen</span>
+            </button>
+          </div>
         </div>
       )}
 
@@ -625,7 +667,7 @@ function BombGamePageContent() {
               <select 
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="cr-select px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
+                className="cr-select-enhanced px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
               >
                 <option value="casual">🟢 {t("casual")}</option>
                 <option value="hard">🔴 {t("hard")}</option>
@@ -651,6 +693,19 @@ function BombGamePageContent() {
                 📊 {t("scoreboard")}
               </button>
             </div>
+          </div>
+          
+          {/* Settings Button */}
+          <div className="text-center mt-6">
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="group relative px-6 py-3 rounded-xl overflow-hidden border-2 border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-orange-500/80 to-red-600/80 transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg mx-auto"
+              aria-label="Bomb Party Einstellungen öffnen"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+              <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
+              <span className="text-white font-bold text-lg drop-shadow-lg">Einstellungen</span>
+            </button>
           </div>
         </div>
       )}
@@ -842,26 +897,38 @@ function BombGamePageContent() {
             </div>
             
             <div className="space-y-3 mb-6">
-              {playerScores
-                .sort((a, b) => a.losses - b.losses) // Sort by losses (ascending)
-                .map((score, index) => (
-                  <div 
-                    key={score.playerId} 
-                    className={`flex justify-between items-center p-4 rounded-lg ${
-                      index === 0 && score.losses === Math.min(...playerScores.map(s => s.losses))
-                        ? 'bg-yellow-500/20 border-2 border-yellow-500' 
-                        : 'bg-white/10'
-                    }`}
-                  >
-                    <span className="text-lg font-bold">
-                      {index === 0 && score.losses === Math.min(...playerScores.map(s => s.losses)) && '👑'} 
-                      {score.playerName}
-                    </span>
-                    <span className="text-lg font-bold">
-                      {score.losses} {t("losses")}
-                    </span>
-                  </div>
-                ))}
+              {playerScores.length > 0 ? (
+                playerScores
+                  .sort((a, b) => a.losses - b.losses) // Sort by losses (ascending)
+                  .map((score, index, sortedArray) => {
+                    const minLosses = Math.min(...sortedArray.map(s => s.losses));
+                    const isWinner = index === 0 && score.losses === minLosses;
+                    
+                    return (
+                      <div 
+                        key={score.playerId} 
+                        className={`flex justify-between items-center p-4 rounded-lg transition-all duration-300 ${
+                          isWinner
+                            ? 'bg-yellow-500/20 border-2 border-yellow-500 shadow-lg' 
+                            : 'bg-white/10 border border-white/20'
+                        }`}
+                      >
+                        <span className="text-lg font-bold flex items-center gap-2">
+                          {isWinner && <span className="text-2xl">👑</span>}
+                          <span className="text-white/60">#{index + 1}</span>
+                          {score.playerName}
+                        </span>
+                        <span className="text-lg font-bold">
+                          {score.losses} {t("losses")}
+                        </span>
+                      </div>
+                    );
+                  })
+              ) : (
+                <div className="text-center text-white/60 py-8">
+                  Keine Spieler-Daten verfügbar
+                </div>
+              )}
             </div>
             
             <div className="text-center">
@@ -889,32 +956,64 @@ function BombGamePageContent() {
             {playerScores.length > 0 && (
               <div className="mb-6">
                 <h3 className="text-xl font-bold mb-3 text-yellow-300">{t("winner")}:</h3>
-                <div className="text-2xl md:text-3xl font-black text-white">
-                  🥇 {playerScores.sort((a, b) => a.losses - b.losses)[0]?.playerName}
-                </div>
-                <div className="text-lg text-white/80">
-                  Mit nur {playerScores.sort((a, b) => a.losses - b.losses)[0]?.losses} {t("losses")}
-                </div>
+                {(() => {
+                  const sortedScores = playerScores.sort((a, b) => a.losses - b.losses);
+                  const winner = sortedScores[0];
+                  return winner ? (
+                    <>
+                      <div className="text-2xl md:text-3xl font-black text-white">
+                        🥇 {winner.playerName}
+                      </div>
+                      <div className="text-lg text-white/80">
+                        Mit nur {winner.losses} {t("losses")}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-lg text-white/60">
+                      Keine Gewinner-Daten verfügbar
+                    </div>
+                  );
+                })()}
               </div>
             )}
             
             {/* Final Scoreboard */}
-            <div className="space-y-2 mb-6">
-              {playerScores
-                .sort((a, b) => a.losses - b.losses)
-                .map((score, index) => (
-                  <div 
-                    key={score.playerId}
-                    className="flex justify-between items-center p-3 bg-white/10 rounded-lg"
-                  >
-                    <span className="font-bold">
-                      {index + 1}. {score.playerName}
-                    </span>
-                    <span className="font-bold">
-                      {score.losses} {t("losses")}
-                    </span>
-                  </div>
-                ))}
+            <div className="space-y-3 mb-6">
+              {playerScores.length > 0 ? (
+                playerScores
+                  .sort((a, b) => a.losses - b.losses)
+                  .map((score, index) => (
+                    <div 
+                      key={score.playerId}
+                      className={`flex justify-between items-center p-4 rounded-lg transition-all duration-300 ${
+                        index === 0 
+                          ? 'bg-yellow-500/20 border-2 border-yellow-500 shadow-lg'
+                          : index === 1 
+                          ? 'bg-gray-400/20 border border-gray-400'
+                          : index === 2
+                          ? 'bg-orange-600/20 border border-orange-600'
+                          : 'bg-white/10 border border-white/20'
+                      }`}
+                    >
+                      <span className="font-bold flex items-center gap-3">
+                        <span className="text-2xl">
+                          {index === 0 && '🥇'}
+                          {index === 1 && '🥈'}
+                          {index === 2 && '🥉'}
+                          {index > 2 && `#${index + 1}`}
+                        </span>
+                        {score.playerName}
+                      </span>
+                      <span className="font-bold">
+                        {score.losses} {t("losses")}
+                      </span>
+                    </div>
+                  ))
+              ) : (
+                <div className="text-center text-white/60 py-8">
+                  Keine Spieler-Daten verfügbar
+                </div>
+              )}
             </div>
             
             <div className="space-y-4">

@@ -6,7 +6,8 @@ export const routing = defineRouting({
   localePrefix: "always",
   pathnames: {
     '/': '/',
-    '/game/bomb': '/game/bomb'
+    '/game/bomb': '/game/bomb',
+    '/game/truthordare': '/game/truthordare'
   }
 } as const);
 

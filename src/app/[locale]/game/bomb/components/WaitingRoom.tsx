@@ -1,6 +1,6 @@
 "use client";
 
-
+import Image from "next/image";
 import type { HostGameState, ClientGameState } from "../shared/multiplayer-types";
 
 type WaitingRoomProps = {
@@ -9,6 +9,7 @@ type WaitingRoomProps = {
   clientGameState?: ClientGameState;
   onStartGame?: () => void;
   onLeaveRoom: () => void;
+  onOpenSettings: () => void;
 };
 
 export default function WaitingRoom({ 
@@ -16,7 +17,8 @@ export default function WaitingRoom({
   hostGameState, 
   clientGameState, 
   onStartGame, 
-  onLeaveRoom 
+  onLeaveRoom,
+  onOpenSettings
 }: WaitingRoomProps) {
 
   // Get players list based on mode
@@ -151,12 +153,23 @@ export default function WaitingRoom({
         )}
 
         {/* Leave Room Button */}
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center space-y-4">
           <button 
             onClick={onLeaveRoom}
             className="cr-button-danger px-6 py-3 text-lg font-black"
           >
             🚪 Raum verlassen
+          </button>
+          
+          {/* Settings Button */}
+          <button
+            onClick={onOpenSettings}
+            className="group relative px-6 py-3 rounded-xl overflow-hidden border-2 border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-orange-500/80 to-red-600/80 transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg mx-auto"
+            aria-label="Bomb Party Einstellungen öffnen"
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+            <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
+            <span className="text-white font-bold text-lg drop-shadow-lg">Einstellungen</span>
           </button>
         </div>
       </div>

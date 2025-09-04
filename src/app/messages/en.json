@@ -50,7 +50,13 @@
   "scoreboard": "Scoreboard",
   "losses": "Losses",
   "winner": "Winner",
-  "passPhone": "Pass phone to"
+  "passPhone": "Pass phone to",
+  "truthOrDare": "Truth or Dare",
+  "truth": "Truth",
+  "dare": "Dare",
+  "swipeLeft": "Swipe left for Truth",
+  "swipeRight": "Swipe right for Dare",
+  "nextRound": "Next Round"
 }
 
 

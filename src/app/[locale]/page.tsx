@@ -98,7 +98,7 @@ export default function Home() {
             </button>
             
             {/* Games Container */}
-            <div ref={scrollRef} className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-6 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth">
+            <div ref={scrollRef} className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth">
               <EpicGameCard
                 title={t("bombParty")}
                 description="Der Klassiker"
@@ -110,6 +110,19 @@ export default function Home() {
                 players="2-8 Spieler"
                 difficulty="Einfach"
                 imageSrc="/bearbomb.jpg"
+              />
+              
+              <EpicGameCard
+                title="Wahrheit oder Pflicht"
+                description="Der Partykracher"
+                subtitle="Ehrliche Fragen und mutige Aufgaben!"
+                href="/game/truthordare"
+                gradient="from-pink-500 via-purple-500 to-red-600"
+                iconSrc="/icons/question.svg"
+                available={true}
+                players="2-10 Spieler"
+                difficulty="Einfach"
+                imageSrc="/bearcards.jpg"
               />
               
               <EpicGameCard
@@ -227,7 +240,7 @@ function EpicGameCard({
         </p>
         
         {/* Game Image or Placeholder */}
-        <div className="relative flex-1 mb-6 rounded-2xl overflow-hidden border-2 border-white/20 group-hover:border-white/40 transition-colors duration-300">
+        <div className="relative flex-1 min-h-[200px] sm:min-h-[240px] mb-6 rounded-2xl overflow-hidden border-2 border-white/20 group-hover:border-white/40 transition-colors duration-300">
           {available && imageSrc ? (
             <Image 
               src={imageSrc} 
@@ -284,7 +297,7 @@ function EpicGameCard({
   if (!available || !href) return cardContent;
   
   // Type-safe href validation
-  const validHref: "/game/bomb" = href as "/game/bomb";
+  const validHref: "/game/bomb" | "/game/truthordare" = href as "/game/bomb" | "/game/truthordare";
   
   return (
     <LocaleLink href={validHref} className="block">

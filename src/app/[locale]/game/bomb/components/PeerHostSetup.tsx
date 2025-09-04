@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 import { HostPeerManager } from "../utils/peer-utils";
 import { generateShareLink, signalingManager } from "../utils/signaling-utils";
@@ -9,9 +10,10 @@ import type { MultiplayerPlayer, HostGameState, ClientGameState, PlayerActionDat
 type PeerHostSetupProps = {
   onGameStateChange: (gameState: HostGameState) => void;
   onBack: () => void;
+  onOpenSettings: () => void;
 };
 
-export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSetupProps) {
+export default function PeerHostSetup({ onGameStateChange, onBack, onOpenSettings }: PeerHostSetupProps) {
 
   const [hostName, setHostName] = useState("");
   const [roomId, setRoomId] = useState("");
@@ -259,6 +261,17 @@ export default function PeerHostSetup({ onGameStateChange, onBack }: PeerHostSet
               className="cr-button-danger px-6 py-3 text-lg font-black"
             >
               ⬅️ Zurück
+            </button>
+            
+            {/* Settings Button */}
+            <button
+              onClick={onOpenSettings}
+              className="group relative px-6 py-3 rounded-xl overflow-hidden border-2 border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-orange-500/80 to-red-600/80 transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg mx-auto"
+              aria-label="Bomb Party Einstellungen öffnen"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+              <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
+              <span className="text-white font-bold text-lg drop-shadow-lg">Einstellungen</span>
             </button>
           </div>
 
