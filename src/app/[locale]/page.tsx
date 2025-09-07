@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 
 const { Link: LocaleLink } = createNavigation(routing);
 
@@ -12,9 +12,81 @@ export default function Home() {
   const t = useTranslations();
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Infinite scroll effect with carousel
+  const handleScroll = useCallback(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const { scrollLeft } = container;
+    const cardWidth = 428; // Card width + gap (420 + 8)
+    const totalOriginalCards = 6; // Number of original cards
+    const totalWidth = totalOriginalCards * cardWidth;
+    
+    // If scrolled past the original cards, reset to beginning seamlessly
+    if (scrollLeft >= totalWidth) {
+      container.scrollTo({ left: scrollLeft - totalWidth, behavior: 'auto' });
+    }
+  }, []);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  // Auto-scroll effect with pause on hover
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let isHovered = false;
+    let autoScrollInterval: NodeJS.Timeout;
+
+    const startAutoScroll = () => {
+      autoScrollInterval = setInterval(() => {
+        if (!isHovered && container) {
+          const { scrollLeft } = container;
+          const cardWidth = 428;
+          const totalOriginalCards = 6;
+          const totalWidth = totalOriginalCards * cardWidth;
+          
+          // If we're at the end of the first set, reset to beginning
+          if (scrollLeft + container.clientWidth >= totalWidth) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            container.scrollBy({ left: 0.5, behavior: 'smooth' });
+          }
+        }
+      }, 40);
+    };
+
+    const handleMouseEnter = () => {
+      isHovered = true;
+      clearInterval(autoScrollInterval);
+    };
+
+    const handleMouseLeave = () => {
+      isHovered = false;
+      startAutoScroll();
+    };
+
+    container.addEventListener('mouseenter', handleMouseEnter);
+    container.addEventListener('mouseleave', handleMouseLeave);
+    startAutoScroll();
+
+    return () => {
+      clearInterval(autoScrollInterval);
+      container.removeEventListener('mouseenter', handleMouseEnter);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+    };
   }, []);
   
   const scrollByAmount = (dir: 1 | -1) => {
@@ -50,55 +122,130 @@ export default function Home() {
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto max-w-screen-xl px-4 py-8">
-        {/* Epic Hero Section */}
-        <section className="epic-hero-section text-center pt-12 pb-16">
-          {/* Main Title with Epic Styling */}
-          <div className="relative inline-block">
-            <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
-            <h1 className="epic-title relative text-4xl sm:text-6xl md:text-8xl font-black bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent drop-shadow-2xl tracking-tight leading-none animate-hero-glow">
-              WIE MACHT
-              <br />
-              <span className="text-3xl sm:text-5xl md:text-7xl bg-gradient-to-r from-red-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
-                DER BÄR
-              </span>
-            </h1>
-          </div>
-          
-          {/* Epic Subtitle */}
-          <div className="mt-6 relative animate-scale-in">
-            <p className="epic-subtitle text-xl sm:text-2xl md:text-3xl font-bold text-yellow-200 drop-shadow-lg tracking-wide">
-              🍻 ONLINE TRINKSPIELE 🍻
-            </p>
-            <p className="mt-2 text-base sm:text-lg text-white/90 font-semibold">
-              {t("chooseGame")} • Party Hard • Sauf Gut!
-            </p>
-          </div>
+      <div className="relative z-10 mx-auto max-w-screen-7xl px-4 py-8">
+        {/* Epic Hero Section with Image and Download Button */}
+        <section className="epic-hero-section min-h-screen flex items-center py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+            {/* Left Side - Image */}
+            <div className="relative order-2 lg:order-1">
+              <div className="relative group">
+                {/* Image Container */}
+                <div className="epic-image-container">
+                  <Image 
+                    src="/coverphotobear.jpg" 
+                    alt="Wie macht der Bär - Die besten Online Trinkspiele für deine Party" 
+                    width={600} 
+                    height={400}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
+                    priority
+                  />
+                  
+                  {/* Floating Elements */}
+                  <div className="absolute top-4 right-4 bg-yellow-400 text-black font-black text-sm px-3 py-1 rounded-full animate-float-badge">
+                    🍻 PARTY TIME!
+                  </div>
+                  <div className="absolute bottom-4 left-4 bg-red-500 text-white font-bold text-sm px-3 py-1 rounded-full animate-pulse">
+                    🔥 TRINKSPIELE
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            {/* Right Side - Text and Download Button */}
+            <div className="order-1 lg:order-2 text-center lg:text-left">
+              {/* Main Title */}
+              <div className="relative inline-block">
+                <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
+                <h1 className="epic-title relative text-4xl sm:text-6xl lg:text-7xl font-black bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent drop-shadow-2xl tracking-tight leading-none animate-hero-glow">
+                  WIE MACHT
+                  <br />
+                  <span className="text-3xl sm:text-5xl lg:text-6xl bg-gradient-to-r from-red-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+                    DER BÄR
+                  </span>
+                </h1>
+              </div>
+              
+              {/* Epic Subtitle */}
+              <div className="mt-6 relative animate-scale-in">
+                <p className="epic-subtitle text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-200 drop-shadow-lg tracking-wide">
+                  🍻 ONLINE TRINKSPIELE 🍻
+                </p>
+                <p className="mt-2 text-base sm:text-lg lg:text-xl text-white/90 font-semibold">
+                  Die beste Spiele-Webseite der Welt!
+                </p>
+              </div>
 
+              {/* Catchy Description */}
+              <div className="mt-8 space-y-4 animate-slide-in-right">
+                <p className="text-lg text-white/80 leading-relaxed">
+                  🎉 <strong>Bereit für den ultimativen Partyspaß?</strong> 
+                </p>
+                <p className="text-base text-white/70 leading-relaxed">
+                  Spiele die besten Trinkspiele online mit deinen Freunden! 
+                  Bomb Party, Wahrheit oder Pflicht und mehr - alles kostenlos und ohne Download.
+                </p>
+                <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-6">
+                  <div className="flex items-center gap-2 text-yellow-300 font-bold">
+                    <span className="text-2xl">⚡</span>
+                    <span>Sofort spielbar</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-yellow-300 font-bold">
+                    <span className="text-2xl">👥</span>
+                    <span>Multiplayer</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-yellow-300 font-bold">
+                    <span className="text-2xl">🎯</span>
+                    <span>Party Hard</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Download Button */}
+              <div className="mt-10 animate-scale-in">
+                <button className="epic-download-button group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black">
+                  {/* Button Glow Effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+                  
+                  {/* Button Content */}
+                  <div className="relative flex items-center gap-3">
+                    <span className="text-2xl">📱</span>
+                    <span>DOWNLOAD</span>
+                    <span className="text-2xl">⬇️</span>
+                  </div>
+                  
+                  {/* Shine Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"></div>
+                </button>
+                
+                {/* Download Subtext */}
+                <p className="mt-4 text-sm text-yellow-200/80 font-semibold animate-text-glow">
+                  🚀 Jetzt herunterladen und nie wieder langweilige Partys haben!
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
 
-        {/* Game Selection Section */}
-        <section className="mt-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
+        {/* Game Selection Section with Infinite Scroll */}
+        <section className="mt-32">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-black bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-hero-glow">
               WÄHLE DEIN SPIEL
             </h2>
-            <p className="mt-2 text-white/80 text-lg">Bereit für den ultimativen Partyspaß?</p>
+            <p className="mt-4 text-white/80 text-xl font-semibold">Bereit für den ultimativen Partyspaß?</p>
+            <div className="mt-6 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
+            </div>
           </div>
           
           <div className="relative">
-            {/* Navigation Buttons */}
-            <button
-              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-white font-bold text-2xl shadow-2xl hover:scale-110 transition-all duration-300 border-2 border-white/20"
-              onClick={() => scrollByAmount(-1)}
-              aria-label="Vorheriges Spiel"
+            {/* Infinite Scroll Container */}
+            <div 
+              ref={scrollRef} 
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth infinite-scroll-container"
+              style={{ scrollBehavior: 'smooth' }}
             >
-              ‹
-            </button>
-            
-            {/* Games Container */}
-            <div ref={scrollRef} className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth">
+              {/* First set of Game Cards */}
               <EpicGameCard
                 title={t("bombParty")}
                 description="Der Klassiker"
@@ -148,15 +295,113 @@ export default function Home() {
                 players="4-10 Spieler"
                 difficulty="Schwer"
               />
+
+              <EpicGameCard
+                title="Never Have I Ever"
+                description="Der Wahrheitskracher"
+                subtitle="Geständnisse und peinliche Momente!"
+                href={null}
+                gradient="from-cyan-500 via-blue-500 to-indigo-600"
+                iconSrc="/icons/gear.svg"
+                available={false}
+                players="3-12 Spieler"
+                difficulty="Einfach"
+              />
+
+              <EpicGameCard
+                title="Drinking Roulette"
+                description="Der Zufallskracher"
+                subtitle="Alles oder nichts - trink oder verliere!"
+                href={null}
+                gradient="from-red-500 via-pink-500 to-purple-600"
+                iconSrc="/icons/explosion.svg"
+                available={false}
+                players="2-8 Spieler"
+                difficulty="Mittel"
+              />
+
+              {/* Duplicate set for seamless infinite scroll */}
+              <EpicGameCard
+                title={t("bombParty")}
+                description="Der Klassiker"
+                subtitle="Wörter finden bevor die Bombe explodiert!"
+                href="/game/bomb"
+                gradient="from-orange-500 via-red-500 to-pink-600"
+                iconSrc="/bomb.svg"
+                available={true}
+                players="2-8 Spieler"
+                difficulty="Einfach"
+                imageSrc="/bearbomb.jpg"
+              />
+              
+              <EpicGameCard
+                title="Wahrheit oder Pflicht"
+                description="Der Partykracher"
+                subtitle="Ehrliche Fragen und mutige Aufgaben!"
+                href="/game/truthordare"
+                gradient="from-pink-500 via-purple-500 to-red-600"
+                iconSrc="/icons/question.svg"
+                available={true}
+                players="2-10 Spieler"
+                difficulty="Einfach"
+                imageSrc="/bearcards.jpg"
+              />
+              
+              <EpicGameCard
+                title="Quiz Show"
+                description={t("comingSoon")}
+                subtitle="Teste dein Wissen in verschiedenen Kategorien!"
+                href={null}
+                gradient="from-purple-500 via-blue-500 to-indigo-600"
+                iconSrc="/icons/rocket.svg"
+                available={false}
+                players="2-12 Spieler"
+                difficulty="Mittel"
+              />
+              
+              <EpicGameCard
+                title="Charades"
+                description={t("comingSoon")}
+                subtitle="Pantomime mit Trinkregeln!"
+                href={null}
+                gradient="from-green-500 via-teal-500 to-blue-600"
+                iconSrc="/icons/gift.svg"
+                available={false}
+                players="4-10 Spieler"
+                difficulty="Schwer"
+              />
+
+              <EpicGameCard
+                title="Never Have I Ever"
+                description="Der Wahrheitskracher"
+                subtitle="Geständnisse und peinliche Momente!"
+                href={null}
+                gradient="from-cyan-500 via-blue-500 to-indigo-600"
+                iconSrc="/icons/gear.svg"
+                available={false}
+                players="3-12 Spieler"
+                difficulty="Einfach"
+              />
+
+              <EpicGameCard
+                title="Drinking Roulette"
+                description="Der Zufallskracher"
+                subtitle="Alles oder nichts - trink oder verliere!"
+                href={null}
+                gradient="from-red-500 via-pink-500 to-purple-600"
+                iconSrc="/icons/explosion.svg"
+                available={false}
+                players="2-8 Spieler"
+                difficulty="Mittel"
+              />
             </div>
             
-            <button
-              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-white font-bold text-2xl shadow-2xl hover:scale-110 transition-all duration-300 border-2 border-white/20"
-              onClick={() => scrollByAmount(1)}
-              aria-label="Nächstes Spiel"
-            >
-              ›
-            </button>
+            {/* Scroll Indicators */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+              <div className="w-3 h-3 bg-yellow-400/50 rounded-full animate-pulse"></div>
+              <div className="w-3 h-3 bg-yellow-400/30 rounded-full animate-pulse delay-100"></div>
+              <div className="w-3 h-3 bg-yellow-400/20 rounded-full animate-pulse delay-200"></div>
+            </div>
           </div>
         </section>
 
@@ -190,7 +435,7 @@ function EpicGameCard({
   imageSrc?: string;
 }) {
   const cardContent = (
-    <div className={`epic-game-card group snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] relative overflow-hidden rounded-3xl transition-all duration-500 ${
+    <div className={`epic-game-card game-card group snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] relative overflow-hidden rounded-3xl transition-all duration-500 ${
       available 
         ? "hover:scale-105 hover:-translate-y-2 cursor-pointer" 
         : "opacity-75 cursor-not-allowed"
