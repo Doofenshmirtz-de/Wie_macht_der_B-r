@@ -12,89 +12,23 @@ export default function Home() {
   const t = useTranslations();
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [mounted, setMounted] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
   
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Infinite scroll effect with carousel
-  const handleScroll = useCallback(() => {
+  // Optimized infinite scroll effect with CSS animation
+  useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
-    const { scrollLeft } = container;
-    const cardWidth = 428; // Card width + gap (420 + 8)
-    const totalOriginalCards = 6; // Number of original cards
-    const totalWidth = totalOriginalCards * cardWidth;
+    // Add CSS animation class for smooth infinite scroll
+    container.classList.add('infinite-scroll-animation');
     
-    // If scrolled past the original cards, reset to beginning seamlessly
-    if (scrollLeft >= totalWidth) {
-      container.scrollTo({ left: scrollLeft - totalWidth, behavior: 'auto' });
-    }
-  }, []);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  // Auto-scroll effect with pause on hover
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    let isHovered = false;
-    let autoScrollInterval: NodeJS.Timeout;
-
-    const startAutoScroll = () => {
-      autoScrollInterval = setInterval(() => {
-        if (!isHovered && container) {
-          const { scrollLeft } = container;
-          const cardWidth = 428;
-          const totalOriginalCards = 6;
-          const totalWidth = totalOriginalCards * cardWidth;
-          
-          // If we're at the end of the first set, reset to beginning
-          if (scrollLeft + container.clientWidth >= totalWidth) {
-            container.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            container.scrollBy({ left: 0.5, behavior: 'smooth' });
-          }
-        }
-      }, 40);
-    };
-
-    const handleMouseEnter = () => {
-      isHovered = true;
-      clearInterval(autoScrollInterval);
-    };
-
-    const handleMouseLeave = () => {
-      isHovered = false;
-      startAutoScroll();
-    };
-
-    container.addEventListener('mouseenter', handleMouseEnter);
-    container.addEventListener('mouseleave', handleMouseLeave);
-    startAutoScroll();
-
     return () => {
-      clearInterval(autoScrollInterval);
-      container.removeEventListener('mouseenter', handleMouseEnter);
-      container.removeEventListener('mouseleave', handleMouseLeave);
+      container.classList.remove('infinite-scroll-animation');
     };
   }, []);
-  
-  const scrollByAmount = (dir: 1 | -1) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const amount = el.clientWidth * 0.8 * dir;
-    el.scrollBy({ left: amount, behavior: "smooth" });
-  };
 
   if (!mounted) return null;
 
@@ -155,7 +89,6 @@ export default function Home() {
             <div className="order-1 lg:order-2 text-center lg:text-left">
               {/* Main Title */}
               <div className="relative inline-block">
-                <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
                 <h1 className="epic-title relative text-4xl sm:text-6xl lg:text-7xl font-black bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent drop-shadow-2xl tracking-tight leading-none animate-hero-glow">
                   WIE MACHT
                   <br />
@@ -203,9 +136,6 @@ export default function Home() {
               {/* Download Button */}
               <div className="mt-10 animate-scale-in">
                 <button className="epic-download-button group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black">
-                  {/* Button Glow Effect */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
-                  
                   {/* Button Content */}
                   <div className="relative flex items-center gap-3">
                     <span className="text-2xl">📱</span>
