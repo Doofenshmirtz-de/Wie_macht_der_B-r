@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
   title: {
     default: "Wie macht der Bär - Online Trinkspiele für die perfekte Party",
@@ -184,7 +185,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Wie macht der Bär" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-transparent text-white`}>
+      <body 
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-transparent text-white`}
+        suppressHydrationWarning={true}
+      >
         {children}
         <SpeedInsights />
       </body>

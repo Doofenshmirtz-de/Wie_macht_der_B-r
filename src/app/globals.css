@@ -567,3 +567,188 @@ select {
 .animate-particle-float {
   animation: particleFloat 4s ease-in-out infinite;
 }
+
+/* Infinite Scroll Effects */
+.infinite-scroll-container {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.infinite-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.game-card {
+  scroll-snap-align: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  z-index: 10;
+}
+
+.infinite-clone {
+  animation: slideInFromRight 0.6s ease-out;
+}
+
+/* Smooth infinite scroll animation */
+@keyframes infiniteScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.infinite-scroll-animation {
+  animation: infiniteScroll 20s linear infinite;
+}
+
+/* Enhanced Hero Section Styles */
+.epic-hero-section {
+  background: transparent;
+  backdrop-filter: none;
+}
+
+/* Enhanced Button Styles */
+.epic-download-button {
+  background: linear-gradient(145deg, #fbbf24, #f59e0b, #d97706);
+  border: 3px solid #ffd700;
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 30px rgba(251, 191, 36, 0.4),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    inset 0 3px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.epic-download-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 15px 40px rgba(251, 191, 36, 0.6),
+    0 0 30px rgba(255, 215, 0, 0.5),
+    inset 0 3px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.epic-download-button:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 
+    0 8px 25px rgba(251, 191, 36, 0.5),
+    0 0 15px rgba(255, 215, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Image Container */
+.epic-image-container {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease;
+}
+
+.epic-image-container:hover {
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px);
+}
+
+/* Floating Badge Animations */
+@keyframes floatBadge {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% { 
+    transform: translateY(-10px) rotate(2deg);
+  }
+  50% { 
+    transform: translateY(-5px) rotate(-1deg);
+  }
+  75% { 
+    transform: translateY(-15px) rotate(1deg);
+  }
+}
+
+.animate-float-badge {
+  animation: floatBadge 3s ease-in-out infinite;
+}
+
+/* Enhanced Text Animations */
+@keyframes textGlow {
+  0%, 100% { 
+    text-shadow: 
+      0 0 10px rgba(255, 215, 0, 0.5),
+      0 0 20px rgba(255, 215, 0, 0.3),
+      0 0 30px rgba(255, 215, 0, 0.1);
+  }
+  50% { 
+    text-shadow: 
+      0 0 20px rgba(255, 215, 0, 0.8),
+      0 0 40px rgba(255, 215, 0, 0.5),
+      0 0 60px rgba(255, 215, 0, 0.2);
+  }
+}
+
+.animate-text-glow {
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+/* Mobile Optimizations for Hero Section */
+@media (max-width: 1024px) {
+  .epic-hero-section {
+    min-height: auto;
+    padding: 4rem 0;
+  }
+  
+  .epic-title {
+    font-size: 3rem !important;
+    line-height: 1.1;
+  }
+  
+  .epic-subtitle {
+    font-size: 1.5rem !important;
+  }
+  
+  .epic-download-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .epic-hero-section {
+    padding: 2rem 0;
+  }
+  
+  .epic-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .epic-subtitle {
+    font-size: 1.25rem !important;
+  }
+  
+  .epic-image-container {
+    border-radius: 16px;
+    border-width: 2px;
+  }
+  
+  .epic-download-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    border-radius: 16px;
+  }
+}
