@@ -596,18 +596,23 @@ select {
   animation: slideInFromRight 0.6s ease-out;
 }
 
-/* Smooth infinite scroll animation */
+/* Optimized infinite scroll animation */
 @keyframes infiniteScroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
 .infinite-scroll-animation {
-  animation: infiniteScroll 20s linear infinite;
+  animation: infiniteScroll 30s linear infinite;
+  will-change: transform;
+}
+
+.infinite-scroll-animation:hover {
+  animation-play-state: paused;
 }
 
 /* Enhanced Hero Section Styles */
@@ -623,7 +628,6 @@ select {
   border-radius: 20px;
   box-shadow: 
     0 10px 30px rgba(251, 191, 36, 0.4),
-    0 0 20px rgba(255, 215, 0, 0.3),
     inset 0 3px 0 rgba(255, 255, 255, 0.3),
     inset 0 -3px 0 rgba(0, 0, 0, 0.2);
   position: relative;
@@ -635,7 +639,6 @@ select {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 
     0 15px 40px rgba(251, 191, 36, 0.6),
-    0 0 30px rgba(255, 215, 0, 0.5),
     inset 0 3px 0 rgba(255, 255, 255, 0.4),
     inset 0 -3px 0 rgba(0, 0, 0, 0.2);
 }
@@ -644,7 +647,6 @@ select {
   transform: translateY(-1px) scale(1.02);
   box-shadow: 
     0 8px 25px rgba(251, 191, 36, 0.5),
-    0 0 15px rgba(255, 215, 0, 0.4),
     inset 0 2px 0 rgba(255, 255, 255, 0.3),
     inset 0 -2px 0 rgba(0, 0, 0, 0.2);
 }
