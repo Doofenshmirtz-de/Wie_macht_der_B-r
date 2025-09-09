@@ -2,32 +2,34 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { createNavigation } from "next-intl/navigation";
-import { routing } from "@/i18n/routing";
-import { useRef, useEffect, useState, useCallback } from "react";
-
-const { Link: LocaleLink } = createNavigation(routing);
+import { useRef, useEffect, useState } from "react";
+import { getInitialGames } from "../lib/game-actions";
+import { ItemList } from "../components/ItemList";
+import { GameCard } from "../components/GameCard";
+import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
   const t = useTranslations();
-  const scrollRef = useRef<HTMLDivElement | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [initialGamesData, setInitialGamesData] = useState<GetGamesResult | null>(null);
   
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Optimized infinite scroll effect with CSS animation
+  // Initiale Daten laden für SEO und Performance - sofort beim Mount
   useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    // Add CSS animation class for smooth infinite scroll
-    container.classList.add('infinite-scroll-animation');
-    
-    return () => {
-      container.classList.remove('infinite-scroll-animation');
+    const loadInitial = async () => {
+      try {
+        const data = await getInitialGames();
+        console.log('🎮 HomePage: Initial games loaded', data);
+        setInitialGamesData(data);
+      } catch (error) {
+        console.error('Fehler beim Laden der initialen Spiele:', error);
+      }
     };
+    
+    loadInitial();
   }, []);
 
   if (!mounted) return null;
@@ -156,7 +158,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Game Selection Section with Infinite Scroll */}
+        {/* Game Selection Section with Advanced Infinite Scroll */}
         <section className="mt-32">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-black bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-hero-glow">
@@ -169,169 +171,37 @@ export default function Home() {
           </div>
           
           <div className="relative">
-            {/* Infinite Scroll Container */}
-            <div 
-              ref={scrollRef} 
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth infinite-scroll-container"
-              style={{ scrollBehavior: 'smooth' }}
-            >
-              {/* First set of Game Cards */}
-              <EpicGameCard
-                title={t("bombParty")}
-                description="Der Klassiker"
-                subtitle="Wörter finden bevor die Bombe explodiert!"
-                href="/game/bomb"
-                gradient="from-orange-500 via-red-500 to-pink-600"
-                iconSrc="/bomb.svg"
-                available={true}
-                players="2-8 Spieler"
-                difficulty="Einfach"
-                imageSrc="/bearbomb.jpg"
-              />
-              
-              <EpicGameCard
-                title="Wahrheit oder Pflicht"
-                description="Der Partykracher"
-                subtitle="Ehrliche Fragen und mutige Aufgaben!"
-                href="/game/truthordare"
-                gradient="from-pink-500 via-purple-500 to-red-600"
-                iconSrc="/icons/question.svg"
-                available={true}
-                players="2-10 Spieler"
-                difficulty="Einfach"
-                imageSrc="/bearcards.jpg"
-              />
-              
-              <EpicGameCard
-                title="Quiz Show"
-                description={t("comingSoon")}
-                subtitle="Teste dein Wissen in verschiedenen Kategorien!"
-                href={null}
-                gradient="from-purple-500 via-blue-500 to-indigo-600"
-                iconSrc="/icons/rocket.svg"
-                available={false}
-                players="2-12 Spieler"
-                difficulty="Mittel"
-              />
-              
-              <EpicGameCard
-                title="Charades"
-                description={t("comingSoon")}
-                subtitle="Pantomime mit Trinkregeln!"
-                href={null}
-                gradient="from-green-500 via-teal-500 to-blue-600"
-                iconSrc="/icons/gift.svg"
-                available={false}
-                players="4-10 Spieler"
-                difficulty="Schwer"
-              />
-
-              <EpicGameCard
-                title="Never Have I Ever"
-                description="Der Wahrheitskracher"
-                subtitle="Geständnisse und peinliche Momente!"
-                href={null}
-                gradient="from-cyan-500 via-blue-500 to-indigo-600"
-                iconSrc="/icons/gear.svg"
-                available={false}
-                players="3-12 Spieler"
-                difficulty="Einfach"
-              />
-
-              <EpicGameCard
-                title="Drinking Roulette"
-                description="Der Zufallskracher"
-                subtitle="Alles oder nichts - trink oder verliere!"
-                href={null}
-                gradient="from-red-500 via-pink-500 to-purple-600"
-                iconSrc="/icons/explosion.svg"
-                available={false}
-                players="2-8 Spieler"
-                difficulty="Mittel"
-              />
-
-              {/* Duplicate set for seamless infinite scroll */}
-              <EpicGameCard
-                title={t("bombParty")}
-                description="Der Klassiker"
-                subtitle="Wörter finden bevor die Bombe explodiert!"
-                href="/game/bomb"
-                gradient="from-orange-500 via-red-500 to-pink-600"
-                iconSrc="/bomb.svg"
-                available={true}
-                players="2-8 Spieler"
-                difficulty="Einfach"
-                imageSrc="/bearbomb.jpg"
-              />
-              
-              <EpicGameCard
-                title="Wahrheit oder Pflicht"
-                description="Der Partykracher"
-                subtitle="Ehrliche Fragen und mutige Aufgaben!"
-                href="/game/truthordare"
-                gradient="from-pink-500 via-purple-500 to-red-600"
-                iconSrc="/icons/question.svg"
-                available={true}
-                players="2-10 Spieler"
-                difficulty="Einfach"
-                imageSrc="/bearcards.jpg"
-              />
-              
-              <EpicGameCard
-                title="Quiz Show"
-                description={t("comingSoon")}
-                subtitle="Teste dein Wissen in verschiedenen Kategorien!"
-                href={null}
-                gradient="from-purple-500 via-blue-500 to-indigo-600"
-                iconSrc="/icons/rocket.svg"
-                available={false}
-                players="2-12 Spieler"
-                difficulty="Mittel"
-              />
-              
-              <EpicGameCard
-                title="Charades"
-                description={t("comingSoon")}
-                subtitle="Pantomime mit Trinkregeln!"
-                href={null}
-                gradient="from-green-500 via-teal-500 to-blue-600"
-                iconSrc="/icons/gift.svg"
-                available={false}
-                players="4-10 Spieler"
-                difficulty="Schwer"
-              />
-
-              <EpicGameCard
-                title="Never Have I Ever"
-                description="Der Wahrheitskracher"
-                subtitle="Geständnisse und peinliche Momente!"
-                href={null}
-                gradient="from-cyan-500 via-blue-500 to-indigo-600"
-                iconSrc="/icons/gear.svg"
-                available={false}
-                players="3-12 Spieler"
-                difficulty="Einfach"
-              />
-
-              <EpicGameCard
-                title="Drinking Roulette"
-                description="Der Zufallskracher"
-                subtitle="Alles oder nichts - trink oder verliere!"
-                href={null}
-                gradient="from-red-500 via-pink-500 to-purple-600"
-                iconSrc="/icons/explosion.svg"
-                available={false}
-                players="2-8 Spieler"
-                difficulty="Mittel"
-              />
-            </div>
-            
-            {/* Scroll Indicators */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-              <div className="w-3 h-3 bg-yellow-400/50 rounded-full animate-pulse"></div>
-              <div className="w-3 h-3 bg-yellow-400/30 rounded-full animate-pulse delay-100"></div>
-              <div className="w-3 h-3 bg-yellow-400/20 rounded-full animate-pulse delay-200"></div>
-            </div>
+            {/* Advanced Infinite Scroll mit bidirektionalem Laden */}
+            <ItemList
+              initialData={initialGamesData}
+              itemsPerLoad={3}
+              direction="horizontal"
+              className="infinite-scroll-container"
+              renderItem={(game, index) => (
+                <GameCard 
+                  game={game} 
+                  index={index}
+                  priority={index < 2} // Erste 2 Karten haben Priority Loading
+                />
+              )}
+              loadingComponent={
+                <div className="snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] flex items-center justify-center p-8">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+                    <span className="text-white/80 font-bold">Lade weitere Spiele...</span>
+                  </div>
+                </div>
+              }
+              errorComponent={
+                <div className="snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] flex items-center justify-center p-8">
+                  <div className="text-center text-red-400">
+                    <div className="text-4xl mb-4">⚠️</div>
+                    <p className="font-bold">Fehler beim Laden</p>
+                    <p className="text-sm text-white/60 mt-2">Versuche es später erneut</p>
+                  </div>
+                </div>
+              }
+            />
           </div>
         </section>
 
@@ -341,144 +211,6 @@ export default function Home() {
   );
 }
 
-function EpicGameCard({
-  title,
-  description,
-  subtitle,
-  href,
-  gradient,
-  iconSrc,
-  available,
-  players,
-  difficulty,
-  imageSrc,
-}: {
-  title: string;
-  description: string;
-  subtitle: string;
-  href: string | null;
-  gradient: string;
-  iconSrc: string;
-  available: boolean;
-  players: string;
-  difficulty: string;
-  imageSrc?: string;
-}) {
-  const cardContent = (
-    <div className={`epic-game-card game-card group snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] relative overflow-hidden rounded-3xl transition-all duration-500 ${
-      available 
-        ? "hover:scale-105 hover:-translate-y-2 cursor-pointer" 
-        : "opacity-75 cursor-not-allowed"
-    }`}>
-      {/* Card Background with Epic Gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`}></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-      
-      {/* Glow Effect */}
-      <div className={`absolute -inset-1 bg-gradient-to-r ${gradient} rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500`}></div>
-      
-      {/* Card Border */}
-      <div className="absolute inset-0 rounded-3xl border-2 border-yellow-400/30 group-hover:border-yellow-300/60 transition-colors duration-300"></div>
-      
-              {/* Card Content */}
-        <div className="relative h-[400px] sm:h-[500px] p-4 sm:p-6 flex flex-col text-white">
-        {/* Header with Icon and Title */}
-        <div className="flex items-center gap-4 mb-4">
-          <div className="relative">
-            <div className="absolute inset-0 bg-yellow-400/50 rounded-full blur-sm group-hover:blur-md transition-all duration-300"></div>
-            <div className="relative h-14 w-14 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-2xl border-2 border-white/30 shadow-2xl flex items-center justify-center">
-              <Image src={iconSrc} alt={`${title} Trinkspiel Icon - Jetzt online spielen`} width={28} height={28} className="drop-shadow-lg" />
-            </div>
-          </div>
-          <div>
-            <h3 className="text-2xl font-black text-white drop-shadow-lg">{title}</h3>
-            <p className="text-sm text-yellow-200 font-bold">{description}</p>
-          </div>
-          
-          {/* Status Badge */}
-          <div className="ml-auto">
-            {available ? (
-              <div className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full border border-green-300 shadow-lg">
-                VERFÜGBAR
-              </div>
-            ) : (
-              <div className="bg-gray-600 text-gray-300 text-xs font-bold px-3 py-1 rounded-full border border-gray-500">
-                BALD
-              </div>
-            )}
-          </div>
-        </div>
-        
-        {/* Game Description */}
-        <p className="text-white/90 text-base font-semibold mb-6 leading-relaxed">
-          {subtitle}
-        </p>
-        
-        {/* Game Image or Placeholder */}
-        <div className="relative flex-1 min-h-[200px] sm:min-h-[240px] mb-6 rounded-2xl overflow-hidden border-2 border-white/20 group-hover:border-white/40 transition-colors duration-300">
-          {available && imageSrc ? (
-            <Image 
-              src={imageSrc} 
-              alt={`${title} - ${subtitle} Trinkspiel für ${players} online spielen`} 
-              fill 
-              sizes="420px"
-              className="object-cover object-top group-hover:scale-110 transition-transform duration-500" 
-            />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-6xl mb-4">🎮</div>
-                <p className="text-white/60 font-bold">COMING SOON</p>
-              </div>
-            </div>
-          )}
-          
-          {/* Overlay for hover effect */}
-          {available && (
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-              <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
-                <span className="text-white font-bold text-sm">SPIELEN!</span>
-              </div>
-            </div>
-          )}
-        </div>
-        
-        {/* Game Stats */}
-        <div className="flex justify-between items-center">
-          <div className="flex gap-4">
-            <div className="text-center">
-              <p className="text-xs text-yellow-200 font-bold">SPIELER</p>
-              <p className="text-sm text-white font-bold">{players}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-xs text-yellow-200 font-bold">SCHWIERIGKEIT</p>
-              <p className="text-sm text-white font-bold">{difficulty}</p>
-            </div>
-          </div>
-          
-          {available && (
-            <div className="bg-yellow-400/20 backdrop-blur-sm rounded-full p-2 border border-yellow-400/50 group-hover:bg-yellow-400/30 transition-colors duration-300">
-              <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-            </div>
-          )}
-        </div>
-      </div>
-      
-      {/* Shine Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"></div>
-    </div>
-  );
-
-  if (!available || !href) return cardContent;
-  
-  // Type-safe href validation
-  const validHref: "/game/bomb" | "/game/truthordare" = href as "/game/bomb" | "/game/truthordare";
-  
-  return (
-    <LocaleLink href={validHref} className="block">
-      {cardContent}
-    </LocaleLink>
-  );
-}
+// Die EpicGameCard Komponente wurde durch die neue GameCard Komponente ersetzt
 
 
