@@ -155,7 +155,6 @@ export interface GetGamesParams {
   offset?: number;
   limit?: number;
   direction?: 'forward' | 'backward';
-  lastId?: string;
 }
 
 export interface GetGamesResult {
@@ -171,15 +170,13 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export async function getGames({
   offset = 0,
   limit = 3,
-  direction = 'forward',
-  lastId
+  direction = 'forward'
 }: GetGamesParams = {}): Promise<GetGamesResult> {
   // Realistische Latenz simulieren
   await delay(800);
 
   const totalGames = GAMES_DATABASE.length;
   let games: GameCard[];
-  let hasMore = true; // Für zirkuläres Scrollen immer true
   
   if (direction === 'backward') {
     // Rückwärts scrollen - lade Items vor dem aktuellen Offset (zirkulär)
