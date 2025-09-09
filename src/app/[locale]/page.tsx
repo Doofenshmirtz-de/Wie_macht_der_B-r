@@ -1,17 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getInitialGames } from "../lib/game-actions";
 import { ItemList } from "../components/ItemList";
 import { GameCard } from "../components/GameCard";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
-  const t = useTranslations();
   const [mounted, setMounted] = useState(false);
-  const [initialGamesData, setInitialGamesData] = useState<GetGamesResult | null>(null);
+  const [initialGamesData, setInitialGamesData] = useState<GetGamesResult | undefined>(undefined);
   
   useEffect(() => {
     setMounted(true);
@@ -173,7 +171,7 @@ export default function Home() {
           <div className="relative">
             {/* Advanced Infinite Scroll mit bidirektionalem Laden */}
             <ItemList
-              initialData={initialGamesData}
+              initialData={initialGamesData || undefined}
               itemsPerLoad={3}
               direction="horizontal"
               className="infinite-scroll-container"

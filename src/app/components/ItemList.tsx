@@ -53,7 +53,6 @@ export function ItemList({
   // Refs für Scroll-Position Management
   const containerRef = useRef<HTMLDivElement>(null);
   const previousScrollHeight = useRef<number>(0);
-  const isUserScrolling = useRef<boolean>(false);
   
   // Debouncing für Load-Requests
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -83,6 +82,7 @@ export function ItemList({
         loadMoreBackward();
       }
     }, 300); // 300ms Debounce
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Forward Loading (nach rechts/unten)
@@ -164,7 +164,7 @@ export function ItemList({
     } finally {
       setLoading(prev => ({ ...prev, backward: false }));
     }
-  }, [forwardOffset, itemsPerLoad, hasMoreBackward, loading.backward, items, direction]);
+  }, [backwardOffset, itemsPerLoad, hasMoreBackward, loading.backward, items, direction]);
 
   // Initial Data Loading (falls nicht per SSR bereitgestellt)
   useEffect(() => {
@@ -191,7 +191,7 @@ export function ItemList({
       
       loadInitial();
     }
-  }, [initialData, items.length]);
+  }, [initialData, items.length, itemsPerLoad]);
 
   // Debug-Logging für hasMoreBackward Status
   useEffect(() => {

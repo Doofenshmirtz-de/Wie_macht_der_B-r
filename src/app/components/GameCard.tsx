@@ -13,7 +13,7 @@ interface GameCardProps {
   priority?: boolean;
 }
 
-export function GameCard({ game, index, priority = false }: GameCardProps) {
+export function GameCard({ game, priority = false }: GameCardProps) {
   const {
     title,
     description,

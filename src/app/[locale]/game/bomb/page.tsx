@@ -141,28 +141,29 @@ function BombGamePageContent() {
 
   // Tick sound loop effect - kontinuierlicher Tick während das Spiel läuft
   useEffect(() => {
-    if (isGameActive && audioRef.current) {
+    const audio = audioRef.current;
+    
+    if (isGameActive && audio) {
       // Tick sound konfigurieren für Loop
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.3;
+      audio.loop = true;
+      audio.volume = 0.3;
       
       // Tick sound starten
-      audioRef.current.play().catch(console.warn);
+      audio.play().catch(console.warn);
       
       return () => {
         // Tick sound stoppen wenn nicht mehr aktiv
-        const audio = audioRef.current;
         if (audio) {
           audio.pause();
           audio.currentTime = 0;
           audio.loop = false;
         }
       };
-    } else if (audioRef.current) {
+    } else if (audio) {
       // Sicherstellen dass Tick sound gestoppt wird
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      audioRef.current.loop = false;
+      audio.pause();
+      audio.currentTime = 0;
+      audio.loop = false;
     }
   }, [isGameActive]);
 
