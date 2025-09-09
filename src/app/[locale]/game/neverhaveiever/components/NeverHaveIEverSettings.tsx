@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from 'react';
-import Image from 'next/image';
 
 interface NeverHaveIEverSettingsProps {
   isOpen: boolean;
@@ -64,7 +63,7 @@ export function NeverHaveIEverSettings({ isOpen, onClose }: NeverHaveIEverSettin
                   <strong>Ziel:</strong> Erfahre lustige und peinliche Geheimnisse deiner Freunde!
                 </p>
                 <p>
-                  <strong>So geht's:</strong> Es wird eine Aussage vorgelesen wie "Ich hab noch nie im Laden geklaut". 
+                  <strong>So geht&apos;s:</strong> Es wird eine Aussage vorgelesen wie &quot;Ich hab noch nie im Laden geklaut&quot;. 
                   Wer das schon mal gemacht hat, muss trinken!
                 </p>
                 <p>
@@ -103,7 +102,7 @@ export function NeverHaveIEverSettings({ isOpen, onClose }: NeverHaveIEverSettin
                 <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5">
                   <span className="text-2xl">👆</span>
                   <div>
-                    <strong>Tippen:</strong> Nutze den "Nächste Aussage" Button
+                    <strong>Tippen:</strong> Nutze den &quot;Nächste Aussage&quot; Button
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5">
@@ -120,7 +119,7 @@ export function NeverHaveIEverSettings({ isOpen, onClose }: NeverHaveIEverSettin
             <section>
               <h3 className="text-xl font-bold mb-3 text-pink-300">💡 Beispiel</h3>
               <div className="p-4 rounded-lg bg-white/5 border-l-4 border-pink-300">
-                <p className="mb-2"><strong>Aussage:</strong> "Ich hab noch nie die Schule geschwänzt"</p>
+                <p className="mb-2"><strong>Aussage:</strong> &quot;Ich hab noch nie die Schule geschwänzt&quot;</p>
                 <p className="text-sm text-white/80">
                   → Alle die schon mal die Schule geschwänzt haben, trinken einen Schluck!<br/>
                   → Alle anderen bleiben sitzen und schauen zu 😏
@@ -158,7 +157,7 @@ export function NeverHaveIEverSettings({ isOpen, onClose }: NeverHaveIEverSettin
               onClick={onClose}
               className="cr-button-primary px-8 py-3 text-lg font-black"
             >
-              Los geht's! 🍻
+              Los geht&apos;s! 🍻
             </button>
           </div>
         </div>

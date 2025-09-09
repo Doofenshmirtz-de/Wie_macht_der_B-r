@@ -15,7 +15,7 @@ export function CategorySelection({ onCategorySelect, onOpenSettings }: Category
           Wähle eine Kategorie
         </h2>
         <p className="text-white/80 text-lg">
-          Bereit für "Ich hab noch nie"?
+          Bereit für &quot;Ich hab noch nie&quot;?
         </p>
       </div>
 
