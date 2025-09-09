@@ -280,7 +280,7 @@ export function ItemList({
 
         {/* Items */}
         {items.map((item, index) => (
-          <div key={`${item.id}-${index}`} className={direction === 'horizontal' ? 'snap-center' : ''}>
+          <div key={`${item.id}-${index}`} className={direction === 'horizontal' ? 'snap-center flex-shrink-0' : ''}>
             {renderItem(item, index)}
           </div>
         ))}
@@ -302,8 +302,8 @@ export function ItemList({
         </div>
       )}
 
-      {/* Debug Info temporär aktiviert für Bugfix */}
-      {process.env.NODE_ENV === 'development' && (
+      {/* Debug Info deaktiviert - alles funktioniert */}
+      {false && process.env.NODE_ENV === 'development' && (
         <div className="fixed bottom-4 right-4 bg-black/90 text-white p-3 rounded text-xs max-w-xs z-50 border border-yellow-400">
           <div className="font-bold text-yellow-400 mb-1">🐛 DEBUG:</div>
           <div>Items: {items.length}</div>
