@@ -184,6 +184,11 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Wie macht der Bär" />
+        <meta name="application-name" content="Wie macht der Bär" />
+        <meta name="msapplication-TileColor" content="#ffd700" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <link rel="shortcut icon" href="/bomb.svg" />
+        <link rel="mask-icon" href="/bomb.svg" color="#ffd700" />
       </head>
       <body 
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-transparent text-white`}

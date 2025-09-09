@@ -7,6 +7,8 @@ import type { AppLocale } from "@/i18n/routing";
 import { Header } from "../ui/Header";
 import { SoundProvider } from "../providers/SoundProvider";
 import { SettingsProvider } from "../providers/SettingsProvider";
+import PWAInstallPrompt from "../ui/PWAInstallPrompt";
+import ServiceWorkerRegistration from "../components/ServiceWorkerRegistration";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -38,6 +40,8 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
             <div className="relative overflow-hidden">
               <Header />
               {children}
+              <PWAInstallPrompt />
+              <ServiceWorkerRegistration />
             </div>
           </div>
         </SoundProvider>
