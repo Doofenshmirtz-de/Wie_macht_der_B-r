@@ -29,7 +29,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
 
   const cardContent = (
     <div 
-      className={`epic-game-card game-card group snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] relative overflow-hidden rounded-3xl transition-all duration-500 ${
+      className={`epic-game-card game-card group snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] min-h-[550px] sm:min-h-[550px] relative overflow-hidden rounded-3xl transition-all duration-500 ${
         available 
           ? "hover:scale-105 hover:-translate-y-2 cursor-pointer" 
           : "opacity-75 cursor-not-allowed"
@@ -45,8 +45,8 @@ export function GameCard({ game, priority = false }: GameCardProps) {
       {/* Card Border */}
       <div className="absolute inset-0 rounded-3xl border-2 border-yellow-400/30 group-hover:border-yellow-300/60 transition-colors duration-300"></div>
       
-      {/* Card Content */}
-      <div className="relative h-[400px] sm:h-[500px] p-4 sm:p-6 flex flex-col text-white">
+      {/* Card Content - Mobile noch höher für vollständige Sichtbarkeit */}
+      <div className="relative h-[550px] sm:h-[550px] p-4 sm:p-6 flex flex-col text-white">
         {/* Header with Icon and Title - Responsive feste Höhe für einheitlichen Bildstart */}
         <div className="h-[120px] sm:h-[110px] mb-4">
           <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
@@ -91,7 +91,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
         </div>
         
         {/* Game Image or Placeholder */}
-        <div className="relative flex-1 min-h-[200px] sm:min-h-[240px] mb-6 rounded-2xl overflow-hidden border-2 border-white/20 group-hover:border-white/40 transition-colors duration-300">
+        <div className="relative flex-1 min-h-[200px] sm:min-h-[220px] mb-4 sm:mb-6 rounded-2xl overflow-hidden border-2 border-white/20 group-hover:border-white/40 transition-colors duration-300">
           {available && imageSrc ? (
             <Image 
               src={imageSrc} 
@@ -120,9 +120,9 @@ export function GameCard({ game, priority = false }: GameCardProps) {
           )}
         </div>
         
-        {/* Game Stats */}
-        <div className="flex justify-between items-center">
-          <div className="flex gap-4">
+        {/* Game Stats - IMMER sichtbar mit fester Position */}
+        <div className="flex justify-between items-center mt-auto pt-4 pb-4 bg-black/20 rounded-lg mx-2">
+          <div className="flex gap-3 sm:gap-4 px-3">
             <div className="text-center">
               <p className="text-xs text-yellow-200 font-bold">SPIELER</p>
               <p className="text-sm text-white font-bold">{players}</p>
@@ -134,7 +134,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
           </div>
           
           {available && (
-            <div className="bg-yellow-400/20 backdrop-blur-sm rounded-full p-2 border border-yellow-400/50 group-hover:bg-yellow-400/30 transition-colors duration-300">
+            <div className="bg-yellow-400/20 backdrop-blur-sm rounded-full p-2 border border-yellow-400/50 group-hover:bg-yellow-400/30 transition-colors duration-300 flex-shrink-0 mr-3">
               <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
             </div>
           )}
