@@ -115,7 +115,7 @@ export default function Home() {
                 </p>
                 <p className="text-base text-white/70 leading-relaxed">
                   Spiele die besten Trinkspiele online mit deinen Freunden! 
-                  Bomb Party, Wahrheit oder Pflicht und mehr - alles kostenlos und ohne Download.
+                  Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos und ohne Download.
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-6">
                   <div className="flex items-center gap-2 text-yellow-300 font-bold">

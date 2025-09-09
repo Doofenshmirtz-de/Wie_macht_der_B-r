@@ -32,6 +32,20 @@ const GAMES_DATABASE: GameCard[] = [
     priority: 1
   },
   {
+    id: "never-have-i-ever",
+    title: "Ich hab noch nie",
+    description: "Der Wahrheitskracher",
+    subtitle: "Geständnisse und peinliche Momente!",
+    href: "/game/neverhaveiever",
+    gradient: "from-blue-500 via-purple-500 to-pink-600",
+    iconSrc: "/icons/question.svg",
+    available: true,
+    players: "3-12 Spieler",
+    difficulty: "Einfach",
+    imageSrc: "/bearhands.jpg",
+    priority: 2
+  },
+  {
     id: "truth-or-dare",
     title: "Wahrheit oder Pflicht",
     description: "Der Partykracher",
@@ -43,111 +57,7 @@ const GAMES_DATABASE: GameCard[] = [
     players: "2-10 Spieler",
     difficulty: "Einfach",
     imageSrc: "/bearcards.jpg",
-    priority: 2
-  },
-  {
-    id: "quiz-show",
-    title: "Quiz Show",
-    description: "Bald verfügbar",
-    subtitle: "Teste dein Wissen in verschiedenen Kategorien!",
-    href: null,
-    gradient: "from-purple-500 via-blue-500 to-indigo-600",
-    iconSrc: "/icons/rocket.svg",
-    available: false,
-    players: "2-12 Spieler",
-    difficulty: "Mittel",
     priority: 3
-  },
-  {
-    id: "charades",
-    title: "Charades",
-    description: "Bald verfügbar",
-    subtitle: "Pantomime mit Trinkregeln!",
-    href: null,
-    gradient: "from-green-500 via-teal-500 to-blue-600",
-    iconSrc: "/icons/gift.svg",
-    available: false,
-    players: "4-10 Spieler",
-    difficulty: "Schwer",
-    priority: 4
-  },
-  {
-    id: "never-have-i-ever",
-    title: "Never Have I Ever",
-    description: "Der Wahrheitskracher",
-    subtitle: "Geständnisse und peinliche Momente!",
-    href: null,
-    gradient: "from-cyan-500 via-blue-500 to-indigo-600",
-    iconSrc: "/icons/gear.svg",
-    available: false,
-    players: "3-12 Spieler",
-    difficulty: "Einfach",
-    priority: 5
-  },
-  {
-    id: "drinking-roulette",
-    title: "Drinking Roulette",
-    description: "Der Zufallskracher",
-    subtitle: "Alles oder nichts - trink oder verliere!",
-    href: null,
-    gradient: "from-red-500 via-pink-500 to-purple-600",
-    iconSrc: "/icons/explosion.svg",
-    available: false,
-    players: "2-8 Spieler",
-    difficulty: "Mittel",
-    priority: 6
-  },
-  {
-    id: "beer-pong-pro",
-    title: "Beer Pong Pro",
-    description: "Coming Soon",
-    subtitle: "Der ultimative Wurf-Simulator!",
-    href: null,
-    gradient: "from-yellow-500 via-orange-500 to-red-600",
-    iconSrc: "/icons/rocket.svg",
-    available: false,
-    players: "2-4 Spieler",
-    difficulty: "Mittel",
-    priority: 7
-  },
-  {
-    id: "kings-cup",
-    title: "Kings Cup",
-    description: "Coming Soon",
-    subtitle: "Das klassische Kartenspiel digital!",
-    href: null,
-    gradient: "from-indigo-500 via-purple-500 to-pink-600",
-    iconSrc: "/icons/gift.svg",
-    available: false,
-    players: "3-8 Spieler",
-    difficulty: "Mittel",
-    priority: 8
-  },
-  {
-    id: "flip-cup",
-    title: "Flip Cup",
-    description: "Coming Soon",
-    subtitle: "Speed-Trinkspiel für Teams!",
-    href: null,
-    gradient: "from-blue-500 via-cyan-500 to-teal-600",
-    iconSrc: "/icons/explosion.svg",
-    available: false,
-    players: "4-12 Spieler",
-    difficulty: "Einfach",
-    priority: 9
-  },
-  {
-    id: "power-hour",
-    title: "Power Hour",
-    description: "Coming Soon", 
-    subtitle: "60 Minuten, 60 Shots, unendlicher Spaß!",
-    href: null,
-    gradient: "from-emerald-500 via-green-500 to-lime-600",
-    iconSrc: "/icons/gear.svg",
-    available: false,
-    players: "1-∞ Spieler",
-    difficulty: "Schwer",
-    priority: 10
   }
 ];
 
