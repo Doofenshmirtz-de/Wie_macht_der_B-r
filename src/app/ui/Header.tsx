@@ -27,7 +27,7 @@ export function Header() {
   };
 
   return (
-    <header className="relative z-20 overflow-hidden">
+    <header className="relative z-20 overflow-hidden" role="banner">
       {/* Epic Header Background with Clash Royale vibes */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 opacity-90"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30"></div>
@@ -38,7 +38,8 @@ export function Header() {
       
       <div className="relative mx-auto max-w-screen-lg px-4 py-4 flex items-center justify-between">
         {/* Logo with epic styling */}
-        <Link href="/" className="group relative flex items-center gap-3 hover:scale-105 transition-all duration-300">
+        <div className="flex items-center gap-8">
+          <Link href="/" className="group relative flex items-center gap-3 hover:scale-105 transition-all duration-300">
           <div className="relative">
             <div className="absolute inset-0 bg-yellow-400 rounded-full blur-md group-hover:blur-lg transition-all duration-300 opacity-50"></div>
             <div className="relative h-12 w-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl border-2 border-yellow-300 shadow-2xl flex items-center justify-center">
@@ -53,6 +54,30 @@ export function Header() {
           </div>
         </Link>
 
+        {/* Navigation Menu */}
+        <nav className="hidden md:flex items-center gap-6" role="navigation" aria-label="Hauptnavigation">
+          <Link 
+            href="/game/bomb" 
+            className="group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10"
+          >
+            <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
+              🔥 Bomb Party
+            </span>
+          </Link>
+          <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
+            <span className="text-sm font-bold">
+              🤫 Ich hab noch nie
+            </span>
+          </span>
+          <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
+            <span className="text-sm font-bold">
+              💣 Wahrheit oder Pflicht
+            </span>
+          </span>
+        </nav>
+        </div>
+
+        <div className="flex items-center gap-4">
         {/* Language Switcher with Enhanced Clash Royale card style */}
         <div className="flex items-center gap-3">
           {/* Language Label */}
@@ -115,6 +140,7 @@ export function Header() {
               <div className="absolute inset-0 rounded-xl shadow-[inset_0_0_15px_rgba(255,215,0,0.3)]"></div>
             )}
           </Link>
+        </div>
         </div>
       </div>
       

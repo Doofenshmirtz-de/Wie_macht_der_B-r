@@ -10,7 +10,7 @@ interface AnalyticsContextType {
   consent: boolean | null;
   giveConsent: () => void;
   revokeConsent: () => void;
-  trackEvent: (eventName: string, parameters?: Record<string, any>) => void;
+  trackEvent: (eventName: string, parameters?: Record<string, unknown>) => void;
 }
 
 const AnalyticsContext = createContext<AnalyticsContextType | null>(null);
@@ -29,8 +29,8 @@ interface AnalyticsProviderProps {
 
 declare global {
   interface Window {
-    gtag: any;
-    dataLayer: any[];
+    gtag: (...args: unknown[]) => void;
+    dataLayer: unknown[];
   }
 }
 
@@ -67,7 +67,7 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
     // Initialisiere dataLayer
     window.dataLayer = window.dataLayer || [];
     
-    function gtag(...args: any[]) {
+    function gtag(...args: unknown[]) {
       window.dataLayer.push(args);
     }
     
@@ -123,7 +123,7 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
     }
   };
 
-  const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+  const trackEvent = (eventName: string, parameters?: Record<string, unknown>) => {
     if (consent && typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', eventName, {
         ...parameters,

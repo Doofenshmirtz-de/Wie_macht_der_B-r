@@ -30,7 +30,7 @@ export function trackWebVitals() {
 
   try {
     observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'cumulative-layout-shift'] });
-  } catch (error) {
+  } catch {
     console.warn('Performance Observer not supported');
   }
 }

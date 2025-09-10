@@ -163,7 +163,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
   const validHref: "/game/bomb" | "/game/truthordare" = href as "/game/bomb" | "/game/truthordare";
   
   return (
-    <LocaleLink href={validHref} className="block">
+    <LocaleLink href={validHref} className="block" onClick={handleGameClick}>
       {cardContent}
     </LocaleLink>
   );

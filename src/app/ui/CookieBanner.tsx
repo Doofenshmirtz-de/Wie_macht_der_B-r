@@ -48,12 +48,9 @@ export function CookieBanner() {
                   Wir verwenden Google Analytics, um unsere Website zu verbessern. 
                   Alle Daten werden anonymisiert und GDPR-konform verarbeitet. 
                   <br className="hidden sm:block" />
-                  <a 
-                    href="/datenschutz" 
-                    className="text-yellow-400 hover:text-yellow-300 underline transition-colors"
-                  >
+                  <span className="text-yellow-400">
                     Mehr Details in unserer Datenschutzerklärung
-                  </a>
+                  </span>
                 </p>
               </div>
             </div>
