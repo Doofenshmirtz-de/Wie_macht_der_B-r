@@ -7,8 +7,10 @@ import type { AppLocale } from "@/i18n/routing";
 import { Header } from "../ui/Header";
 import { SoundProvider } from "../providers/SoundProvider";
 import { SettingsProvider } from "../providers/SettingsProvider";
+import { AnalyticsProvider } from "../providers/AnalyticsProvider";
 import PWAInstallPrompt from "../ui/PWAInstallPrompt";
 import ServiceWorkerRegistration from "../components/ServiceWorkerRegistration";
+import { CookieBanner } from "../ui/CookieBanner";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -34,18 +36,21 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <SettingsProvider>
-        <SoundProvider>
-          <div className="min-h-screen">
-            <div className="relative overflow-hidden">
-              <Header />
-              {children}
-              <PWAInstallPrompt />
-              <ServiceWorkerRegistration />
+      <AnalyticsProvider>
+        <SettingsProvider>
+          <SoundProvider>
+            <div className="min-h-screen">
+              <div className="relative overflow-hidden">
+                <Header />
+                {children}
+                <PWAInstallPrompt />
+                <ServiceWorkerRegistration />
+                <CookieBanner />
+              </div>
             </div>
-          </div>
-        </SoundProvider>
-      </SettingsProvider>
+          </SoundProvider>
+        </SettingsProvider>
+      </AnalyticsProvider>
     </NextIntlClientProvider>
   );
 }

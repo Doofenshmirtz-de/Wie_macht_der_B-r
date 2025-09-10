@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Wie macht der Bär - Online Trinkspiele für die perfekte Party",
+    default: "Wie macht der Bär: Online Trinkspiele für deine Party",
     template: "%s | Wie macht der Bär"
   },
   description: "🍻 Die besten Online Trinkspiele für deine Party! Spiele Bomb Party, Quiz Show und mehr mit Freunden. Kostenlos, ohne Download - direkt im Browser spielen!",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "de_DE",
     alternateLocale: ["en_US"],
-    url: "https://wiemachtderbaer.com",
+    url: "https://www.wie-macht-der-baer.de",
     siteName: "Wie macht der Bär - Online Trinkspiele",
     title: "Wie macht der Bär - Die besten Online Trinkspiele für deine Party",
     description: "🍻 Spiele die besten Trinkspiele online mit deinen Freunden! Bomb Party, Quiz Show und mehr - kostenlos und ohne Download direkt im Browser.",
@@ -88,10 +88,10 @@ export const metadata: Metadata = {
     images: ["/twitter-image.jpg"],
   },
   alternates: {
-    canonical: "https://wiemachtderbaer.com",
+    canonical: "https://www.wie-macht-der-baer.de",
     languages: {
-      'de': "https://wiemachtderbaer.com/de",
-      'en': "https://wiemachtderbaer.com/en",
+      'de': "https://www.wie-macht-der-baer.de/de",
+      'en': "https://www.wie-macht-der-baer.de/en",
     },
   },
   category: "games",
@@ -109,7 +109,7 @@ const jsonLd = {
   '@type': 'WebApplication',
   name: 'Wie macht der Bär',
   description: 'Die besten Online Trinkspiele für deine Party! Bomb Party, Quiz Show und mehr mit Freunden spielen.',
-  url: 'https://wiemachtderbaer.com',
+  url: 'https://www.wie-macht-der-baer.de',
   applicationCategory: 'GameApplication',
   operatingSystem: 'Web Browser',
   offers: {
@@ -134,7 +134,7 @@ const jsonLd = {
     name: 'Wie macht der Bär',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://wiemachtderbaer.com/bomb.svg',
+      url: 'https://www.wie-macht-der-baer.de/bomb.svg',
     },
   },
   inLanguage: ['de-DE', 'en-US'],
@@ -176,9 +176,16 @@ export default function RootLayout({
         />
         <meta name="google-site-verification" content="your-google-verification-code" />
         <meta name="msvalidate.01" content="your-bing-verification-code" />
+        {/* Performance Optimizations */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        
+        {/* Preload critical resources */}
+        <link rel="preload" href="/coverphotobear.jpg" as="image" type="image/jpeg" />
+        <link rel="preload" href="/bomb.svg" as="image" type="image/svg+xml" />
+        <link rel="preload" href="/bearbomb.jpg" as="image" type="image/jpeg" />
         <meta name="theme-color" content="#ffd700" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

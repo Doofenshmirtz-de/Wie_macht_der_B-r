@@ -1,42 +1,88 @@
-# Robots.txt für Wie macht der Bär - Online Trinkspiele
-# Optimiert für beste SEO-Performance
+# 🍻 Robots.txt für "Wie macht der Bär" - Die besten Online Trinkspiele
+# SEO-optimiert für maximale Sichtbarkeit und Performance
+# Domain: https://www.wie-macht-der-baer.de
 
-User-agent: *
-Allow: /
-
-# Sitemap Location
-Sitemap: https://wiemachtderbaer.com/sitemap.xml
-
-# Crawl-delay für bessere Server-Performance
-Crawl-delay: 1
-
-# Spezifische Anweisungen für Google Bot
+# 🚀 HAUPTBOTS - Vollzugriff für beste Rankings
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
+Request-rate: 1/1s
 
-# Spezifische Anweisungen für Bing Bot  
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
+Request-rate: 1/2s
 
-# Block für unerwünschte Bots
+User-agent: *
+Allow: /
+Crawl-delay: 2
+
+# 📍 SITEMAP LOCATIONS - Mehrfach für beste Indexierung
+Sitemap: https://www.wie-macht-der-baer.de/sitemap.xml
+Sitemap: https://www.wie-macht-der-baer.de/de/sitemap.xml
+Sitemap: https://www.wie-macht-der-baer.de/en/sitemap.xml
+
+# 🎮 ERLAUBTE SPIELE-RESSOURCEN - Für Rich Snippets
+Allow: /bomb.svg
+Allow: /bearbomb.jpg
+Allow: /bearbomb.svg
+Allow: /bearhands.jpg  
+Allow: /bearcards.jpg
+Allow: /coverphotobear.jpg
+Allow: /icons/
+Allow: /flags/
+Allow: /illustrations/
+
+# 📱 PWA & PERFORMANCE ASSETS
+Allow: /manifest.json
+Allow: /sw.js
+Allow: /_next/static/
+Allow: /_next/image/
+Allow: /favicon.ico
+Allow: /apple-touch-icon.png
+
+# 🔊 AUDIO FILES für Game Experience
+Allow: /click.mp3
+Allow: /explosion.mp3
+Allow: /swipe.mp3
+Allow: /tick.mp3
+
+# 🚫 AGGRESSIVE SEO BOTS BLOCKIEREN
 User-agent: SemrushBot
 Disallow: /
 
-User-agent: AhrefsBot  
+User-agent: AhrefsBot
 Disallow: /
 
 User-agent: MJ12bot
 Disallow: /
 
-# Erlaubte Ressourcen für SEO
-Allow: /bomb.svg
-Allow: /icons/
-Allow: /flags/
-Allow: /bearbomb.jpg
-Allow: /_next/static/
-Allow: /favicon.ico
+User-agent: DotBot
+Disallow: /
 
-# Host-Definition (optional)
-Host: https://wiemachtderbaer.com
+User-agent: Screaming Frog SEO Spider
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# 🎯 SPEZIAL-BOTS für Social Media
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# 🔥 CONTENT-HINWEISE für Suchmaschinen
+# Trinkspiele, Partyspiele, Online Games, Multiplayer
+# Keywords: Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht
+# Zielgruppe: Erwachsene 18+, Partyspiele, Gesellschaftsspiele
+
+# 🌐 HOST DEFINITION
+Host: https://www.wie-macht-der-baer.de

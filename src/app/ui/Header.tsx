@@ -46,29 +46,45 @@ export function Header() {
             </div>
           </div>
           <div className="flex flex-col">
-            <h1 className="text-xl font-black bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent drop-shadow-lg tracking-wide">
+            <div className="text-xl font-black bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent drop-shadow-lg tracking-wide">
               WIE MACHT DER BÄR
-            </h1>
+            </div>
             <p className="text-xs text-yellow-200/90 font-bold tracking-widest">TRINKSPIELE DELUXE</p>
           </div>
         </Link>
 
-        {/* Language Switcher with Clash Royale card style */}
-        <div className="flex items-center gap-2">
+        {/* Language Switcher with Enhanced Clash Royale card style */}
+        <div className="flex items-center gap-3">
+          {/* Language Label */}
+          <span className="hidden sm:block text-xs text-yellow-200/80 font-bold tracking-wider">
+            SPRACHE
+          </span>
+          
           <Link
             aria-label="Deutsch"
             href={getValidHref(pathname || "/")}
             locale="de"
-            className={`group relative h-10 w-12 rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${
+            className={`group relative h-12 w-16 rounded-xl overflow-hidden border-3 transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-2xl ${
               locale === "de" 
-                ? "border-yellow-300 shadow-lg shadow-yellow-400/50 bg-gradient-to-b from-yellow-100 to-yellow-200" 
-                : "border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-white/20 to-white/10"
+                ? "border-yellow-300 shadow-xl shadow-yellow-400/60 bg-gradient-to-b from-yellow-100 to-yellow-200 scale-105" 
+                : "border-white/40 hover:border-yellow-300/80 bg-gradient-to-b from-white/25 to-white/15"
             }`}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
-            <Image src="/flags/de.svg" alt="Deutsche Sprache wählen - Wie macht der Bär auf Deutsch spielen" fill sizes="48px" className="object-cover" />
+            {/* Enhanced glow effects */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></div>
+            <div className={`absolute inset-0 transition-opacity duration-300 ${
+              locale === "de" ? "opacity-100" : "opacity-0 group-hover:opacity-50"
+            } bg-gradient-to-r from-yellow-400/20 via-transparent to-yellow-400/20`}></div>
+            
+            <Image src="/flags/de.svg" alt="Deutsche Sprache wählen - Wie macht der Bär auf Deutsch spielen" fill sizes="64px" className="object-cover group-hover:scale-110 transition-transform duration-300" />
+            
             {locale === "de" && (
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border border-yellow-300 shadow-lg"></div>
+              <div className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-yellow-400 rounded-full border-2 border-yellow-300 shadow-xl animate-pulse"></div>
+            )}
+            
+            {/* Active state glow */}
+            {locale === "de" && (
+              <div className="absolute inset-0 rounded-xl shadow-[inset_0_0_15px_rgba(255,215,0,0.3)]"></div>
             )}
           </Link>
           
@@ -76,16 +92,27 @@ export function Header() {
             aria-label="English"
             href={getValidHref(pathname || "/")}
             locale="en"
-            className={`group relative h-10 w-12 rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${
+            className={`group relative h-12 w-16 rounded-xl overflow-hidden border-3 transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-2xl ${
               locale === "en" 
-                ? "border-yellow-300 shadow-lg shadow-yellow-400/50 bg-gradient-to-b from-yellow-100 to-yellow-200" 
-                : "border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-white/20 to-white/10"
+                ? "border-yellow-300 shadow-xl shadow-yellow-400/60 bg-gradient-to-b from-yellow-100 to-yellow-200 scale-105" 
+                : "border-white/40 hover:border-yellow-300/80 bg-gradient-to-b from-white/25 to-white/15"
             }`}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
-            <Image src="/flags/gb.svg" alt="Switch to English - Play Wie macht der Bär in English" fill sizes="48px" className="object-cover" />
+            {/* Enhanced glow effects */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></div>
+            <div className={`absolute inset-0 transition-opacity duration-300 ${
+              locale === "en" ? "opacity-100" : "opacity-0 group-hover:opacity-50"
+            } bg-gradient-to-r from-yellow-400/20 via-transparent to-yellow-400/20`}></div>
+            
+            <Image src="/flags/gb.svg" alt="Switch to English - Play Wie macht der Bär in English" fill sizes="64px" className="object-cover group-hover:scale-110 transition-transform duration-300" />
+            
             {locale === "en" && (
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border border-yellow-300 shadow-lg"></div>
+              <div className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-yellow-400 rounded-full border-2 border-yellow-300 shadow-xl animate-pulse"></div>
+            )}
+            
+            {/* Active state glow */}
+            {locale === "en" && (
+              <div className="absolute inset-0 rounded-xl shadow-[inset_0_0_15px_rgba(255,215,0,0.3)]"></div>
             )}
           </Link>
         </div>
