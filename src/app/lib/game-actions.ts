@@ -119,7 +119,7 @@ export async function getGames({
 
 // Initial laden für SEO
 export async function getInitialGames(): Promise<GetGamesResult> {
-  return getGames({ offset: 0, limit: 4 });
+  return getGames({ offset: 0, limit: 3 });
 }
 
 // Für Suchfunktionalität (optional)

@@ -62,31 +62,39 @@ export function Header() {
         {/* Navigation Menu - Desktop Only */}
             <DesktopOnly>
               <nav className="flex items-center gap-6" role="navigation" aria-label="Hauptnavigation">
-                <Link 
-                  href="/game/bomb" 
+                <button 
+                  onClick={() => {
+                    const gamesSection = document.querySelector('.infinite-scroll-container');
+                    gamesSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
                     isTouch ? 'min-h-[44px] min-w-[44px]' : ''
                   }`}
                 >
                   <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
-                    🔥 Bomb Party
+                    🎮 Spiele
+                  </span>
+                </button>
+                <Link 
+                  href="/blog" 
+                  className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
+                    isTouch ? 'min-h-[44px] min-w-[44px]' : ''
+                  }`}
+                >
+                  <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
+                    📰 Blog
                   </span>
                 </Link>
-                <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
-                  <span className="text-sm font-bold">
-                    📰 Blog (Coming Soon)
+                <Link 
+                  href="/faq" 
+                  className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
+                    isTouch ? 'min-h-[44px] min-w-[44px]' : ''
+                  }`}
+                >
+                  <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
+                    ❓ FAQ
                   </span>
-                </span>
-                <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
-                  <span className="text-sm font-bold">
-                    🤫 Ich hab noch nie
-                  </span>
-                </span>
-                <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
-                  <span className="text-sm font-bold">
-                    💣 Wahrheit oder Pflicht
-                  </span>
-                </span>
+                </Link>
               </nav>
             </DesktopOnly>
         </div>
