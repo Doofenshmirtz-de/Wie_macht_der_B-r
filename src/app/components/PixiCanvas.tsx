@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import type { Ticker } from "pixi.js";
+import type { Ticker, Application as PixiApplication } from "pixi.js";
 
 type PixiCanvasProps = {
   className?: string;
   style?: React.CSSProperties;
   /** Wird aufgerufen, sobald die Pixi Application initialisiert wurde */
-  onAppReady?: (app: any) => void;
+  onAppReady?: (app: PixiApplication) => void;
   /** Hintergrundfarbe als Hex (z.B. 0x000000). Standard: transparent */
   background?: number;
 };
@@ -25,7 +25,7 @@ export default function PixiCanvas({
   background,
 }: PixiCanvasProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const appRef = useRef<any>(null);
+  const appRef = useRef<PixiApplication | null>(null);
 
   useEffect(() => {
     let isCancelled = false;
@@ -67,7 +67,8 @@ export default function PixiCanvas({
       app.stage.addChild(g);
 
       tickerFn = (ticker: Ticker) => {
-        const delta = (ticker as any).deltaTime ?? 1;
+        // deltaTime ist in einigen Versionen von Pixi ggf. anders benannt.
+        const delta = (ticker as unknown as { deltaTime?: number }).deltaTime ?? 1;
         g.rotation += 0.02 * delta;
       };
       app.ticker.add(tickerFn);
