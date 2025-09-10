@@ -21,7 +21,7 @@ import { BombGameSettings } from "./components/BombGameSettings";
 // import { GameRulesSection } from "./content/GameRulesSection";
 // import { GameVariantsSection } from "./content/GameVariantsSection"; 
 // import { GameHistoryFAQ } from "./content/GameHistoryFAQ";
-// import { RelatedGames } from "../../../ui/InternalLinkCard";
+import { RelatedGames } from "../../../ui/InternalLinkCard";
 import Image from "next/image";
 
 type Player = {
@@ -410,9 +410,9 @@ function BombGamePageContent() {
       
       {/* Header with Title */}
       <div className="text-center mb-6 md:mb-8">
-        <h1 className="text-3xl md:text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-purple-600 drop-shadow-lg">
+        <h2 className="text-3xl md:text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-purple-600 drop-shadow-lg">
           💣 {t("bombParty")} 💣
-        </h1>
+        </h2>
         
         {/* Mode Indicator */}
         {gameMode && (
@@ -1049,6 +1049,9 @@ export default function BombGamePage() {
       <div className="text-white text-xl">Loading...</div>
     </div>}>
       <BombGamePageContent />
+      
+      {/* Related Games Section */}
+      <RelatedGames currentGame="bomb" className="mt-16" />
     </Suspense>
   );
 }

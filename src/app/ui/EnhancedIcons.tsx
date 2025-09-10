@@ -1,327 +1,313 @@
 'use client';
 
-import React from 'react';
+import { SVGProps } from 'react';
 
-interface IconProps {
+interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number;
   className?: string;
-  color?: string;
 }
 
-// 🔥 Bomb Icon - Enhanced
-export function BombIcon({ size = 24, className = '', color = 'currentColor' }: IconProps) {
+// Consistent icon system with better accessibility
+export function BombIcon({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       className={`bomb-icon ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Bomb icon"
+      {...props}
     >
-      <defs>
-        <radialGradient id="bombGradient" cx="0.3" cy="0.3" r="0.7">
-          <stop offset="0%" stopColor="#FCD34D" />
-          <stop offset="50%" stopColor="#F59E0B" />
-          <stop offset="100%" stopColor="#D97706" />
-        </radialGradient>
-        <filter id="bombGlow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge> 
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-      
-      {/* Fuse */}
-      <path
-        d="M14 4l2-2 1 1-2 2M16 6l1-1"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        className="animate-pulse"
-      />
-      
-      {/* Bomb Body */}
-      <circle
-        cx="11"
-        cy="13"
-        r="8"
-        fill="url(#bombGradient)"
-        filter="url(#bombGlow)"
-        className="drop-shadow-lg"
-      />
-      
-      {/* Highlight */}
-      <ellipse
-        cx="9"
-        cy="10"
-        rx="2.5"
-        ry="3"
-        fill="rgba(255, 255, 255, 0.3)"
-        className="animate-pulse"
-      />
-      
-      {/* Spark */}
-      <circle
-        cx="15"
-        cy="5"
-        r="1"
-        fill="#FCD34D"
-        className="animate-ping"
-      />
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L14 9.5 9.5 8 8 12.5l4.5 1.5 1.5-4.5L15.5 8z"/>
+      <circle cx="18" cy="6" r="2" fill="currentColor"/>
+      <path d="M16.5 4.5L17.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   );
 }
 
-// 🎮 Game Icon - Enhanced
-export function GameIcon({ size = 24, className = '', color = 'currentColor' }: IconProps) {
+export function GameIcon({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       className={`game-icon ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Game controller icon"
+      {...props}
     >
-      <defs>
-        <linearGradient id="gameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#EC4899" />
-          <stop offset="50%" stopColor="#F59E0B" />
-          <stop offset="100%" stopColor="#10B981" />
-        </linearGradient>
-      </defs>
-      
-      {/* Controller Body */}
-      <path
-        d="M7 12h10l2 6H5l2-6z"
-        fill="url(#gameGradient)"
-        className="drop-shadow-md"
-      />
-      
-      {/* D-Pad */}
-      <rect x="8" y="14" width="1" height="3" fill="white" rx="0.5" />
-      <rect x="7" y="15" width="3" height="1" fill="white" rx="0.5" />
-      
-      {/* Action Buttons */}
-      <circle cx="15" cy="14.5" r="0.8" fill="white" opacity="0.9" />
-      <circle cx="16.5" cy="16" r="0.8" fill="white" opacity="0.7" />
-      
-      {/* Screen */}
-      <rect
-        x="8"
-        y="7"
-        width="8"
-        height="5"
-        rx="1"
-        fill="rgba(0, 0, 0, 0.8)"
-        stroke={color}
-        strokeWidth="1"
-      />
-      
-      {/* Screen Content */}
-      <rect x="9" y="8" width="6" height="1" fill="#10B981" rx="0.5" />
-      <rect x="9" y="9.5" width="4" height="1" fill="#F59E0B" rx="0.5" />
-      <rect x="9" y="11" width="5" height="1" fill="#EC4899" rx="0.5" />
+      <path d="M17.5 7c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2s2-.9 2-2V9c0-1.1-.9-2-2-2zM6.5 7c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2s2-.9 2-2V9c0-1.1-.9-2-2-2zM12 4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2s2-.9 2-2V6c0-1.1-.9-2-2-2z"/>
     </svg>
   );
 }
 
-// ⭐ Star Rating - Enhanced
-export function StarIcon({ size = 20, className = '', filled = false }: IconProps & { filled?: boolean }) {
+export function PartyIcon({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
-      className={`star-icon ${className} ${filled ? 'star-filled' : 'star-empty'}`}
-      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      className={`party-icon ${className}`}
+      role="img"
+      aria-label="Party celebration icon"
+      {...props}
     >
-      <defs>
-        <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FCD34D" />
-          <stop offset="100%" stopColor="#F59E0B" />
-        </linearGradient>
-        <filter id="starGlow">
-          <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
-          <feMerge> 
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-      
-      <path
-        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-        fill={filled ? "url(#starGradient)" : "none"}
-        stroke={filled ? "none" : "#FCD34D"}
-        strokeWidth="2"
-        filter={filled ? "url(#starGlow)" : "none"}
-        className={filled ? "animate-pulse" : ""}
-      />
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      <circle cx="7" cy="7" r="2" fill="currentColor" opacity="0.6"/>
+      <circle cx="17" cy="7" r="2" fill="currentColor" opacity="0.6"/>
+      <circle cx="7" cy="17" r="2" fill="currentColor" opacity="0.6"/>
+      <circle cx="17" cy="17" r="2" fill="currentColor" opacity="0.6"/>
     </svg>
   );
 }
 
-// 🔍 Search Icon - Enhanced
-export function SearchIcon({ size = 24, className = '', color = 'currentColor' }: IconProps) {
+export function UsersIcon({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
-      className={`search-icon ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient id="searchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#60A5FA" />
-          <stop offset="100%" stopColor="#3B82F6" />
-        </linearGradient>
-      </defs>
-      
-      {/* Magnifying Glass */}
-      <circle
-        cx="11"
-        cy="11"
-        r="8"
-        stroke="url(#searchGradient)"
-        strokeWidth="2"
-        fill="none"
-        className="animate-pulse"
-      />
-      
-      {/* Handle */}
-      <path
-        d="M21 21l-4.35-4.35"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        className="animate-pulse"
-      />
-      
-      {/* Inner Glow */}
-      <circle
-        cx="11"
-        cy="11"
-        r="4"
-        fill="none"
-        stroke="rgba(96, 165, 250, 0.3)"
-        strokeWidth="1"
-        className="animate-ping"
-      />
-    </svg>
-  );
-}
-
-// 👥 Users Icon - Enhanced  
-export function UsersIcon({ size = 24, className = '', color = 'currentColor' }: IconProps) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       className={`users-icon ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Users icon"
+      {...props}
     >
-      <defs>
-        <linearGradient id="usersGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#10B981" />
-          <stop offset="100%" stopColor="#059669" />
-        </linearGradient>
-      </defs>
-      
-      {/* User 1 */}
-      <circle cx="9" cy="7" r="4" fill="url(#usersGradient)" className="animate-pulse" />
-      <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke={color} strokeWidth="2" fill="none" />
-      
-      {/* User 2 */}
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-      <path d="M21 21v-2a4 4 0 0 0-3-3.85" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+      <path d="M16 7c0-2.21-1.79-4-4-4S8 4.79 8 7s1.79 4 4 4 4-1.79 4-4zM12 13c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/>
+      <path d="M18 8c.83 0 1.5-.67 1.5-1.5S18.83 5 18 5s-1.5.67-1.5 1.5S17.17 8 18 8zM6 8c.83 0 1.5-.67 1.5-1.5S6.83 5 6 5s-1.5.67-1.5 1.5S5.17 8 6 8z" opacity="0.6"/>
     </svg>
   );
 }
 
-// 📤 Share Icon - Enhanced
-export function ShareIcon({ size = 24, className = '', color = 'currentColor' }: IconProps) {
+export function HeartIcon({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
-      className={`share-icon ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      className={`heart-icon ${className}`}
+      role="img"
+      aria-label="Heart icon"
+      {...props}
     >
-      <defs>
-        <linearGradient id="shareGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#F59E0B" />
-          <stop offset="50%" stopColor="#EC4899" />
-          <stop offset="100%" stopColor="#8B5CF6" />
-        </linearGradient>
-      </defs>
-      
-      {/* Nodes */}
-      <circle cx="18" cy="5" r="3" fill="url(#shareGradient)" className="animate-pulse" />
-      <circle cx="6" cy="12" r="3" fill="url(#shareGradient)" className="animate-pulse" />
-      <circle cx="18" cy="19" r="3" fill="url(#shareGradient)" className="animate-pulse" />
-      
-      {/* Connections */}
-      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke={color} strokeWidth="2" className="animate-pulse" />
-      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke={color} strokeWidth="2" className="animate-pulse" />
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
     </svg>
   );
 }
 
-// 🏆 Trophy Icon - Enhanced
-export function TrophyIcon({ size = 24, className = '', color = 'currentColor' }: IconProps) {
+export function TrophyIcon({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       className={`trophy-icon ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Trophy icon"
+      {...props}
     >
-      <defs>
-        <linearGradient id="trophyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FCD34D" />
-          <stop offset="50%" stopColor="#F59E0B" />
-          <stop offset="100%" stopColor="#D97706" />
-        </linearGradient>
-        <filter id="trophyGlow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge> 
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-      
-      {/* Trophy Cup */}
-      <path
-        d="M7 8h10l-1 8H8l-1-8z"
-        fill="url(#trophyGradient)"
-        filter="url(#trophyGlow)"
-        className="animate-glow-pulse"
-      />
-      
-      {/* Handles */}
-      <path d="M17 8h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke={color} strokeWidth="2" fill="none" />
-      <path d="M7 8H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2" stroke={color} strokeWidth="2" fill="none" />
-      
-      {/* Base */}
-      <path d="M9 19h6" stroke={color} strokeWidth="2" strokeLinecap="round" />
-      <path d="M10 22h4" stroke={color} strokeWidth="2" strokeLinecap="round" />
-      
-      {/* Shine */}
-      <ellipse cx="10" cy="11" rx="1" ry="2" fill="rgba(255, 255, 255, 0.4)" className="animate-pulse" />
+      <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V8C19 10.76 16.76 13 14 13H10C7.24 13 5 10.76 5 8V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM5 8C5 9.66 6.34 11 8 11H10C11.66 11 13 9.66 13 8V6H5V8ZM9 14H15L16 18H8L9 14ZM7 19H17V21H7V19Z"/>
     </svg>
+  );
+}
+
+export function FireIcon({ size = 24, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={`fire-icon ${className}`}
+      role="img"
+      aria-label="Fire icon"
+      {...props}
+    >
+      <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.28 2.67-.25 3.85-.72 1.59-2.03 2.99-3.96 4.99z"/>
+    </svg>
+  );
+}
+
+export function SparkleIcon({ size = 24, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={`sparkle-icon ${className}`}
+      role="img"
+      aria-label="Sparkle icon"
+      {...props}
+    >
+      <path d="M12 0l1.09 3.26L16 2l-1.09 3.26L18 4l-1.91 1.94L18 8l-3 .74L16 12l-3.26-1.09L12 14l-1.09-3.26L8 12l1.09-3.26L6 8l1.91-1.94L6 4l3-.74L8 0l1.09 2.26L12 0z"/>
+      <circle cx="6" cy="19" r="2" fill="currentColor" opacity="0.7"/>
+      <circle cx="18" cy="19" r="1.5" fill="currentColor" opacity="0.5"/>
+      <circle cx="21" cy="15" r="1" fill="currentColor" opacity="0.6"/>
+    </svg>
+  );
+}
+
+export function RocketIcon({ size = 24, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={`rocket-icon ${className}`}
+      role="img"
+      aria-label="Rocket icon"
+      {...props}
+    >
+      <path d="M12 2c-4 0-8 4-8 8 0 1.5.5 3 1.3 4.2L2 17.5l3.5-3.3C7 15.5 8.5 16 10 16c4 0 8-4 8-8s-4-8-6-8z"/>
+      <circle cx="14" cy="8" r="2" fill="white" opacity="0.8"/>
+      <path d="M7 19L9 21L15 15L13 13L7 19Z" opacity="0.6"/>
+    </svg>
+  );
+}
+
+export function SearchIcon({ size = 24, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      className={`search-icon ${className}`}
+      role="img"
+      aria-label="Search icon"
+      {...props}
+    >
+      <circle cx="11" cy="11" r="7" strokeWidth="2" />
+      <line x1="16.65" y1="16.65" x2="21" y2="21" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function ShareIcon({ size = 24, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      className={`share-icon ${className}`}
+      role="img"
+      aria-label="Share icon"
+      {...props}
+    >
+      <circle cx="18" cy="5" r="3" strokeWidth="2" />
+      <circle cx="6" cy="12" r="3" strokeWidth="2" />
+      <circle cx="18" cy="19" r="3" strokeWidth="2" />
+      <line x1="8.59" y1="10.59" x2="15.41" y2="6.41" strokeWidth="2" strokeLinecap="round" />
+      <line x1="8.59" y1="13.41" x2="15.41" y2="17.59" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// Star icon used for ratings, supports filled / outline states
+interface StarIconProps extends IconProps {
+  filled?: boolean;
+}
+
+export function StarIcon({ size = 24, className = '', filled = true, ...props }: StarIconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={filled ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      className={`star-icon ${className}`}
+      role="img"
+      aria-label={filled ? 'Filled star icon' : 'Outlined star icon'}
+      {...props}
+    >
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" strokeWidth={filled ? 0 : 1.5} />
+    </svg>
+  );
+}
+
+// Icon Wrapper for consistent styling
+interface IconWrapperProps {
+  children: React.ReactNode;
+  variant?: 'default' | 'highlighted' | 'animated' | 'interactive';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  className?: string;
+}
+
+export function IconWrapper({ 
+  children, 
+  variant = 'default', 
+  size = 'md', 
+  className = '' 
+}: IconWrapperProps) {
+  const getVariantClasses = () => {
+    switch (variant) {
+      case 'highlighted':
+        return 'bg-gradient-to-r from-yellow-400 to-orange-500 p-2 rounded-lg shadow-lg';
+      case 'animated':
+        return 'animate-float-gentle hover:scale-110 transition-transform duration-300';
+      case 'interactive':
+        return 'hover:bg-white/10 p-2 rounded-lg transition-all duration-200 cursor-pointer';
+      default:
+        return '';
+    }
+  };
+
+  const getSizeClasses = () => {
+    switch (size) {
+      case 'sm':
+        return 'w-4 h-4';
+      case 'lg':
+        return 'w-8 h-8';
+      case 'xl':
+        return 'w-12 h-12';
+      default:
+        return 'w-6 h-6';
+    }
+  };
+
+  return (
+    <div className={`icon-wrapper ${getVariantClasses()} ${getSizeClasses()} ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+// Icon Grid for showcasing all icons
+export function IconShowcase() {
+  const icons = [
+    { Component: BombIcon, name: 'Bomb' },
+    { Component: GameIcon, name: 'Game' },
+    { Component: PartyIcon, name: 'Party' },
+    { Component: UsersIcon, name: 'Users' },
+    { Component: HeartIcon, name: 'Heart' },
+    { Component: TrophyIcon, name: 'Trophy' },
+    { Component: FireIcon, name: 'Fire' },
+    { Component: SparkleIcon, name: 'Sparkle' },
+    { Component: RocketIcon, name: 'Rocket' },
+  ];
+
+  return (
+    <div className="icon-showcase grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-9 gap-4 p-8">
+      {icons.map(({ Component, name }) => (
+        <div key={name} className="text-center">
+          <IconWrapper variant="highlighted" size="lg">
+            <Component size={24} className="text-white" />
+          </IconWrapper>
+          <p className="text-xs mt-2 text-white/70">{name}</p>
+        </div>
+      ))}
+    </div>
   );
 }

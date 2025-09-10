@@ -48,6 +48,14 @@
   --text-lg: 1.125rem;   /* 18px */
   --text-xl: 1.25rem;    /* 20px */
   --text-2xl: 1.5rem;    /* 24px */
+  
+  /* Mobile Typography Adjustments */
+  --text-xs-mobile: 0.875rem;    /* 14px */
+  --text-sm-mobile: 1rem;        /* 16px */
+  --text-base-mobile: 1.125rem;  /* 18px */
+  --text-lg-mobile: 1.25rem;     /* 20px */
+  --text-xl-mobile: 1.375rem;    /* 22px */
+  --text-2xl-mobile: 1.625rem;   /* 26px */
   --text-3xl: 1.875rem;  /* 30px */
   --text-4xl: 2.25rem;   /* 36px */
   --text-5xl: 3rem;      /* 48px */
@@ -63,6 +71,11 @@
   --leading-normal: 1.5;
   --leading-relaxed: 1.625;
   --leading-loose: 2;
+  
+  /* Responsive Line Heights */
+  --leading-mobile: 1.4;
+  --leading-tablet: 1.5;
+  --leading-desktop: 1.6;
 
   /* Font Weights */
   --font-thin: 100;
@@ -228,6 +241,44 @@
   font-size: var(--text-xs);
   line-height: var(--leading-normal);
   font-weight: var(--font-normal);
+}
+
+/* 📱 MOBILE-OPTIMIZED TYPOGRAPHY */
+@media (max-width: 640px) {
+  .body-xl {
+    font-size: var(--text-xl-mobile);
+    line-height: var(--leading-mobile);
+  }
+  
+  .body-lg {
+    font-size: var(--text-lg-mobile);
+    line-height: var(--leading-mobile);
+  }
+  
+  .body-base {
+    font-size: var(--text-base-mobile);
+    line-height: var(--leading-mobile);
+  }
+  
+  .body-sm {
+    font-size: var(--text-sm-mobile);
+    line-height: var(--leading-mobile);
+  }
+  
+  .body-xs {
+    font-size: var(--text-xs-mobile);
+    line-height: var(--leading-mobile);
+  }
+  
+  /* Optimized heading sizes for mobile */
+  .display-xl { font-size: 2.5rem !important; }
+  .display-lg { font-size: 2rem !important; }
+  .heading-1 { font-size: 1.75rem !important; }
+  .heading-2 { font-size: 1.5rem !important; }
+  .heading-3 { font-size: 1.375rem !important; }
+  .heading-4 { font-size: 1.25rem !important; }
+  .heading-5 { font-size: 1.125rem !important; }
+  .heading-6 { font-size: 1rem !important; }
 }
 
 /* 🏷️ LABELS & CAPTIONS */

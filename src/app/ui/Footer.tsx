@@ -44,13 +44,17 @@ export function Footer() {
         {isClient && staticParticles.map((particle, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-yellow-400/20 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-yellow-400/20 rounded-full animate-pulse anim-delay-dynamic"
             style={{
-              left: `${particle.left}%`,
-              top: `${particle.top}%`,
-              animationDelay: `${particle.animationDelay}s`,
-              animationDuration: `${particle.animationDuration}s`,
-            }}
+              "--left-pos": `${particle.left}%`,
+              "--top-pos": `${particle.top}%`,
+              "--animation-delay": `${particle.animationDelay}s`,
+              "--animation-duration": `${particle.animationDuration}s`,
+              left: `var(--left-pos)`,
+              top: `var(--top-pos)`,
+              animationDelay: `var(--animation-delay)`,
+              animationDuration: `var(--animation-duration)`,
+            } as React.CSSProperties}
           />
         ))}
       </div>

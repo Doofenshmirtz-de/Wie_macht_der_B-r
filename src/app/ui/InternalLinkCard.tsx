@@ -1,6 +1,7 @@
 'use client';
 
-import Link from 'next/link';
+import { createNavigation } from 'next-intl/navigation';
+import { routing } from '@/i18n/routing';
 import { BombIcon, GameIcon } from './EnhancedIcons';
 
 interface InternalLinkCardProps {
@@ -11,6 +12,8 @@ interface InternalLinkCardProps {
   keywords?: string[];
   className?: string;
 }
+
+const { Link } = createNavigation(routing);
 
 export function InternalLinkCard({ 
   href, 
@@ -48,8 +51,7 @@ export function InternalLinkCard({
   };
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <Link href={href as any} className={`block ${className}`}>
+    <Link href={href} className={`block ${className}`}>
       <div className={`
         group relative p-4 rounded-xl border-2 transition-all duration-300 
         hover:scale-105 hover:shadow-xl backdrop-blur-sm bg-white/5

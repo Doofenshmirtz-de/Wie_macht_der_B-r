@@ -13,6 +13,7 @@ export default function OfflinePage() {
     }
   };
 
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
       <div className="text-center space-y-8 max-w-md">
@@ -34,11 +35,14 @@ export default function OfflinePage() {
           </svg>
         </div>
 
+
+
+
         {/* Offline Message */}
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-white">
+          <h2 className="text-3xl font-bold text-white">
             🔌 Du bist offline
-          </h1>
+          </h2>
           <p className="text-lg text-gray-300">
             Es scheint, als hättest du keine Internetverbindung. Überprüfe deine Verbindung und versuche es erneut.
           </p>

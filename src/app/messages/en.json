@@ -3,5 +3,27 @@
     "title": "Blog - Drinking Games Magazine | Wie macht der Bär", 
     "description": "Discover the best tips, trends and secrets for unforgettable parties. From classic drinking games to online trends - your magazine for the perfect party night!",
     "keywords": "Drinking Games Blog, Party Planning, Drinking Game Tips, Online Drinking Games, Party Games Magazine, Drinking Games Guide"
-  }
+  },
+  "bombParty": "Bomb Party",
+  "playerSetup": "Player Setup",
+  "playerName": "Player name",
+  "addPlayer": "Add player",
+  "minTwoPlayers": "At least 2 players required",
+  "playersReady": "Players ready!",
+  "roundsCount": "Number of rounds",
+  "chooseCategory": "Choose category",
+  "casual": "Casual",
+  "hard": "Hard",
+  "spicy": "Spicy",
+  "currentRound": "Current round",
+  "startGame": "Start game",
+  "scoreboard": "Scoreboard",
+  "passPhone": "Pass the phone",
+  "nextWord": "Next word",
+  "gameOver": "Game over!",
+  "whoLostTitle": "Who lost?",
+  "selectLoser": "Select loser",
+  "confirmLoser": "Confirm loser",
+  "losses": "losses",
+  "winner": "Winner"
 }

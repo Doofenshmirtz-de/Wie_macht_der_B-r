@@ -34,10 +34,10 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
           },
-          // HTTP/2 Push & Performance
+          // HTTP/2 Push & Performance - Critical Resource Preloads
           {
             key: 'Link',
-            value: '</bomb.svg>; rel=preload; as=image; type=image/svg+xml',
+            value: '</bomb.svg>; rel=preload; as=image; type=image/svg+xml, </coverphotobear.jpg>; rel=preload; as=image; type=image/jpeg, </bearbomb.jpg>; rel=preload; as=image; type=image/jpeg',
           },
           // Cache Control for static assets
           {
@@ -199,6 +199,20 @@ const withPWAConfig = withPWA({
         expiration: {
           maxEntries: 60,
           maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:mp3|wav|ogg)$/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'audio-cache',
+        expiration: {
+          maxEntries: 20,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        },
+        cacheableResponse: {
+          statuses: [0, 200],
         },
       },
     },

@@ -12,6 +12,7 @@ import { TestimonialsSection } from "../ui/TestimonialsSection";
 import { SocialSharing } from "../ui/SocialSharing";
 import { InternalLinkCard } from "../ui/InternalLinkCard";
 import { FollowUsCTA } from "../ui/SocialMediaLinks";
+import { SectionDivider, SectionContainer } from "../ui/SectionDivider";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
@@ -62,18 +63,29 @@ export default function Home() {
       
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="epic-particle absolute w-2 h-2 bg-yellow-400/30 rounded-full animate-particle-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`,
-            }}
-          />
-        ))}
+        {[...Array(20)].map((_, i) => {
+          const leftPos = Math.random() * 100;
+          const topPos = Math.random() * 100;
+          const delay = Math.random() * 3;
+          const duration = 2 + Math.random() * 3;
+          
+          return (
+            <div
+              key={i}
+              className="epic-particle absolute w-2 h-2 bg-yellow-400/30 rounded-full animate-particle-float anim-delay-dynamic"
+              style={{
+                "--left-pos": `${leftPos}%`,
+                "--top-pos": `${topPos}%`,
+                "--animation-delay": `${delay}s`,
+                "--animation-duration": `${duration}s`,
+                left: `var(--left-pos)`,
+                top: `var(--top-pos)`,
+                animationDelay: `var(--animation-delay)`,
+                animationDuration: `var(--animation-duration)`,
+              } as React.CSSProperties}
+            />
+          );
+        })}
       </div>
 
       <div className="relative z-10 mx-auto max-w-screen-7xl px-4 py-8">
@@ -183,8 +195,12 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Section Divider */}
+        <SectionDivider variant="decorative" showIcon={true} icon="🎮" />
+
         {/* Game Selection Section with Search & Advanced Infinite Scroll */}
-        <section className="mt-32" aria-label="Spieleauswahl mit Suchfunktion">
+        <SectionContainer variant="highlight" id="games-section">
+          <div aria-label="Spieleauswahl mit Suchfunktion">
           <div className="text-center mb-16">
             <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle">
               WÄHLE DEIN SPIEL
@@ -273,13 +289,23 @@ export default function Home() {
               />
             )}
           </div>
-        </section>
+          </div>
+        </SectionContainer>
 
-          {/* 🌟 COMMUNITY STATS SECTION */}
+        {/* Section Divider */}
+        <SectionDivider variant="gradient" showIcon={true} icon="🌟" />
+
+        {/* 🌟 COMMUNITY STATS SECTION */}
+        <SectionContainer variant="accent" id="community-stats">
           <CommunityStats />
+        </SectionContainer>
 
-          {/* 🔗 FEATURED GAMES INTERNAL LINKING */}
-          <section className="mt-32 px-4">
+        {/* Section Divider */}
+        <SectionDivider variant="decorative" showIcon={true} icon="🎯" />
+
+        {/* 🔗 FEATURED GAMES INTERNAL LINKING */}
+        <SectionContainer variant="highlight" id="featured-games">
+          <div className="px-4">
             <div className="text-center mb-12">
               <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
                 🎯 Beliebte Online Trinkspiele
@@ -312,10 +338,15 @@ export default function Home() {
                 keywords={['Wahrheit oder Pflicht', 'Erwachsene', 'Browser']}
               />
             </div>
-          </section>
+          </div>
+        </SectionContainer>
 
-          {/* ❓ FAQ TEASER SECTION */}
-          <section className="mt-32 px-4">
+        {/* Section Divider */}
+        <SectionDivider variant="minimal" />
+
+        {/* ❓ FAQ TEASER SECTION */}
+        <SectionContainer variant="default" id="faq-teaser">
+          <div className="px-4">
             <div className="text-center mb-12">
               <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
                 ❓ Häufig gestellte Fragen
@@ -332,16 +363,32 @@ export default function Home() {
                 className="max-w-lg mx-auto"
               />
             </div>
-          </section>
+          </div>
+        </SectionContainer>
 
-          {/* 💬 TESTIMONIALS SECTION */}
+        {/* Section Divider */}
+        <SectionDivider variant="gradient" showIcon={true} icon="💬" />
+
+        {/* 💬 TESTIMONIALS SECTION */}
+        <SectionContainer variant="accent" id="testimonials">
           <TestimonialsSection />
+        </SectionContainer>
 
-          {/* 🚀 SOCIAL MEDIA FOLLOW CTA */}
+        {/* Section Divider */}
+        <SectionDivider variant="decorative" showIcon={true} icon="🚀" />
+
+        {/* 🚀 SOCIAL MEDIA FOLLOW CTA */}
+        <SectionContainer variant="highlight" id="social-follow">
           <FollowUsCTA />
+        </SectionContainer>
 
-          {/* 📤 SOCIAL SHARING SECTION */}
+        {/* Section Divider */}
+        <SectionDivider variant="minimal" />
+
+        {/* 📤 SOCIAL SHARING SECTION */}
+        <SectionContainer variant="minimal" id="social-sharing">
           <SocialSharing />
+        </SectionContainer>
 
       </div>
       
