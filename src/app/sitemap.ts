@@ -141,7 +141,59 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
 
-    // 🎯 ZUKÜNFTIGE CONTENT-SEITEN (für bessere SEO-Struktur)
+    // 📰 BLOG SEITEN - Content Marketing
+    {
+      url: `${baseUrl}/de/blog`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/en/blog`,
+          de: `${baseUrl}/de/blog`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/en/blog`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/en/blog`,
+          de: `${baseUrl}/de/blog`,
+        },
+      },
+    },
+
+    // ❓ FAQ SEITEN - Wichtig für SEO & User Support
+    {
+      url: `${baseUrl}/de/faq`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/en/faq`,
+          de: `${baseUrl}/de/faq`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/en/faq`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/en/faq`,
+          de: `${baseUrl}/de/faq`,
+        },
+      },
+    },
+
+    // 🎯 ZUKÜNFTIGE LEGAL SEITEN (auskommentiert)
     /*
     {
       url: `${baseUrl}/de/datenschutz`,
@@ -154,12 +206,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'yearly',
       priority: 0.4,
-    },
-    {
-      url: `${baseUrl}/de/blog`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.7,
     },
     */
   ]

@@ -5,12 +5,15 @@ import Image from "next/image";
 import { useLocale } from "next-intl";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
+import { useResponsive } from "../hooks/useResponsive";
+import { MobileOnly, DesktopOnly } from "./MobileOptimizations";
 
 const { Link } = createNavigation(routing);
 
 export function Header() {
   const pathname = usePathname();
   const locale = useLocale();
+  const { isMobile, isTouch } = useResponsive();
   
   // Safe href that falls back to root if pathname is not in defined routes
   const getValidHref = (path: string): "/" | "/game/bomb" | "/game/truthordare" => {
@@ -36,7 +39,9 @@ export function Header() {
       <div className="absolute -top-10 -left-10 w-32 h-32 bg-yellow-400/20 rounded-full blur-xl animate-pulse"></div>
       <div className="absolute -top-5 -right-5 w-24 h-24 bg-blue-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
       
-      <div className="relative mx-auto max-w-screen-lg px-4 py-4 flex items-center justify-between">
+      <div className={`relative mx-auto max-w-screen-lg px-4 flex items-center justify-between ${
+        isMobile ? 'py-3' : 'py-4'
+      }`}>
         {/* Logo with epic styling */}
         <div className="flex items-center gap-8">
           <Link href="/" className="group relative flex items-center gap-3 hover:scale-105 transition-all duration-300">
@@ -54,33 +59,42 @@ export function Header() {
           </div>
         </Link>
 
-        {/* Navigation Menu */}
-        <nav className="hidden md:flex items-center gap-6" role="navigation" aria-label="Hauptnavigation">
-          <Link 
-            href="/game/bomb" 
-            className="group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10"
-          >
-            <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
-              🔥 Bomb Party
-            </span>
-          </Link>
-          <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
-            <span className="text-sm font-bold">
-              🤫 Ich hab noch nie
-            </span>
-          </span>
-          <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
-            <span className="text-sm font-bold">
-              💣 Wahrheit oder Pflicht
-            </span>
-          </span>
-        </nav>
+        {/* Navigation Menu - Desktop Only */}
+            <DesktopOnly>
+              <nav className="flex items-center gap-6" role="navigation" aria-label="Hauptnavigation">
+                <Link 
+                  href="/game/bomb" 
+                  className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
+                    isTouch ? 'min-h-[44px] min-w-[44px]' : ''
+                  }`}
+                >
+                  <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
+                    🔥 Bomb Party
+                  </span>
+                </Link>
+                <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
+                  <span className="text-sm font-bold">
+                    📰 Blog (Coming Soon)
+                  </span>
+                </span>
+                <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
+                  <span className="text-sm font-bold">
+                    🤫 Ich hab noch nie
+                  </span>
+                </span>
+                <span className="group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50">
+                  <span className="text-sm font-bold">
+                    💣 Wahrheit oder Pflicht
+                  </span>
+                </span>
+              </nav>
+            </DesktopOnly>
         </div>
 
         <div className="flex items-center gap-4">
         {/* Language Switcher with Enhanced Clash Royale card style */}
         <div className="flex items-center gap-3">
-          {/* Language Label */}
+          {/* Language Label - Hidden on Mobile */}
           <span className="hidden sm:block text-xs text-yellow-200/80 font-bold tracking-wider">
             SPRACHE
           </span>
@@ -89,11 +103,13 @@ export function Header() {
             aria-label="Deutsch"
             href={getValidHref(pathname || "/")}
             locale="de"
-            className={`group relative h-12 w-16 rounded-xl overflow-hidden border-3 transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-2xl ${
+            className={`group relative ${isMobile ? 'h-10 w-12' : 'h-12 w-16'} rounded-xl overflow-hidden border-3 transition-all duration-300 ${
+              !isMobile ? 'hover:scale-110 hover:-translate-y-2 hover:shadow-2xl' : 'active:scale-95'
+            } ${
               locale === "de" 
                 ? "border-yellow-300 shadow-xl shadow-yellow-400/60 bg-gradient-to-b from-yellow-100 to-yellow-200 scale-105" 
                 : "border-white/40 hover:border-yellow-300/80 bg-gradient-to-b from-white/25 to-white/15"
-            }`}
+            } ${isTouch ? 'min-h-[44px] min-w-[44px]' : ''}`}
           >
             {/* Enhanced glow effects */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></div>
@@ -117,11 +133,13 @@ export function Header() {
             aria-label="English"
             href={getValidHref(pathname || "/")}
             locale="en"
-            className={`group relative h-12 w-16 rounded-xl overflow-hidden border-3 transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:shadow-2xl ${
+            className={`group relative ${isMobile ? 'h-10 w-12' : 'h-12 w-16'} rounded-xl overflow-hidden border-3 transition-all duration-300 ${
+              !isMobile ? 'hover:scale-110 hover:-translate-y-2 hover:shadow-2xl' : 'active:scale-95'
+            } ${
               locale === "en" 
                 ? "border-yellow-300 shadow-xl shadow-yellow-400/60 bg-gradient-to-b from-yellow-100 to-yellow-200 scale-105" 
                 : "border-white/40 hover:border-yellow-300/80 bg-gradient-to-b from-white/25 to-white/15"
-            }`}
+            } ${isTouch ? 'min-h-[44px] min-w-[44px]' : ''}`}
           >
             {/* Enhanced glow effects */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></div>

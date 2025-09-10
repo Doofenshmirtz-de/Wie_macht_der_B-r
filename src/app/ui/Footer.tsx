@@ -1,8 +1,10 @@
 'use client';
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
+import { CommunityStats } from "./CommunityStats";
 // import { useLocale, useTranslations } from "next-intl";
 
 const { Link } = createNavigation(routing);
@@ -10,6 +12,26 @@ const { Link } = createNavigation(routing);
 export function Footer() {
   // const locale = useLocale();
   // const t = useTranslations('Footer');
+  
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Static particles to avoid hydration issues
+  const staticParticles = [
+    { left: 15, top: 20, animationDelay: 0.5, animationDuration: 3 },
+    { left: 85, top: 35, animationDelay: 1.2, animationDuration: 2.5 },
+    { left: 45, top: 60, animationDelay: 2.1, animationDuration: 4 },
+    { left: 70, top: 15, animationDelay: 0.8, animationDuration: 3.5 },
+    { left: 25, top: 75, animationDelay: 1.8, animationDuration: 2.8 },
+    { left: 90, top: 80, animationDelay: 0.3, animationDuration: 3.2 },
+    { left: 10, top: 45, animationDelay: 2.5, animationDuration: 2.2 },
+    { left: 65, top: 25, animationDelay: 1.5, animationDuration: 4.2 },
+    { left: 35, top: 85, animationDelay: 0.9, animationDuration: 3.8 },
+    { left: 55, top: 10, animationDelay: 2.2, animationDuration: 2.9 },
+  ];
 
   return (
     <footer className="relative z-20 mt-32 overflow-hidden" role="contentinfo">
@@ -17,17 +39,17 @@ export function Footer() {
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent opacity-95"></div>
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-blue-900/30 to-purple-900/30"></div>
       
-      {/* Animated particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(10)].map((_, i) => (
+      {/* Animated particles - Static positions to avoid hydration mismatch */}
+      <div className="absolute inset-0 overflow-hidden" suppressHydrationWarning>
+        {isClient && staticParticles.map((particle, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-yellow-400/20 rounded-full animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              animationDelay: `${particle.animationDelay}s`,
+              animationDuration: `${particle.animationDuration}s`,
             }}
           />
         ))}
@@ -67,21 +89,51 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-bold text-yellow-300 mb-4">🎮 Spiele</h4>
+            <h4 className="text-lg font-bold text-yellow-300 mb-4">🎮 Online Trinkspiele</h4>
             <ul className="space-y-2">
               <li>
                 <Link 
                   href="/game/bomb" 
                   className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
                 >
-                  🔥 Bomb Party
+                  🔥 <strong>Bomb Party Trinkspiel</strong> kostenlos
                 </Link>
               </li>
               <li>
-                <span className="text-white/50 text-sm">🤫 Ich hab noch nie</span>
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                <a 
+                  href="/game/neverhaveiever"
+                  className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
+                >
+                  🤫 <strong>Ich hab noch nie</strong> online spielen
+                </a>
               </li>
               <li>
-                <span className="text-white/50 text-sm">💣 Wahrheit oder Pflicht</span>
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                <a 
+                  href="/game/truthordare"
+                  className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
+                >
+                  💣 <strong>Wahrheit oder Pflicht</strong> Browser
+                </a>
+              </li>
+              <li>
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                <a 
+                  href="/blog"
+                  className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
+                >
+                  📰 Trinkspiele Tipps & Guides
+                </a>
+              </li>
+              <li>
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                <a 
+                  href="/faq" 
+                  className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
+                >
+                  ❓ <strong>FAQ</strong> - Häufige Fragen
+                </a>
               </li>
             </ul>
           </div>
