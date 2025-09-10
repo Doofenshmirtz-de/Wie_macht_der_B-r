@@ -280,7 +280,7 @@ export function ItemList({
 
         {/* Items */}
         {items.map((item, index) => (
-          <div key={`${item.id}-${index}`} className={direction === 'horizontal' ? 'snap-center flex-shrink-0' : ''}>
+          <div key={`item-${item.id}-pos-${index}`} className={direction === 'horizontal' ? 'snap-center flex-shrink-0' : ''}>
             {renderItem(item, index)}
           </div>
         ))}

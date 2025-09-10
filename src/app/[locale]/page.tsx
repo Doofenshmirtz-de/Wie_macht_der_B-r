@@ -92,6 +92,8 @@ export default function Home() {
                     height={400}
                     className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
                     priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                    quality={85}
                   />
                   
                   {/* Floating Elements */}
@@ -212,7 +214,7 @@ export default function Home() {
                 {filteredGames.length > 0 ? (
                   filteredGames.map((game, index) => (
                     <GameCard 
-                      key={game.id}
+                      key={`filtered-${game.id}-${index}`}
                       game={game} 
                       index={index}
                       priority={index < 2}

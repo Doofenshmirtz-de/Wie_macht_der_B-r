@@ -16,23 +16,24 @@ export function AccessibilityMenu() {
 
   return (
     <div className="fixed top-4 right-4 z-50">
-      {/* Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`cr-button-primary p-3 rounded-xl shadow-lg transition-all duration-300 ${
-          isOpen ? 'bg-yellow-500' : ''
-        }`}
-        aria-label="Barrierefreiheit-Einstellungen öffnen"
-        aria-expanded={isOpen}
-      >
-        <span className="text-xl" role="img" aria-label="Barrierefreiheit">
-          ♿
-        </span>
-      </button>
+      {/* Toggle Button - bleibt immer rechts */}
+      <div className="relative">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`cr-button-primary p-3 rounded-xl shadow-lg transition-all duration-300 ${
+            isOpen ? 'bg-yellow-500' : ''
+          }`}
+          aria-label="Barrierefreiheit-Einstellungen öffnen"
+          aria-expanded={isOpen}
+        >
+          <span className="text-xl" role="img" aria-label="Barrierefreiheit">
+            ♿
+          </span>
+        </button>
 
-      {/* Menu Panel */}
-      {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-80 cr-card p-6 animate-scale-in">
+        {/* Menu Panel - Rechts bündig mit Button, aber innerhalb des Viewports */}
+        {isOpen && (
+          <div className="absolute top-full right-0 mt-2 w-80 cr-card p-6 animate-scale-in -translate-x-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-yellow-300">
               ♿ Barrierefreiheit
@@ -138,7 +139,8 @@ export function AccessibilityMenu() {
             </button>
           </div>
         </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
