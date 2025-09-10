@@ -109,7 +109,7 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
   const games = [
     {
       id: 'bomb',
-      href: '/game/bomb',
+      href: '/game/bomb' as ValidHref,
       title: 'Bomb Party Trinkspiel',
       description: 'Das ultimative Wortspiel-Trinkspiel! Finde Wörter bevor die Bombe explodiert. Multiplayer-Modus verfügbar.',
       keywords: ['Bomb Party', 'Trinkspiel', 'Multiplayer'],
@@ -117,7 +117,7 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
     },
     {
       id: 'neverhaveiever',
-      href: '/game/neverhaveiever',
+      href: '/game/neverhaveiever' as ValidHref,
       title: 'Ich hab noch nie online',
       description: 'Das klassische Geständnis-Trinkspiel! Finde heraus, wer was schon mal gemacht hat.',
       keywords: ['Ich hab noch nie', 'Geständnisse', 'Party'],
@@ -125,7 +125,7 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
     },
     {
       id: 'truthordare',
-      href: '/game/truthordare',
+      href: '/game/truthordare' as ValidHref,
       title: 'Wahrheit oder Pflicht Browser',
       description: 'Mutige Wahrheiten und verrückte Aufgaben! Das perfekte Partyspiel für Erwachsene.',
       keywords: ['Wahrheit oder Pflicht', 'Aufgaben', 'Erwachsene'],
@@ -171,7 +171,7 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
         {/* Back to Homepage CTA */}
         <div className="text-center mt-8">
           <InternalLinkCard
-            href="/"
+            href={"/" as ValidHref}
             title="Alle Online Trinkspiele anzeigen"
             description="Zurück zur Übersicht aller kostenlosen Browser Trinkspiele und Partyspiele."
             gameType="blog"
