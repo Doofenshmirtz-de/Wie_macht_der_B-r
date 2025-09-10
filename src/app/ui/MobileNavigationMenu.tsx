@@ -12,6 +12,11 @@ interface MobileNavigationMenuProps {
   className?: string;
 }
 
+type RoutePath = "/" | "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" | "/faq" | "/blog";
+type ScrollItem = { href: `#${string}`; label: string; description: string; isScroll: true };
+type NavItem = { href: RoutePath; label: string; description: string; isScroll?: false };
+type MenuItem = ScrollItem | NavItem;
+
 export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { isMobile } = useResponsive();
@@ -37,7 +42,7 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
 
   if (!isMobile) return null;
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     {
       href: '/',
       label: '🏠 Startseite',
@@ -162,7 +167,7 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
             ) : (
               <Link
                 key={item.href}
-                href={item.href as any}
+                href={item.href as RoutePath}
                 className="group block p-4 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 transition-all duration-300"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
@@ -205,7 +210,7 @@ export function TouchOptimizations() {
       document.documentElement.classList.add('touch-device');
       
       // Improve touch scrolling performance
-      document.body.style.webkitOverflowScrolling = 'touch';
+      document.body.style.setProperty('-webkit-overflow-scrolling', 'touch');
       
       // Prevent zoom on double-tap
       let lastTouchEnd = 0;
