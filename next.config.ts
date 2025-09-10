@@ -63,13 +63,23 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Static assets caching
+      // Static assets caching - Images and Fonts
       {
         source: '/(.*)\\.(ico|png|jpg|jpeg|gif|webp|svg|woff|woff2|ttf|eot|otf)',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Audio files caching
+      {
+        source: '/(.*)\\.(mp3|wav|ogg|m4a)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=2592000, immutable', // 30 days
           },
         ],
       },

@@ -1,0 +1,81 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useAnalytics } from '../providers/AnalyticsProvider';
+
+export function CookieBanner() {
+  const { consent, giveConsent, revokeConsent } = useAnalytics();
+  const [showBanner, setShowBanner] = useState(false);
+
+  useEffect(() => {
+    // Zeige Banner nur wenn noch keine Entscheidung getroffen wurde
+    if (consent === null) {
+      // Verzögerung von 2 Sekunden bevor Banner erscheint
+      const timer = setTimeout(() => {
+        setShowBanner(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [consent]);
+
+  const handleAccept = () => {
+    giveConsent();
+    setShowBanner(false);
+  };
+
+  const handleDecline = () => {
+    revokeConsent();
+    setShowBanner(false);
+  };
+
+  if (!showBanner || consent !== null) {
+    return null;
+  }
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-t border-yellow-400/30 p-4 animate-slide-in-left">
+      <div className="max-w-screen-xl mx-auto">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          {/* Content */}
+          <div className="flex-1">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🍪</span>
+              <div>
+                <h3 className="text-white font-bold text-sm mb-1">
+                  Cookies & Analytics
+                </h3>
+                <p className="text-gray-300 text-xs leading-relaxed">
+                  Wir verwenden Google Analytics, um unsere Website zu verbessern. 
+                  Alle Daten werden anonymisiert und GDPR-konform verarbeitet. 
+                  <br className="hidden sm:block" />
+                  <a 
+                    href="/datenschutz" 
+                    className="text-yellow-400 hover:text-yellow-300 underline transition-colors"
+                  >
+                    Mehr Details in unserer Datenschutzerklärung
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex gap-2 w-full sm:w-auto">
+            <button
+              onClick={handleDecline}
+              className="flex-1 sm:flex-none px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors duration-200"
+            >
+              Ablehnen
+            </button>
+            <button
+              onClick={handleAccept}
+              className="flex-1 sm:flex-none px-4 py-2 text-xs font-semibold text-black bg-yellow-400 hover:bg-yellow-300 rounded-lg transition-colors duration-200"
+            >
+              Akzeptieren
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

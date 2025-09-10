@@ -4,6 +4,7 @@ import Image from "next/image";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
 import type { GameCard as GameCardType } from "../lib/game-actions";
+import { useGameAnalytics } from "../hooks/useGameAnalytics";
 
 const { Link: LocaleLink } = createNavigation(routing);
 
@@ -26,6 +27,13 @@ export function GameCard({ game, priority = false }: GameCardProps) {
     difficulty,
     imageSrc,
   } = game;
+
+  const { trackGameSelection } = useGameAnalytics();
+
+  const handleGameClick = () => {
+    // Tracke Spielauswahl für Analytics
+    trackGameSelection(title);
+  };
 
   const cardContent = (
     <div 
