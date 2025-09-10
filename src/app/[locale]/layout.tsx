@@ -5,6 +5,8 @@ import { setRequestLocale, getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import type { AppLocale } from "@/i18n/routing";
 import { Header } from "../ui/Header";
+import { Footer } from "../ui/Footer";
+import { AccessibilityMenu } from "../ui/AccessibilityMenu";
 import { SoundProvider } from "../providers/SoundProvider";
 import { SettingsProvider } from "../providers/SettingsProvider";
 import { AnalyticsProvider } from "../providers/AnalyticsProvider";
@@ -40,13 +42,36 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
         <SettingsProvider>
           <SoundProvider>
             <div className="min-h-screen">
-              <div className="relative overflow-hidden">
-                <Header />
+            <div className="relative overflow-hidden">
+              {/* Skip Navigation Link */}
+              <a href="#main-content" className="skip-link">
+                Zum Hauptinhalt springen
+              </a>
+              
+              <Header />
+              
+              <main id="main-content" tabIndex={-1}>
                 {children}
-                <PWAInstallPrompt />
-                <ServiceWorkerRegistration />
-                <CookieBanner />
-              </div>
+              </main>
+              
+              <Footer />
+              
+              {/* Accessibility Tools */}
+              <AccessibilityMenu />
+              
+              {/* PWA & Technical Components */}
+              <PWAInstallPrompt />
+              <ServiceWorkerRegistration />
+              <CookieBanner />
+              
+              {/* ARIA Live Region for Announcements */}
+              <div 
+                id="live-region" 
+                className="live-region" 
+                aria-live="polite" 
+                aria-atomic="true"
+              />
+            </div>
             </div>
           </SoundProvider>
         </SettingsProvider>

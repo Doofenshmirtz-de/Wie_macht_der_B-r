@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { getInitialGames } from "../lib/game-actions";
 import { ItemList } from "../components/ItemList";
 import { GameCard } from "../components/GameCard";
+import GameSearch from "../ui/GameSearch";
+import { useGameSearch } from "../hooks/useGameSearch";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
@@ -29,6 +31,19 @@ export default function Home() {
     
     loadInitial();
   }, []);
+
+  // Suchfunktionalität
+  const allGames = initialGamesData?.games || [];
+  const {
+    filteredGames,
+    filters,
+    updateSearchTerm,
+    updateFilter,
+    clearFilters,
+    hasActiveFilters,
+    resultCount,
+    totalCount,
+  } = useGameSearch(allGames);
 
   if (!mounted) return null;
 
@@ -89,7 +104,9 @@ export default function Home() {
             <div className="order-1 lg:order-2 text-center lg:text-left">
               {/* Main Title */}
               <div className="relative inline-block">
-                <h1 className="epic-title relative text-4xl sm:text-6xl lg:text-7xl font-black bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent drop-shadow-2xl tracking-tight leading-none animate-hero-glow">
+                <h1 className="epic-title relative text-4xl sm:text-6xl lg:text-7xl font-black bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent drop-shadow-2xl tracking-tight leading-none animate-hero-glow"
+                  aria-label="Wie macht der Bär - Online Trinkspiele"
+              >
                   WIE MACHT
                   <br />
                   <span className="text-3xl sm:text-5xl lg:text-6xl bg-gradient-to-r from-red-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
@@ -135,7 +152,10 @@ export default function Home() {
 
               {/* Download Button */}
               <div className="mt-10 animate-scale-in">
-                <button className="epic-download-button group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black">
+                <button 
+                className="epic-download-button group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black"
+                aria-label="App herunterladen und installieren"
+              >
                   {/* Button Content */}
                   <div className="relative flex items-center gap-3">
                     <span className="text-2xl">📱</span>
@@ -156,8 +176,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Game Selection Section with Advanced Infinite Scroll */}
-        <section className="mt-32">
+        {/* Game Selection Section with Search & Advanced Infinite Scroll */}
+        <section className="mt-32" aria-label="Spieleauswahl mit Suchfunktion">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-black bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-hero-glow">
               WÄHLE DEIN SPIEL
@@ -167,39 +187,84 @@ export default function Home() {
               <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
             </div>
           </div>
+
+          {/* 🔍 SUCHFUNKTION */}
+          <GameSearch
+            onSearch={updateSearchTerm}
+            onFilterChange={updateFilter}
+            onClearFilters={clearFilters}
+            filters={filters}
+            resultCount={resultCount}
+            totalCount={totalCount}
+            hasActiveFilters={hasActiveFilters}
+          />
           
           <div className="relative">
-            {/* Advanced Infinite Scroll mit bidirektionalem Laden */}
-            <ItemList
-              initialData={initialGamesData || undefined}
-              itemsPerLoad={3}
-              direction="horizontal"
-              className="infinite-scroll-container"
-              renderItem={(game, index) => (
-                <GameCard 
-                  game={game} 
-                  index={index}
-                  priority={index < 2} // Erste 2 Karten haben Priority Loading
-                />
-              )}
-              loadingComponent={
-                <div className="snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] flex items-center justify-center p-8">
-                  <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
-                    <span className="text-white/80 font-bold">Lade weitere Spiele...</span>
+            {/* Zeige Suchergebnisse oder normale Liste */}
+            {hasActiveFilters ? (
+              /* Gefilterte Spiele-Liste */
+              <div className="flex flex-wrap justify-center gap-6">
+                {filteredGames.length > 0 ? (
+                  filteredGames.map((game, index) => (
+                    <GameCard 
+                      key={game.id}
+                      game={game} 
+                      index={index}
+                      priority={index < 2}
+                    />
+                  ))
+                ) : (
+                  /* Keine Ergebnisse */
+                  <div className="text-center w-full py-16">
+                    <div className="text-6xl mb-6">😢</div>
+                    <h3 className="text-2xl font-bold text-white mb-4">
+                      Keine Spiele gefunden!
+                    </h3>
+                    <p className="text-white/60 mb-6">
+                      Versuche es mit anderen Suchbegriffen oder filtere weniger spezifisch.
+                    </p>
+                    <button
+                      onClick={clearFilters}
+                      className="cr-button-primary px-6 py-3 font-bold"
+                    >
+                      🔄 Alle Spiele anzeigen
+                    </button>
                   </div>
-                </div>
-              }
-              errorComponent={
-                <div className="snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] flex items-center justify-center p-8">
-                  <div className="text-center text-red-400">
-                    <div className="text-4xl mb-4">⚠️</div>
-                    <p className="font-bold">Fehler beim Laden</p>
-                    <p className="text-sm text-white/60 mt-2">Versuche es später erneut</p>
+                )}
+              </div>
+            ) : (
+              /* Standard Advanced Infinite Scroll */
+              <ItemList
+                initialData={initialGamesData || undefined}
+                itemsPerLoad={3}
+                direction="horizontal"
+                className="infinite-scroll-container"
+                renderItem={(game, index) => (
+                  <GameCard 
+                    game={game} 
+                    index={index}
+                    priority={index < 2} // Erste 2 Karten haben Priority Loading
+                  />
+                )}
+                loadingComponent={
+                  <div className="snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] flex items-center justify-center p-8">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+                      <span className="text-white/80 font-bold">Lade weitere Spiele...</span>
+                    </div>
                   </div>
-                </div>
-              }
-            />
+                }
+                errorComponent={
+                  <div className="snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] flex items-center justify-center p-8">
+                    <div className="text-center text-red-400">
+                      <div className="text-4xl mb-4">⚠️</div>
+                      <p className="font-bold">Fehler beim Laden</p>
+                      <p className="text-sm text-white/60 mt-2">Versuche es später erneut</p>
+                    </div>
+                  </div>
+                }
+              />
+            )}
           </div>
         </section>
 

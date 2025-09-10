@@ -754,3 +754,168 @@ select {
     border-radius: 16px;
   }
 }
+
+/* 🌟 ACCESSIBILITY ENHANCEMENTS */
+
+/* Reduced Motion for Users with vestibular disorders */
+.reduce-motion,
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* High Contrast Mode */
+.high-contrast {
+  --background: #000000;
+  --foreground: #ffffff;
+  filter: contrast(2) brightness(1.2);
+}
+
+.high-contrast .cr-card {
+  background: #000000 !important;
+  border: 3px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+.high-contrast .cr-button-primary {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.high-contrast .text-white\/70,
+.high-contrast .text-white\/60,
+.high-contrast .text-white\/50 {
+  color: #ffffff !important;
+}
+
+/* Font Size Classes */
+.font-small { font-size: 0.875rem; }
+.font-normal { font-size: 1rem; }
+.font-large { font-size: 1.125rem; }
+.font-xl { font-size: 1.25rem; }
+
+.font-small h1 { font-size: 2rem !important; }
+.font-large h1 { font-size: 4rem !important; }
+.font-xl h1 { font-size: 5rem !important; }
+
+.font-small h2 { font-size: 1.5rem !important; }
+.font-large h2 { font-size: 3rem !important; }
+.font-xl h2 { font-size: 4rem !important; }
+
+/* Focus Styles for Keyboard Navigation */
+*:focus {
+  outline: 3px solid #ffd700;
+  outline-offset: 2px;
+}
+
+.cr-button-primary:focus,
+.cr-button-danger:focus {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Skip Links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000000;
+  color: #ffffff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ARIA Live Region Styles */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Touch Target Improvements */
+@media (pointer: coarse) {
+  button,
+  input,
+  select,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Color Blind Friendly Patterns */
+.pattern-dots {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+.pattern-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    currentColor 4px,
+    currentColor 8px
+  );
+}
+
+/* Enhanced Input Styles */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid #ffd700;
+  outline-offset: 2px;
+  border-color: #ffd700;
+}
+
+/* Keyboard-only Focus (no mouse focus) */
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+/* Error States */
+.error-state {
+  border-color: #dc2626 !important;
+  color: #dc2626 !important;
+}
+
+.error-state:focus {
+  outline-color: #dc2626 !important;
+}
+
+/* Success States */
+.success-state {
+  border-color: #059669 !important;
+  color: #059669 !important;
+}
+
+.success-state:focus {
+  outline-color: #059669 !important;
+}
