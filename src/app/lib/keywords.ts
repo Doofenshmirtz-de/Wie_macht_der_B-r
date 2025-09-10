@@ -451,7 +451,7 @@ export function getTrendingKeywords(): string[] {
   ];
 }
 
-export function getLongTailKeywords(_category: string): string[] {
+export function getLongTailKeywords(): string[] {
   const allCategories = {
     ...GAME_KEYWORDS,
     ...CATEGORY_KEYWORDS,
