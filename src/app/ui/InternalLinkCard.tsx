@@ -4,8 +4,10 @@ import { createNavigation } from 'next-intl/navigation';
 import { routing } from '@/i18n/routing';
 import { BombIcon, GameIcon } from './EnhancedIcons';
 
+type ValidHref = keyof typeof routing.pathnames;
+
 interface InternalLinkCardProps {
-  href: string;
+  href: ValidHref;
   title: string;
   description: string;
   gameType: 'bomb' | 'neverhaveiever' | 'truthordare' | 'blog';
