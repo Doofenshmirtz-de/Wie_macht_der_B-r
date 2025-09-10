@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { BombIcon, GameIcon, SearchIcon } from './EnhancedIcons';
 
 interface FAQItem {
@@ -321,12 +322,9 @@ export function FAQSection({
             >
               📧 Kontakt
             </a>
-            <a 
-              href="/" 
-              className="btn-primary text-sm"
-            >
+            <Link href="/" className="btn-primary text-sm">
               🎮 Spiele jetzt!
-            </a>
+            </Link>
           </div>
         </div>
       </div>
