@@ -7,6 +7,10 @@ import { ItemList } from "../components/ItemList";
 import { GameCard } from "../components/GameCard";
 import GameSearch from "../ui/GameSearch";
 import { useGameSearch } from "../hooks/useGameSearch";
+import { CommunityStats } from "../ui/CommunityStats";
+import { TestimonialsSection } from "../ui/TestimonialsSection";
+import { SocialSharing } from "../ui/SocialSharing";
+import { InternalLinkCard } from "../ui/InternalLinkCard";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
@@ -104,13 +108,13 @@ export default function Home() {
             <div className="order-1 lg:order-2 text-center lg:text-left">
               {/* Main Title */}
               <div className="relative inline-block">
-                <h1 className="epic-title relative text-4xl sm:text-6xl lg:text-7xl font-black bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent drop-shadow-2xl tracking-tight leading-none animate-hero-glow"
-                  aria-label="Wie macht der Bär - Online Trinkspiele"
+                <h1 className="epic-title relative display-xl gradient-text text-shadow-glow animate-float-gentle"
+                  aria-label="Online Trinkspiele kostenlos - Wie macht der Bär"
               >
-                  WIE MACHT
+                  ONLINE TRINKSPIELE
                   <br />
-                  <span className="text-3xl sm:text-5xl lg:text-6xl bg-gradient-to-r from-red-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
-                    DER BÄR
+                  <span className="heading-1 gradient-text">
+                    KOSTENLOS SPIELEN
                   </span>
                 </h1>
               </div>
@@ -153,7 +157,7 @@ export default function Home() {
               {/* Download Button */}
               <div className="mt-10 animate-scale-in">
                 <button 
-                className="epic-download-button group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black"
+                className="btn-primary group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black animate-glow-pulse shimmer-effect border-glow"
                 aria-label="App herunterladen und installieren"
               >
                   {/* Button Content */}
@@ -179,10 +183,10 @@ export default function Home() {
         {/* Game Selection Section with Search & Advanced Infinite Scroll */}
         <section className="mt-32" aria-label="Spieleauswahl mit Suchfunktion">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-black bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-lg animate-hero-glow">
+            <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle">
               WÄHLE DEIN SPIEL
             </h2>
-            <p className="mt-4 text-white/80 text-xl font-semibold">Bereit für den ultimativen Partyspaß?</p>
+            <p className="mt-4 body-lg text-white/80 font-semibold">Bereit für den ultimativen Partyspaß?</p>
             <div className="mt-6 flex justify-center">
               <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
             </div>
@@ -268,8 +272,75 @@ export default function Home() {
           </div>
         </section>
 
+          {/* 🌟 COMMUNITY STATS SECTION */}
+          <CommunityStats />
+
+          {/* 🔗 FEATURED GAMES INTERNAL LINKING */}
+          <section className="mt-32 px-4">
+            <div className="text-center mb-12">
+              <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+                🎯 Beliebte Online Trinkspiele
+              </h2>
+              <p className="body-lg text-white/80">
+                Entdecke die besten Browser Trinkspiele kostenlos ohne Download!
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <InternalLinkCard
+                href="/game/bomb"
+                title="Bomb Party Trinkspiel Multiplayer"
+                description="Das ultimative Wortspiel-Trinkspiel online! Spiele Bomb Party kostenlos mit bis zu 16 Freunden."
+                gameType="bomb"
+                keywords={['Bomb Party', 'Multiplayer', 'Kostenlos']}
+              />
+              <InternalLinkCard
+                href="/game/neverhaveiever"
+                title="Ich hab noch nie online kostenlos"
+                description="Das klassische Geständnis-Trinkspiel jetzt online! Finde heraus, wer was schon mal gemacht hat."
+                gameType="neverhaveiever"
+                keywords={['Ich hab noch nie', 'Geständnisse', 'Online']}
+              />
+              <InternalLinkCard
+                href="/game/truthordare"
+                title="Wahrheit oder Pflicht Browser Spiel"
+                description="Mutige Wahrheiten und verrückte Aufgaben! Das perfekte Partyspiel für Erwachsene online."
+                gameType="truthordare"
+                keywords={['Wahrheit oder Pflicht', 'Erwachsene', 'Browser']}
+              />
+            </div>
+          </section>
+
+          {/* ❓ FAQ TEASER SECTION */}
+          <section className="mt-32 px-4">
+            <div className="text-center mb-12">
+              <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+                ❓ Häufig gestellte Fragen
+              </h2>
+              <p className="body-lg text-white/80 mb-8">
+                Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!
+              </p>
+              <InternalLinkCard
+                href="/faq"
+                title="Komplette FAQ zu Online Trinkspielen"
+                description="15+ Antworten zu Bomb Party Regeln, Browser Kompatibilität, Multiplayer Setup und verantwortungsvollem Trinken."
+                gameType="blog"
+                keywords={['FAQ', 'Hilfe', 'Antworten']}
+                className="max-w-lg mx-auto"
+              />
+            </div>
+          </section>
+
+          {/* 💬 TESTIMONIALS SECTION */}
+          <TestimonialsSection />
+
+          {/* 📤 SOCIAL SHARING SECTION */}
+          <SocialSharing />
 
       </div>
+      
+      {/* 📤 FLOATING SOCIAL SHARE */}
+      <SocialSharing variant="floating" />
     </main>
   );
 }

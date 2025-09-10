@@ -1,0 +1,435 @@
+/* 🎨 DESIGN SYSTEM - WIE MACHT DER BÄR */
+/* Professionelle Design-Tokens und Typography Hierarchy */
+
+:root {
+  /* 🎨 COLOR PALETTE - REFINED */
+  --color-primary-50: #fffbeb;
+  --color-primary-100: #fef3c7;
+  --color-primary-200: #fde68a;
+  --color-primary-300: #fcd34d;
+  --color-primary-400: #fbbf24;
+  --color-primary-500: #f59e0b; /* Main Brand */
+  --color-primary-600: #d97706;
+  --color-primary-700: #b45309;
+  --color-primary-800: #92400e;
+  --color-primary-900: #78350f;
+
+  --color-secondary-50: #fdf2f8;
+  --color-secondary-100: #fce7f3;
+  --color-secondary-200: #fbcfe8;
+  --color-secondary-300: #f9a8d4;
+  --color-secondary-400: #f472b6;
+  --color-secondary-500: #ec4899; /* Secondary Brand */
+  --color-secondary-600: #db2777;
+  --color-secondary-700: #be185d;
+  --color-secondary-800: #9d174d;
+  --color-secondary-900: #831843;
+
+  --color-accent-50: #ecfdf5;
+  --color-accent-100: #d1fae5;
+  --color-accent-200: #a7f3d0;
+  --color-accent-300: #6ee7b7;
+  --color-accent-400: #34d399;
+  --color-accent-500: #10b981; /* Success/Live */
+  --color-accent-600: #059669;
+  --color-accent-700: #047857;
+  --color-accent-800: #065f46;
+  --color-accent-900: #064e3b;
+
+  /* 🔤 TYPOGRAPHY SCALE */
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-heading: 'Clash Display', 'Inter', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Typography Scale - Perfect Fifth (1.5) */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+  --text-6xl: 3.75rem;   /* 60px */
+  --text-7xl: 4.5rem;    /* 72px */
+  --text-8xl: 6rem;      /* 96px */
+  --text-9xl: 8rem;      /* 128px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Font Weights */
+  --font-thin: 100;
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+
+  /* 📏 SPACING SCALE */
+  --space-px: 1px;
+  --space-0: 0rem;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+
+  /* 🟡 BORDER RADIUS */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;  /* 2px */
+  --radius-base: 0.25rem; /* 4px */
+  --radius-md: 0.375rem;  /* 6px */
+  --radius-lg: 0.5rem;    /* 8px */
+  --radius-xl: 0.75rem;   /* 12px */
+  --radius-2xl: 1rem;     /* 16px */
+  --radius-3xl: 1.5rem;   /* 24px */
+  --radius-full: 9999px;
+
+  /* 🌟 SHADOWS */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+
+  /* 🎯 TRANSITIONS */
+  --transition-none: none;
+  --transition-all: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-default: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-colors: color, background-color, border-color, text-decoration-color, fill, stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-opacity: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-shadow: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-transform: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 🎬 EASINGS */
+  --ease-linear: cubic-bezier(0, 0, 1, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* 🎨 ENHANCED TYPOGRAPHY HIERARCHY */
+
+.display-2xl {
+  font-size: var(--text-9xl);
+  line-height: var(--leading-none);
+  font-weight: var(--font-black);
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.025em;
+}
+
+.display-xl {
+  font-size: var(--text-8xl);
+  line-height: var(--leading-none);
+  font-weight: var(--font-black);
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.025em;
+}
+
+.display-lg {
+  font-size: var(--text-7xl);
+  line-height: var(--leading-tight);
+  font-weight: var(--font-black);
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.02em;
+}
+
+.heading-1 {
+  font-size: var(--text-6xl);
+  line-height: var(--leading-tight);
+  font-weight: var(--font-extrabold);
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.015em;
+}
+
+.heading-2 {
+  font-size: var(--text-5xl);
+  line-height: var(--leading-tight);
+  font-weight: var(--font-bold);
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-size: var(--text-4xl);
+  line-height: var(--leading-snug);
+  font-weight: var(--font-bold);
+  font-family: var(--font-family-heading);
+}
+
+.heading-4 {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-snug);
+  font-weight: var(--font-semibold);
+  font-family: var(--font-family-heading);
+}
+
+.heading-5 {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-semibold);
+  font-family: var(--font-family-heading);
+}
+
+.heading-6 {
+  font-size: var(--text-xl);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-medium);
+  font-family: var(--font-family-heading);
+}
+
+/* Body Text */
+.body-xl {
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--font-normal);
+}
+
+.body-lg {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--font-normal);
+}
+
+.body-base {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-normal);
+}
+
+.body-sm {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-normal);
+}
+
+.body-xs {
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-normal);
+}
+
+/* 🏷️ LABELS & CAPTIONS */
+.label-lg {
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.label-base {
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.caption {
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-normal);
+  color: rgb(156 163 175); /* gray-400 */
+}
+
+/* 🎯 ENHANCED BUTTON SYSTEM */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-600));
+  color: white;
+  font-weight: var(--font-semibold);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-primary-400);
+  box-shadow: var(--shadow-lg), 0 0 0 0 var(--color-primary-400);
+  transition: var(--transition-all);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl), 0 0 20px var(--color-primary-400);
+  border-color: var(--color-primary-300);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--color-secondary-500), var(--color-secondary-600));
+  color: white;
+  font-weight: var(--font-semibold);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-secondary-400);
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition-all);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl), 0 0 20px var(--color-secondary-400);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: var(--font-medium);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  transition: var(--transition-all);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+/* 📐 CARD SYSTEM */
+.card-elevated {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-2xl);
+  transition: var(--transition-all);
+}
+
+.card-elevated:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 🎨 GRADIENT SYSTEM */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-600), var(--color-secondary-500));
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--color-secondary-400), var(--color-secondary-600), var(--color-primary-500));
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--color-accent-400), var(--color-accent-600), var(--color-primary-500));
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary-400), var(--color-secondary-500), var(--color-accent-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300% 300%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* 🌟 MICRO-INTERACTIONS */
+@keyframes button-press {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px var(--color-primary-400); }
+  50% { box-shadow: 0 0 40px var(--color-primary-500); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-button-press {
+  animation: button-press 0.2s ease;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-float-gentle {
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+.shimmer-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+/* 🎯 UTILITY CLASSES */
+.text-shadow-glow {
+  text-shadow: 0 0 20px currentColor;
+}
+
+.backdrop-blur-strong {
+  backdrop-filter: blur(24px);
+}
+
+.border-glow {
+  position: relative;
+}
+
+.border-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, var(--color-primary-400), var(--color-secondary-500), var(--color-accent-500));
+  z-index: -1;
+}
+
+/* 📱 RESPONSIVE REFINEMENTS */
+@media (max-width: 768px) {
+  .display-2xl { font-size: var(--text-6xl); }
+  .display-xl { font-size: var(--text-5xl); }
+  .display-lg { font-size: var(--text-4xl); }
+  .heading-1 { font-size: var(--text-4xl); }
+  .heading-2 { font-size: var(--text-3xl); }
+  .heading-3 { font-size: var(--text-2xl); }
+  
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+}

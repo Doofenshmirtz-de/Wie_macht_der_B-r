@@ -919,3 +919,353 @@ textarea:focus {
 .success-state:focus {
   outline-color: #059669 !important;
 }
+
+/* 🎬 SOCIAL PROOF ANIMATIONS */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+/* Testimonials Styles */
+.testimonial-card {
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Community Stats Styles */
+.stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  transition: left 0.8s ease;
+}
+
+.stat-card:hover::before {
+  left: 100%;
+}
+
+/* Social Sharing Styles */
+.share-platform-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.share-platform-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.share-platform-btn:hover::before {
+  transform: translateX(100%);
+}
+
+/* Live indicator pulse */
+@keyframes live-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.live-indicator {
+  animation: live-pulse 2s infinite;
+}
+
+/* Rating stars animation */
+@keyframes star-glow {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.3) drop-shadow(0 0 8px currentColor);
+  }
+}
+
+.rating-stars:hover .star {
+  animation: star-glow 1s ease-in-out infinite;
+}
+
+/* Floating elements */
+.floating-share {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Gradient text enhancements */
+.gradient-text-enhanced {
+  background: linear-gradient(135deg, #ffd700, #ff6b35, #f7931e, #ffd700);
+  background-size: 300% 300%;
+  animation: gradient-shift 4s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 📱 MOBILE & RESPONSIVE OPTIMIZATIONS */
+
+/* Mobile-specific body modifications */
+body.is-mobile {
+  font-size: 16px; /* Verhindert zoom auf iOS */
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.is-touch {
+  /* Verbesserte Touch-Targets */
+  --min-touch-target: 44px;
+}
+
+/* Touch-optimierte Interaktionen */
+.is-touch button,
+.is-touch a,
+.is-touch input,
+.is-touch select {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Mobile-optimierte Animationen (reduziert für bessere Performance) */
+.is-mobile .animate-pulse,
+.is-mobile .animate-spin,
+.is-mobile .animate-bounce {
+  animation-duration: 1s !important;
+}
+
+/* Landscape-spezifische Anpassungen */
+body.is-landscape.is-mobile {
+  /* Kompaktere Abstände im Landscape-Modus */
+}
+
+body.is-landscape.is-mobile .epic-hero-section {
+  padding: 1rem 0 !important;
+}
+
+body.is-landscape.is-mobile .epic-title {
+  font-size: 2rem !important;
+  line-height: 1.1 !important;
+}
+
+/* Touch-spezifische Hover-Ersetzungen */
+.is-touch .hover\:scale-110:hover {
+  transform: scale(1) !important;
+}
+
+.is-touch .hover\:scale-110:active {
+  transform: scale(0.95) !important;
+}
+
+/* Mobile-optimierte Scroll-Bereiche */
+.is-mobile .overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.is-mobile .overflow-x-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* Responsive Design Utilities */
+.mobile-optimized {
+  /* Basis-Klasse für mobile Optimierungen */
+}
+
+@media (max-width: 639px) {
+  /* Extra Mobile Optimierungen */
+  .epic-download-button {
+    padding: 0.75rem 1.25rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  .cr-button-primary {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* Suchfunktion kompakter */
+  .cr-card {
+    padding: 1rem !important;
+  }
+  
+  /* Testimonials mobile */
+  .testimonial-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* Community Stats mobile */
+  .stat-card {
+    padding: 1rem !important;
+  }
+  
+  /* Social Sharing kompakter */
+  .share-platform-btn {
+    padding: 0.75rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+@media (max-width: 479px) {
+  /* Extra kleine Bildschirme (alte Phones) */
+  .epic-title {
+    font-size: 2rem !important;
+  }
+  
+  .epic-subtitle {
+    font-size: 1rem !important;
+  }
+  
+  .cr-card {
+    padding: 0.75rem !important;
+    margin: 0.5rem !important;
+  }
+}
+
+/* Tablet-spezifische Optimierungen */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .is-tablet .epic-title {
+    font-size: 3.5rem !important;
+  }
+  
+  .is-tablet .grid-cols-1 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* High-DPI Display Optimierungen */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .epic-hero-section {
+    /* Schärfere Bilder für Retina-Displays */
+  }
+}
+
+/* Safe Area Anpassungen für moderne Handys */
+@supports (padding: max(0px)) {
+  .safe-area-inset {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Performance-Optimierungen für Mobile */
+.is-mobile * {
+  /* Reduziere komplexe Schatten auf Mobile */
+  box-shadow: none !important;
+}
+
+.is-mobile .drop-shadow-2xl,
+.is-mobile .shadow-2xl {
+  filter: none !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Touch-Feedback Optimierungen */
+.is-touch button:active,
+.is-touch .cr-button-primary:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Mobile Navigation Improvements */
+@media (max-width: 639px) {
+  /* Header kompakter */
+  header {
+    padding: 0.5rem 0 !important;
+  }
+  
+  /* Footer kompakter */
+  footer {
+    margin-top: 2rem !important;
+    padding: 2rem 0 !important;
+  }
+  
+  /* Floating elements angepasst */
+  .fixed.bottom-20 {
+    bottom: 4rem !important;
+  }
+  
+  .fixed.bottom-4 {
+    bottom: 1rem !important;
+  }
+}

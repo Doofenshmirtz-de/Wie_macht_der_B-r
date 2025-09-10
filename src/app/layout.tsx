@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Wie macht der Bär: Online Trinkspiele für deine Party",
     template: "%s | Wie macht der Bär"
   },
-  description: "🍻 Die besten Online Trinkspiele für deine Party! Spiele Bomb Party, Quiz Show und mehr mit Freunden. Kostenlos, ohne Download - direkt im Browser spielen!",
+  description: "🍻 Die besten Online Trinkspiele kostenlos ohne Anmeldung! Bomb Party Multiplayer, Ich hab noch nie, Wahrheit oder Pflicht - Browser Trinkspiele für Erwachsene. Perfekt für jede Party!",
   keywords: [
     "Trinkspiele",
     "Online Trinkspiele", 

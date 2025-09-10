@@ -7,6 +7,8 @@ import type { AppLocale } from "@/i18n/routing";
 import { Header } from "../ui/Header";
 import { Footer } from "../ui/Footer";
 import { AccessibilityMenu } from "../ui/AccessibilityMenu";
+import { MobileOptimizations } from "../ui/MobileOptimizations";
+import { ResponsiveDebugPanel } from "../ui/ResponsiveDebugPanel";
 import { SoundProvider } from "../providers/SoundProvider";
 import { SettingsProvider } from "../providers/SettingsProvider";
 import { AnalyticsProvider } from "../providers/AnalyticsProvider";
@@ -43,6 +45,12 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
           <SoundProvider>
             <div className="min-h-screen">
             <div className="relative overflow-hidden">
+              {/* Mobile & Responsive Optimizations */}
+              <MobileOptimizations />
+              
+              {/* Development Tools */}
+              <ResponsiveDebugPanel />
+              
               {/* Skip Navigation Link */}
               <a href="#main-content" className="skip-link">
                 Zum Hauptinhalt springen

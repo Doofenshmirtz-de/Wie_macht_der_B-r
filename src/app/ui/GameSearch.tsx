@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useAnalytics } from '../providers/AnalyticsProvider';
+import { SearchIcon } from './EnhancedIcons';
 import type { SearchFilters } from '../hooks/useGameSearch';
 
 interface GameSearchProps {
@@ -50,11 +51,11 @@ export default function GameSearch({
     <div className="w-full max-w-2xl mx-auto mb-12">
       {/* Haupt-Suchfeld */}
       <div className="relative">
-        <div className="relative cr-card p-6">
+        <div className="relative card-elevated p-6">
           {/* Search Icon & Input */}
           <div className="flex items-center gap-4">
             <div className="flex-shrink-0">
-              <span className="text-3xl">🔍</span>
+              <SearchIcon size={32} className="animate-glow-pulse" />
             </div>
             
             <div className="flex-1">
@@ -63,7 +64,7 @@ export default function GameSearch({
                 placeholder="Suche nach Spielen... (z.B. 'Bomb', 'Wahrheit', '4 Spieler')"
                 value={filters.searchTerm}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-full bg-transparent text-white placeholder-white/60 text-lg font-semibold border-none outline-none"
+                className="w-full bg-transparent text-white placeholder-white/60 body-lg font-semibold border-none outline-none"
                 autoComplete="off"
               />
             </div>
@@ -71,8 +72,8 @@ export default function GameSearch({
             {/* Filter Toggle Button */}
             <button
               onClick={handleFilterToggle}
-              className={`flex-shrink-0 cr-button-primary px-4 py-2 text-sm font-bold transition-all duration-300 ${
-                isExpanded ? 'bg-yellow-500' : ''
+              className={`flex-shrink-0 btn-secondary px-4 py-2 label-base transition-all duration-300 ${
+                isExpanded ? 'animate-glow-pulse' : ''
               }`}
             >
               🎯 Filter
