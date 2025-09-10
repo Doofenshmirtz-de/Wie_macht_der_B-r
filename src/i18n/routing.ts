@@ -7,7 +7,10 @@ export const routing = defineRouting({
   pathnames: {
     '/': '/',
     '/game/bomb': '/game/bomb',
-    '/game/truthordare': '/game/truthordare'
+    '/game/truthordare': '/game/truthordare',
+    '/game/neverhaveiever': '/game/neverhaveiever',
+    '/faq': '/faq',
+    '/blog': '/blog'
   }
 } as const);
 

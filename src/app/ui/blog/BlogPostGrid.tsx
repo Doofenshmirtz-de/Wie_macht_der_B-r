@@ -233,8 +233,8 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
             return (
               <article 
                 key={post.id}
-                className="card-elevated overflow-hidden hover:scale-105 transition-all duration-300 animate-float-gentle"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                style={{ "--animation-delay": `${index * 0.2}s` } as React.CSSProperties}
+                className="card-elevated overflow-hidden hover:scale-105 transition-all duration-300 animate-float-gentle anim-delay-dynamic"
               >
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -315,8 +315,8 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
             return (
               <article 
                 key={post.id}
-                className="card-elevated overflow-hidden hover:scale-105 transition-all duration-300 animate-float-gentle"
-                style={{ animationDelay: `${(index + 2) * 0.1}s` }}
+                style={{ "--animation-delay": `${(index + 2) * 0.1}s` } as React.CSSProperties}
+                className="card-elevated overflow-hidden hover:scale-105 transition-all duration-300 animate-float-gentle anim-delay-dynamic"
               >
                 {/* Image */}
                 <div className="relative h-32 overflow-hidden">

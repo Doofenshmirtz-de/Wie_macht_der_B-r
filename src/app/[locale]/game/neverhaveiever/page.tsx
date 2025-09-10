@@ -8,6 +8,7 @@ import { CategorySelection } from "./components/CategorySelection";
 import { GameCard } from "./components/GameCard";
 import { NeverHaveIEverSettings } from "./components/NeverHaveIEverSettings";
 import Image from "next/image";
+import { RelatedGames } from "../../../ui/InternalLinkCard";
 
 type GamePhase = "category" | "playing";
 type Category = "casual" | "party" | "eighteen";
@@ -124,9 +125,9 @@ export default function NeverHaveIEverPage() {
     <div className="min-h-screen p-4 md:p-6 text-white">
       {/* Header with Title */}
       <div className="text-center mb-6 md:mb-8">
-        <h1 className="text-3xl md:text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 drop-shadow-lg">
+        <h2 className="text-3xl md:text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 drop-shadow-lg">
           {getTitle()}
-        </h1>
+        </h2>
         
         {/* Category Indicator */}
         {gamePhase === "playing" && (
@@ -189,6 +190,9 @@ export default function NeverHaveIEverPage() {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
       />
+      
+      {/* Related Games Section */}
+      <RelatedGames currentGame="neverhaveiever" className="mt-16" />
     </div>
   );
 }

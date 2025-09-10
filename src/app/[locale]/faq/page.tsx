@@ -14,9 +14,9 @@ export default function FAQPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,165,0,0.15),transparent_50%)]"></div>
         
         <div className="relative z-10 max-w-4xl mx-auto">
-          <h1 className="display-lg gradient-text text-shadow-glow mb-6 animate-float-gentle">
+          <h2 className="display-lg gradient-text text-shadow-glow mb-6 animate-float-gentle">
             ❓ FAQ - Online Trinkspiele
-          </h1>
+          </h2>
           <p className="body-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
             Alles was du über <strong>kostenlose Browser Trinkspiele</strong> wissen musst! 
             Von Bomb Party Regeln bis zu Sicherheitstipps - hier findest du alle Antworten.
@@ -29,17 +29,17 @@ export default function FAQPage() {
               <div className="label-lg text-orange-300">15+</div>
               <div className="text-xs text-white/60">FAQ Themen</div>
             </div>
-            <div className="stat-card animate-float-gentle" style={{animationDelay: '0.2s'}}>
+            <div className="stat-card animate-float-gentle anim-delay-1">
               <div className="text-2xl mb-2">⚡</div>
               <div className="label-lg text-orange-300">Sofort</div>
               <div className="text-xs text-white/60">Antworten</div>
             </div>
-            <div className="stat-card animate-float-gentle" style={{animationDelay: '0.4s'}}>
+            <div className="stat-card animate-float-gentle anim-delay-2">
               <div className="text-2xl mb-2">🔍</div>
               <div className="label-lg text-orange-300">Durchsuchbar</div>
               <div className="text-xs text-white/60">FAQ System</div>
             </div>
-            <div className="stat-card animate-float-gentle" style={{animationDelay: '0.6s'}}>
+            <div className="stat-card animate-float-gentle anim-delay-3">
               <div className="text-2xl mb-2">💡</div>
               <div className="label-lg text-orange-300">Hilfsreich</div>
               <div className="text-xs text-white/60">Tipps & Tricks</div>

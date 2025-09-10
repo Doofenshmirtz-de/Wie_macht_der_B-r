@@ -160,7 +160,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
   }
   
   // Type-safe href validation
-  const validHref: "/game/bomb" | "/game/truthordare" = href as "/game/bomb" | "/game/truthordare";
+  const validHref: "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" = href as "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever";
   
   return (
     <LocaleLink href={validHref} className="block" onClick={handleGameClick}>

@@ -268,8 +268,7 @@ export function ItemList({
     <div className="relative">
       <div 
         ref={containerRef}
-        className={containerClasses}
-        style={{ scrollBehavior: 'smooth' }}
+        className={`${containerClasses} scroll-smooth`}
       >
         {/* Backward Loading Trigger - immer rendern für zirkuläres Scrollen */}
         {items.length > 0 && (

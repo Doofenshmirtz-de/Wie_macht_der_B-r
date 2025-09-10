@@ -3,5 +3,27 @@
     "title": "Blog - Trinkspiele Magazin | Wie macht der Bär",
     "description": "Entdecke die besten Tipps, Trends und Geheimnisse für unvergessliche Partys. Von klassischen Trinkspielen bis zu Online-Trends - dein Magazin für den perfekten Partyabend!",
     "keywords": "Trinkspiele Blog, Partyplanung, Trinkspiele Tipps, Online Trinkspiele, Partyspiele Magazin, Saufspiele Guide, Drinking Games Blog"
-  }
+  },
+  "bombParty": "Bomb Party",
+  "playerSetup": "Spieler Setup",
+  "playerName": "Name des Spielers",
+  "addPlayer": "Spieler hinzufügen",
+  "minTwoPlayers": "Mindestens 2 Spieler erforderlich",
+  "playersReady": "Spieler bereit!",
+  "roundsCount": "Anzahl der Runden",
+  "chooseCategory": "Kategorie wählen",
+  "casual": "Einfach",
+  "hard": "Schwer",
+  "spicy": "Scharf",
+  "currentRound": "Aktuelle Runde",
+  "startGame": "Spiel starten",
+  "scoreboard": "Punktestand",
+  "passPhone": "Gib das Handy weiter",
+  "nextWord": "Nächstes Wort",
+  "gameOver": "Spiel vorbei!",
+  "whoLostTitle": "Wer hat verloren?",
+  "selectLoser": "Verlierer auswählen",
+  "confirmLoser": "Verlierer bestätigen",
+  "losses": "Niederlagen",
+  "winner": "Gewinner"
 }

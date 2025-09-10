@@ -54,9 +54,9 @@ export function BlogHero({ locale }: BlogHeroProps) {
       
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         {/* Main Title */}
-        <h1 className="display-lg gradient-text text-shadow-glow animate-float-gentle mb-6">
+        <h2 className="display-lg gradient-text text-shadow-glow animate-float-gentle mb-6">
           {currentContent.title}
-        </h1>
+        </h2>
         
         {/* Subtitle */}
         <p className="heading-4 text-white/90 mb-8 animate-scale-in">

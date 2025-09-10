@@ -258,6 +258,144 @@ export const SEASONAL_KEYWORDS: Record<string, KeywordData> = {
   }
 };
 
+// 🔥 ERWEITERTE KEYWORD-KATEGORIEN 2024/2025
+
+export const TRENDING_KEYWORDS: Record<string, KeywordData> = {
+  remoteParty: {
+    primary: 'Online Party Spiele remote',
+    secondary: [
+      'Remote Trinkspiele',
+      'Online Party mit Freunden',
+      'Digitale Gruppenspiele',
+      'Fernbeziehung Partyspiele'
+    ],
+    longTail: [
+      'Online Party Spiele remote mit Freunden',
+      'Trinkspiele online fernbeziehung',
+      'Remote Partyspiele über Handy',
+      'Online Gruppenspiele Trinkspiele',
+      'Digitale Party Ideen mit Alkohol',
+      'Remote Trinkspiele für Paare',
+      'Online Party Games Deutschland'
+    ],
+    searchVolume: 'medium',
+    difficulty: 'easy',
+    intent: 'transactional'
+  },
+
+  mobileGaming: {
+    primary: 'Trinkspiele Handy Browser',
+    secondary: [
+      'Mobile Trinkspiele online',
+      'Handy Partyspiele Browser',
+      'Smartphone Trinkspiele',
+      'Mobile Party Games'
+    ],
+    longTail: [
+      'Trinkspiele Handy Browser ohne App',
+      'Mobile Trinkspiele online kostenlos',
+      'Smartphone Partyspiele ohne Download',
+      'Handy Trinkspiele mehrere Spieler',
+      'Mobile Browser Partyspiele deutsch',
+      'iOS Android Trinkspiele Browser',
+      'Handy Trinkspiele für Gruppen'
+    ],
+    searchVolume: 'high',
+    difficulty: 'medium',
+    intent: 'transactional'
+  },
+
+  socialMedia: {
+    primary: 'TikTok Trinkspiele Trends',
+    secondary: [
+      'Instagram Partyspiele',
+      'Social Media Trinkspiele',
+      'Viral Trinkspiele',
+      'Trending Party Games'
+    ],
+    longTail: [
+      'TikTok Trinkspiele viral 2024',
+      'Instagram Stories Partyspiele',
+      'Social Media Trinkspiele Trends',
+      'Viral Partyspiele für Gen Z',
+      'TikTok Party Games deutsch',
+      'Instagram Live Trinkspiele',
+      'Trending Trinkspiele Deutschland'
+    ],
+    searchVolume: 'medium',
+    difficulty: 'medium',
+    intent: 'informational'
+  },
+
+  generational: {
+    primary: 'Gen Z Trinkspiele',
+    secondary: [
+      'Millennials Partyspiele',
+      'Generation Z Party Games',
+      'Junge Erwachsene Trinkspiele',
+      'Student Trinkspiele'
+    ],
+    longTail: [
+      'Gen Z Trinkspiele online kostenlos',
+      'Millennials Partyspiele digital',
+      'Generation Z Party Games Browser',
+      'Student Trinkspiele ohne Material',
+      'Junge Erwachsene Online Partyspiele',
+      'Uni Trinkspiele online spielen',
+      'Generation Z Saufspiele digital'
+    ],
+    searchVolume: 'medium',
+    difficulty: 'easy',
+    intent: 'transactional'
+  }
+};
+
+export const TECHNICAL_KEYWORDS: Record<string, KeywordData> = {
+  noDownload: {
+    primary: 'Trinkspiele ohne Download',
+    secondary: [
+      'Browser Trinkspiele ohne App',
+      'Online Spiele ohne Installation',
+      'Sofort spielbare Trinkspiele',
+      'Web Trinkspiele kostenlos'
+    ],
+    longTail: [
+      'Trinkspiele ohne Download sofort spielen',
+      'Browser Trinkspiele ohne App Installation',
+      'Online Partyspiele ohne Anmeldung',
+      'Sofort spielbare Web Trinkspiele',
+      'Trinkspiele direkt im Browser',
+      'Keine App nötig Trinkspiele online',
+      'Instantly playable drinking games'
+    ],
+    searchVolume: 'high',
+    difficulty: 'easy',
+    intent: 'transactional'
+  },
+
+  crossPlatform: {
+    primary: 'Plattformübergreifende Trinkspiele',
+    secondary: [
+      'Cross Platform Party Games',
+      'Alle Geräte Trinkspiele',
+      'Universal Partyspiele',
+      'Kompatible Online Spiele'
+    ],
+    longTail: [
+      'Trinkspiele Windows Mac iOS Android',
+      'Cross Platform Partyspiele Browser',
+      'Alle Geräte kompatible Trinkspiele',
+      'Universal Online Partyspiele',
+      'Plattformunabhängige Trinkspiele',
+      'Handy Laptop Trinkspiele zusammen',
+      'Cross Device Party Games'
+    ],
+    searchVolume: 'low',
+    difficulty: 'easy',
+    intent: 'informational'
+  }
+};
+
 /**
  * Keyword-Utility Funktionen
  */
@@ -267,35 +405,78 @@ export function getKeywordsForPage(pageType: string): string[] {
       return [
         GAME_KEYWORDS.bombParty.primary,
         ...GAME_KEYWORDS.bombParty.secondary,
-        ...GAME_KEYWORDS.bombParty.longTail.slice(0, 3)
+        ...GAME_KEYWORDS.bombParty.longTail.slice(0, 3),
+        ...TRENDING_KEYWORDS.mobileGaming.secondary.slice(0, 2)
       ];
     case 'neverhaveiever':
       return [
         GAME_KEYWORDS.neverHaveIEver.primary,
         ...GAME_KEYWORDS.neverHaveIEver.secondary,
-        ...GAME_KEYWORDS.neverHaveIEver.longTail.slice(0, 3)
+        ...GAME_KEYWORDS.neverHaveIEver.longTail.slice(0, 3),
+        ...TRENDING_KEYWORDS.socialMedia.secondary.slice(0, 2)
       ];
     case 'truthordare':
       return [
         GAME_KEYWORDS.truthOrDare.primary,
         ...GAME_KEYWORDS.truthOrDare.secondary,
-        ...GAME_KEYWORDS.truthOrDare.longTail.slice(0, 3)
+        ...GAME_KEYWORDS.truthOrDare.longTail.slice(0, 3),
+        ...TRENDING_KEYWORDS.generational.secondary.slice(0, 2)
       ];
     case 'homepage':
       return [
         CATEGORY_KEYWORDS.onlineDrinkingGames.primary,
         ...CATEGORY_KEYWORDS.onlineDrinkingGames.secondary,
-        ...CATEGORY_KEYWORDS.partyGames.secondary
+        ...CATEGORY_KEYWORDS.partyGames.secondary,
+        ...TECHNICAL_KEYWORDS.noDownload.secondary.slice(0, 2),
+        ...TRENDING_KEYWORDS.mobileGaming.secondary.slice(0, 2)
       ];
     case 'blog':
       return [
         BLOG_KEYWORDS.partyPlanning.primary,
         ...BLOG_KEYWORDS.drinkingGameRules.secondary,
-        ...BLOG_KEYWORDS.safeDrinking.secondary
+        ...BLOG_KEYWORDS.safeDrinking.secondary,
+        ...TRENDING_KEYWORDS.socialMedia.secondary.slice(0, 2)
       ];
     default:
       return [];
   }
+}
+
+// 🎯 ERWEITERTE KEYWORD-FUNKTIONEN
+
+export function getTrendingKeywords(): string[] {
+  return [
+    ...Object.values(TRENDING_KEYWORDS).flatMap(k => [k.primary, ...k.secondary.slice(0, 2)]),
+    ...Object.values(TECHNICAL_KEYWORDS).flatMap(k => [k.primary, ...k.secondary.slice(0, 2)])
+  ];
+}
+
+export function getLongTailKeywords(category: string): string[] {
+  const allCategories = {
+    ...GAME_KEYWORDS,
+    ...CATEGORY_KEYWORDS,
+    ...BLOG_KEYWORDS,
+    ...TRENDING_KEYWORDS,
+    ...TECHNICAL_KEYWORDS,
+    ...SEASONAL_KEYWORDS
+  };
+  
+  return Object.values(allCategories).flatMap(k => k.longTail);
+}
+
+export function getKeywordsByIntent(intent: 'informational' | 'transactional' | 'navigational'): string[] {
+  const allCategories = {
+    ...GAME_KEYWORDS,
+    ...CATEGORY_KEYWORDS,
+    ...BLOG_KEYWORDS,
+    ...TRENDING_KEYWORDS,
+    ...TECHNICAL_KEYWORDS,
+    ...SEASONAL_KEYWORDS
+  };
+  
+  return Object.values(allCategories)
+    .filter(k => k.intent === intent)
+    .flatMap(k => [k.primary, ...k.secondary]);
 }
 
 export function generateMetaDescription(keywords: string[], pageContext: string): string {

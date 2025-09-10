@@ -6,7 +6,8 @@ import { useLocale } from "next-intl";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
 import { useResponsive } from "../hooks/useResponsive";
-import { DesktopOnly } from "./MobileOptimizations";
+import { DesktopOnly, MobileOnly } from "./MobileOptimizations";
+import { MobileNavigationMenu } from "./MobileNavigationMenu";
 
 const { Link } = createNavigation(routing);
 
@@ -16,7 +17,8 @@ export function Header() {
   const { isMobile, isTouch } = useResponsive();
   
   // Safe href that falls back to root if pathname is not in defined routes
-  const getValidHref = (path: string): "/" | "/game/bomb" | "/game/truthordare" => {
+  const getValidHref = (path: string): 
+    "/" | "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" | "/faq" | "/blog" => {
     if (path === "/" || path === "/de" || path === "/en" || path === "/de/" || path === "/en/") {
       return "/";
     }
@@ -25,6 +27,15 @@ export function Header() {
     }
     if (path.includes("/game/truthordare")) {
       return "/game/truthordare";
+    }
+    if (path.includes("/game/neverhaveiever")) {
+      return "/game/neverhaveiever";
+    }
+    if (path.includes("/faq")) {
+      return "/faq";
+    }
+    if (path.includes("/blog")) {
+      return "/blog";
     }
     return "/";
   };
@@ -94,6 +105,11 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4">
+        {/* Mobile Navigation Menu */}
+        <MobileOnly>
+          <MobileNavigationMenu />
+        </MobileOnly>
+
         {/* Language Switcher with Enhanced Clash Royale card style */}
         <div className="flex items-center gap-3">
           {/* Language Label - Hidden on Mobile */}
