@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.wie-macht-der-baer.de'),
   title: {
     default: "Wie macht der Bär: Online Trinkspiele für deine Party",
     template: "%s | Wie macht der Bär"

@@ -11,6 +11,7 @@ import { CommunityStats } from "../ui/CommunityStats";
 import { TestimonialsSection } from "../ui/TestimonialsSection";
 import { SocialSharing } from "../ui/SocialSharing";
 import { InternalLinkCard } from "../ui/InternalLinkCard";
+import { FollowUsCTA } from "../ui/SocialMediaLinks";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
@@ -333,6 +334,9 @@ export default function Home() {
 
           {/* 💬 TESTIMONIALS SECTION */}
           <TestimonialsSection />
+
+          {/* 🚀 SOCIAL MEDIA FOLLOW CTA */}
+          <FollowUsCTA />
 
           {/* 📤 SOCIAL SHARING SECTION */}
           <SocialSharing />
