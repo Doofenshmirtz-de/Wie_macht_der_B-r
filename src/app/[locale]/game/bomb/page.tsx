@@ -17,10 +17,11 @@ import WaitingRoom from "./components/WaitingRoom";
 import type { HostGameState, ClientGameState } from "./shared/multiplayer-types";
 import { useSettings } from "../../../providers/SettingsProvider";
 import { BombGameSettings } from "./components/BombGameSettings";
-import { GameRulesSection } from "./content/GameRulesSection";
-import { GameVariantsSection } from "./content/GameVariantsSection"; 
-import { GameHistoryFAQ } from "./content/GameHistoryFAQ";
-import { RelatedGames } from "../../../ui/InternalLinkCard";
+// Unused content components - keeping for future use
+// import { GameRulesSection } from "./content/GameRulesSection";
+// import { GameVariantsSection } from "./content/GameVariantsSection"; 
+// import { GameHistoryFAQ } from "./content/GameHistoryFAQ";
+// import { RelatedGames } from "../../../ui/InternalLinkCard";
 import Image from "next/image";
 
 type Player = {
