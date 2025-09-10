@@ -315,14 +315,12 @@ export function FAQSection({
             Kontaktiere uns gerne über soziale Medien!
           </p>
           <div className="flex justify-center gap-4">
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a 
               href="#social" 
               className="btn-secondary text-sm"
             >
               📧 Kontakt
             </a>
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a 
               href="/" 
               className="btn-primary text-sm"

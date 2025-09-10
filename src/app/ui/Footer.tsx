@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
-import { CommunityStats } from "./CommunityStats";
+// import { CommunityStats } from "./CommunityStats"; // Unused import
 // import { useLocale, useTranslations } from "next-intl";
 
 const { Link } = createNavigation(routing);

@@ -6,7 +6,7 @@ import { useLocale } from "next-intl";
 import { createNavigation } from "next-intl/navigation";
 import { routing } from "@/i18n/routing";
 import { useResponsive } from "../hooks/useResponsive";
-import { MobileOnly, DesktopOnly } from "./MobileOptimizations";
+import { DesktopOnly } from "./MobileOptimizations";
 
 const { Link } = createNavigation(routing);
 
@@ -75,26 +75,20 @@ export function Header() {
                     🎮 Spiele
                   </span>
                 </button>
-                <Link 
-                  href="/blog" 
-                  className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
+                <span className={`group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50 cursor-not-allowed ${
                     isTouch ? 'min-h-[44px] min-w-[44px]' : ''
-                  }`}
-                >
-                  <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
-                    📰 Blog
+                  }`}>
+                  <span className="text-sm font-bold">
+                    📰 Blog (Coming Soon)
                   </span>
-                </Link>
-                <Link 
-                  href="/faq" 
-                  className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
+                </span>
+                <span className={`group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50 cursor-not-allowed ${
                     isTouch ? 'min-h-[44px] min-w-[44px]' : ''
-                  }`}
-                >
-                  <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
-                    ❓ FAQ
+                  }`}>
+                  <span className="text-sm font-bold">
+                    ❓ FAQ (Coming Soon)
                   </span>
-                </Link>
+                </span>
               </nav>
             </DesktopOnly>
         </div>

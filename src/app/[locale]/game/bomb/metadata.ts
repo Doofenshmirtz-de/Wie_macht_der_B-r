@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getKeywordsForPage, generateMetaDescription, generateTitle } from '../../../lib/keywords';
+import { getKeywordsForPage } from '../../../lib/keywords';
 
 export function generateBombPartyMetadata(locale: 'de' | 'en'): Metadata {
   const keywords = getKeywordsForPage('bomb');
