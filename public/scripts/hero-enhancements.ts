@@ -9,18 +9,13 @@ interface Analytics {
   track: (event: string, properties: Record<string, any>) => void;
 }
 
-interface GTags {
-  (command: string, action: string, options?: Record<string, any>): void;
-}
-
 interface Plausible {
   (event: string, options?: { props: Record<string, any> }): void;
 }
 
-// Global declarations
+// Extend global Window interface
 declare global {
   interface Window {
-    gtag?: GTags;
     analytics?: Analytics;
     plausible?: Plausible;
   }
@@ -128,15 +123,15 @@ document.addEventListener('DOMContentLoaded', function(): void {
         // LCP Monitoring für Hero-Bereich
         const lcpObserver = new PerformanceObserver((list) => {
             const entries = list.getEntries();
-            const lastEntry = entries[entries.length - 1];
+            const lastEntry = entries[entries.length - 1] as PerformanceEntry & { element?: Element };
             
             // Prüfen ob LCP aus Hero-Bereich kommt
             if (lastEntry.element && heroSection && heroSection.contains(lastEntry.element)) {
                 console.log('⚡ Hero LCP:', Math.round(lastEntry.startTime), 'ms');
                 
                 // Analytics Event
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'hero_lcp', {
+                if (typeof window.gtag !== 'undefined') {
+                    window.gtag('event', 'hero_lcp', {
                         'event_category': 'Performance',
                         'value': Math.round(lastEntry.startTime)
                     });
@@ -159,11 +154,11 @@ document.addEventListener('DOMContentLoaded', function(): void {
         
         if (focusableElements && focusableElements.length > 0) {
             focusableElements.forEach(element => {
-                element.addEventListener('focus', function() {
+                element.addEventListener('focus', function(this: Element) {
                     this.setAttribute('data-keyboard-focus', 'true');
                 });
                 
-                element.addEventListener('blur', function() {
+                element.addEventListener('blur', function(this: Element) {
                     this.removeAttribute('data-keyboard-focus');
                 });
             });
@@ -211,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function(): void {
         const mq768 = window.matchMedia('(max-width: 768px)');
         const mq1024 = window.matchMedia('(max-width: 1024px)');
         
-        function updateLayout(mq) {
+        function updateLayout() {
             if (mq768.matches) {
                 document.body.classList.add('is-mobile');
                 document.body.classList.remove('is-tablet', 'is-desktop');
@@ -305,11 +300,11 @@ window.addEventListener('error', function(e) {
         const heroCTA = document.querySelector('.hero-cta-button');
         if (heroCTA && !heroCTA.hasAttribute('data-fallback-click')) {
             heroCTA.setAttribute('data-fallback-click', 'true');
-            heroCTA.addEventListener('click', function(e) {
+            heroCTA.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
                 // Simple fallback - only prevent default for anchor links
-                if (this.getAttribute('href') && this.getAttribute('href').startsWith('#')) {
+                if (this.getAttribute('href') && this.getAttribute('href')!.startsWith('#')) {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
+                    const target = document.querySelector(this.getAttribute('href')!);
                     if (target) {
                         target.scrollIntoView();
                     }
