@@ -29,9 +29,9 @@
   ],
   "icons": [
     {
-      "src": "/FAVicon.png",
-      "sizes": "32x32",
-      "type": "image/png",
+      "src": "/FAVicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
