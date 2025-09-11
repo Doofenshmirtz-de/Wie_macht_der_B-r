@@ -199,7 +199,7 @@ body {
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
-  animation: shimmer 2s infinite;
+  /* animation: shimmer 2s infinite; */
 }
 
 @keyframes shimmer {
@@ -600,10 +600,10 @@ select {
 
 @keyframes heroGlow {
   0%, 100% { 
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    /* text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); */
   }
   50% { 
-    text-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+    /* text-shadow: 0 0 40px rgba(255, 215, 0, 0.8); */
   }
 }
 
@@ -660,13 +660,13 @@ select {
   animation: float 3s ease-in-out infinite;
 }
 
-.animate-glow {
+/* .animate-glow {
   animation: glow 2s ease-in-out infinite;
-}
+} */
 
-.animate-hero-glow {
+/* .animate-hero-glow {
   animation: heroGlow 3s ease-in-out infinite;
-}
+} */
 
 .animate-slide-in-left {
   animation: slideInFromLeft 0.8s ease-out;
@@ -805,7 +805,7 @@ select {
 }
 
 /* Enhanced Text Animations */
-@keyframes textGlow {
+/* @keyframes textGlow {
   0%, 100% { 
     text-shadow: 
       0 0 10px rgba(255, 215, 0, 0.5),
@@ -818,11 +818,11 @@ select {
       0 0 40px rgba(255, 215, 0, 0.5),
       0 0 60px rgba(255, 215, 0, 0.2);
   }
-}
+} */
 
-.animate-text-glow {
+/* .animate-text-glow {
   animation: textGlow 2s ease-in-out infinite;
-}
+} */
 
 /* Mobile Optimizations for Hero Section */
 @media (max-width: 1024px) {
@@ -1163,9 +1163,9 @@ textarea:focus {
   }
 }
 
-.rating-stars:hover .star {
+/* .rating-stars:hover .star {
   animation: star-glow 1s ease-in-out infinite;
-}
+} */
 
 /* Floating elements */
 .floating-share {

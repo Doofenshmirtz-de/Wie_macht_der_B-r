@@ -29,11 +29,11 @@ export function InternalLinkCard({
   const getIcon = () => {
     switch (gameType) {
       case 'bomb':
-        return <BombIcon size={24} className="animate-glow-pulse" />;
+        return <BombIcon size={24} className="text-orange-400" />;
       case 'blog':
-        return <GameIcon size={24} className="animate-glow-pulse" />;
+        return <GameIcon size={24} className="text-blue-400" />;
       default:
-        return <GameIcon size={24} className="animate-glow-pulse" />;
+        return <GameIcon size={24} className="text-white" />;
     }
   };
 
@@ -92,8 +92,6 @@ export function InternalLinkCard({
           </div>
         )}
         
-        {/* Hover Glow Effect */}
-        <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-gradient-to-r from-transparent via-current to-transparent blur-xl"></div>
       </div>
     </Link>
   );
@@ -146,10 +144,10 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
         
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="heading-3 gradient-text mb-4">
+          <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
             🎮 Andere Online Trinkspiele
           </h2>
-          <p className="body-base text-white/80">
+          <p className="text-base text-white/80">
             Entdecke weitere kostenlose Browser Trinkspiele für deine Party!
           </p>
         </div>

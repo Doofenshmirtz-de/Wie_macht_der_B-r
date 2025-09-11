@@ -62,20 +62,20 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
       
       <div className="relative mx-auto max-w-screen-lg px-4">
         <div className="text-center mb-12">
-          <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             🌟 UNSERE COMMUNITY
           </h2>
-          <p className="mt-4 body-lg text-white/80">
+          <p className="text-lg text-white/80">
             Tausende Spieler haben bereits ihren Spaß - sei dabei!
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Spieler Online */}
-          <div className="card-elevated p-6 text-center group stat-card animate-float-gentle">
+          <div className="card-elevated p-6 text-center group stat-card">
             <div className="flex items-center justify-center gap-2 mb-3">
-              <UsersIcon size={24} className="text-green-400 animate-pulse" />
-              <span className="text-green-400 label-base">LIVE</span>
+              <UsersIcon size={24} className="text-green-400" />
+              <span className="text-green-400 text-sm font-semibold">LIVE</span>
             </div>
             <div className="text-3xl font-black text-white mb-2">
               {isLoading ? (
@@ -90,9 +90,9 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
           </div>
 
           {/* Spiele heute */}
-          <div className="card-elevated p-6 text-center group stat-card animate-float-gentle">
+          <div className="card-elevated p-6 text-center group stat-card">
             <div className="flex justify-center mb-3">
-              <GameIcon size={32} className="animate-glow-pulse" />
+              <GameIcon size={32} className="text-yellow-400" />
             </div>
             <div className="text-3xl font-black text-white mb-2">
               {isLoading ? (
@@ -107,9 +107,9 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
           </div>
 
           {/* Gesamt Spiele */}
-          <div className="card-elevated p-6 text-center group stat-card animate-float-gentle">
+          <div className="card-elevated p-6 text-center group stat-card">
             <div className="flex justify-center mb-3">
-              <TrophyIcon size={32} className="animate-glow-pulse" />
+              <TrophyIcon size={32} className="text-yellow-400" />
             </div>
             <div className="text-3xl font-black text-white mb-2">
               {isLoading ? (
@@ -124,14 +124,14 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
           </div>
 
           {/* Bewertungen */}
-          <div className="card-elevated p-6 text-center group stat-card animate-float-gentle">
-            <div className="flex justify-center mb-3 rating-stars">
+          <div className="card-elevated p-6 text-center group stat-card">
+            <div className="flex justify-center mb-3">
               {[...Array(5)].map((_, i) => (
                 <StarIcon
                   key={i}
                   size={20}
                   filled={i < Math.floor(averageRating)}
-                  className="star mx-1"
+                  className="text-yellow-400 mx-1"
                 />
               ))}
             </div>

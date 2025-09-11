@@ -104,40 +104,36 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                <a 
+                <Link 
                   href="/game/neverhaveiever"
                   className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
                 >
                   🤫 <strong>Ich hab noch nie</strong> online spielen
-                </a>
+                </Link>
               </li>
               <li>
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                <a 
+                <Link 
                   href="/game/truthordare"
                   className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
                 >
                   💣 <strong>Wahrheit oder Pflicht</strong> Browser
-                </a>
+                </Link>
               </li>
               <li>
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                <a 
+                <Link 
                   href="/blog"
                   className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
                 >
                   📰 Trinkspiele Tipps & Guides
-                </a>
+                </Link>
               </li>
               <li>
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                <a 
+                <Link 
                   href="/faq" 
                   className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium"
                 >
                   ❓ <strong>FAQ</strong> - Häufige Fragen
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

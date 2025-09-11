@@ -1,5 +1,5 @@
 import "../globals.css";
-import "../styles/hero-redesign.css";
+import "../styles/design-system.css";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getMessages } from "next-intl/server";
