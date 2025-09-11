@@ -52,10 +52,8 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/FAVicon.svg", type: "image/svg+xml" },
-      { url: "/bomb.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "32x32" }
+      { url: "/bomb.svg", type: "image/svg+xml" }
     ],
-    apple: "/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
   openGraph: {
