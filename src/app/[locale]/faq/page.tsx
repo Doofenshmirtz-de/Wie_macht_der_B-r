@@ -4,6 +4,9 @@ import { FAQSection } from '../../ui/FAQSection';
 import { SocialSharing } from '../../ui/SocialSharing';
 import { InternalLinkCard } from '../../ui/InternalLinkCard';
 
+
+
+
 export default function FAQPage() {
   return (
     <div className="min-h-screen pt-20">

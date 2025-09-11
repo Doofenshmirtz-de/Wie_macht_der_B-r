@@ -4,20 +4,13 @@
  * Erstellt für: wie-macht-der-baer.de Landing Page Optimierung
  */
 
-// TypeScript Interfaces
-interface Analytics {
-  track: (event: string, properties: Record<string, any>) => void;
-}
-
-interface Plausible {
-  (event: string, options?: { props: Record<string, any> }): void;
-}
-
 // Extend global Window interface
 declare global {
   interface Window {
-    analytics?: Analytics;
-    plausible?: Plausible;
+    analytics?: {
+      track: (event: string, properties: Record<string, any>) => void;
+    };
+    plausible?: (event: string, options?: { props: Record<string, any> }) => void;
   }
 }
 
