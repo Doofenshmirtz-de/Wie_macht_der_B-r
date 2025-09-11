@@ -12,7 +12,7 @@ import { TestimonialsSection } from "../ui/TestimonialsSection";
 import { SocialSharing } from "../ui/SocialSharing";
 import { InternalLinkCard } from "../ui/InternalLinkCard";
 import { FollowUsCTA } from "../ui/SocialMediaLinks";
-import { SectionDivider, SectionContainer } from "../ui/SectionDivider";
+import { SectionContainer } from "../ui/SectionDivider";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {

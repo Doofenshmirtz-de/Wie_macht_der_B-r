@@ -26,6 +26,9 @@ declare global {
   }
 }
 
+// Export to make this a module
+export {};
+
 // PROGRESSIVE ENHANCEMENT FÜR HERO-BEREICH
 document.addEventListener('DOMContentLoaded', function(): void {
     const heroSection: Element | null = document.querySelector('.hero-section');

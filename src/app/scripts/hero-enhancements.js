@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const mq768 = window.matchMedia('(max-width: 768px)');
         const mq1024 = window.matchMedia('(max-width: 1024px)');
         
-        function updateLayout(mq) {
+        function updateLayout() {
             if (mq768.matches) {
                 document.body.classList.add('is-mobile');
                 document.body.classList.remove('is-tablet', 'is-desktop');
