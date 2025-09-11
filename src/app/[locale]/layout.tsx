@@ -1,4 +1,5 @@
 import "../globals.css";
+import "../styles/hero-redesign.css";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getMessages } from "next-intl/server";
@@ -16,6 +17,7 @@ import { AnalyticsProvider } from "../providers/AnalyticsProvider";
 import PWAInstallPrompt from "../ui/PWAInstallPrompt";
 import ServiceWorkerRegistration from "../components/ServiceWorkerRegistration";
 import { CookieBanner } from "../ui/CookieBanner";
+import Script from "next/script";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -84,6 +86,12 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
           </SoundProvider>
         </SettingsProvider>
       </AnalyticsProvider>
+      
+      {/* Hero Enhancement Script */}
+      <Script
+        src="/scripts/hero-enhancements.js"
+        strategy="afterInteractive"
+      />
     </NextIntlClientProvider>
   );
 }
