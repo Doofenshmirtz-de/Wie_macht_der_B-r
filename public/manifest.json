@@ -29,13 +29,18 @@
   ],
   "icons": [
     {
+      "src": "/FAVicon.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/bomb.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-
       "src": "/bearbomb.svg",
       "sizes": "any",
       "type": "image/svg+xml",

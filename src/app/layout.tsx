@@ -51,6 +51,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/FAVicon.png", type: "image/png", sizes: "32x32" },
       { url: "/bomb.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "32x32" }
     ],
@@ -135,7 +136,7 @@ const jsonLd = {
     name: 'Wie macht der Bär',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://www.wie-macht-der-baer.de/bomb.svg',
+      url: 'https://www.wie-macht-der-baer.de/FAVicon.png',
     },
   },
   inLanguage: ['de-DE', 'en-US'],
@@ -185,7 +186,7 @@ export default function RootLayout({
         
         {/* Preload critical resources */}
         <link rel="preload" href="/coverphotobear.jpg" as="image" type="image/jpeg" />
-        <link rel="preload" href="/bomb.svg" as="image" type="image/svg+xml" />
+        <link rel="preload" href="/FAVicon.png" as="image" type="image/png" />
         <link rel="preload" href="/bearbomb.jpg" as="image" type="image/jpeg" />
         <meta name="theme-color" content="#ffd700" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -195,8 +196,8 @@ export default function RootLayout({
         <meta name="application-name" content="Wie macht der Bär" />
         <meta name="msapplication-TileColor" content="#ffd700" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <link rel="shortcut icon" href="/bomb.svg" />
-        <link rel="mask-icon" href="/bomb.svg" color="#ffd700" />
+        <link rel="shortcut icon" href="/FAVicon.png" />
+        <link rel="mask-icon" href="/FAVicon.png" color="#ffd700" />
       </head>
       <body 
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-transparent text-white`}
