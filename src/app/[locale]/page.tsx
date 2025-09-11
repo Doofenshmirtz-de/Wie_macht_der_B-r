@@ -12,7 +12,7 @@ import { TestimonialsSection } from "../ui/TestimonialsSection";
 import { SocialSharing } from "../ui/SocialSharing";
 import { InternalLinkCard } from "../ui/InternalLinkCard";
 import { FollowUsCTA } from "../ui/SocialMediaLinks";
-import { SectionDivider, SectionContainer } from "../ui/SectionDivider";
+import { SectionContainer } from "../ui/SectionDivider";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
@@ -125,7 +125,7 @@ export default function Home() {
               <div className="relative inline-block">
                 <h1 className="epic-title relative display-xl gradient-text text-shadow-glow animate-float-gentle"
                   aria-label="Online Trinkspiele kostenlos - Wie macht der Bär"
-              >
+                >
                   ONLINE TRINKSPIELE
                   <br />
                   <span className="heading-1 gradient-text">
@@ -171,42 +171,40 @@ export default function Home() {
 
               {/* Download Button */}
               <div className="mt-10 animate-scale-in">
-                <button 
-                className="btn-primary group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black animate-glow-pulse shimmer-effect border-glow"
-                aria-label="App herunterladen und installieren"
-              >
+                <a 
+                  href="#games-section"
+                  className="btn-primary group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black animate-glow-pulse shimmer-effect border-glow"
+                  aria-label="Jetzt spielen"
+                >
                   {/* Button Content */}
                   <div className="relative flex items-center gap-3">
-                    <span className="text-2xl">📱</span>
-                    <span>DOWNLOAD</span>
-                    <span className="text-2xl">⬇️</span>
+                    <span className="text-2xl">🎮</span>
+                    <span>JETZT SPIELEN</span>
+                    <span className="text-2xl">🎯</span>
                   </div>
                   
                   {/* Shine Effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"></div>
-                </button>
+                </a>
                 
                 {/* Download Subtext */}
                 <p className="mt-4 text-sm text-yellow-200/80 font-semibold animate-text-glow">
-                  🚀 Jetzt herunterladen und nie wieder langweilige Partys haben!
+                  🚀 Sofort loslegen und nie wieder langweilige Partys haben!
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Section Divider */}
-        <SectionDivider variant="decorative" showIcon={true} icon="🎮" />
-
         {/* Game Selection Section with Search & Advanced Infinite Scroll */}
         <SectionContainer variant="highlight" id="games-section">
           <div aria-label="Spieleauswahl mit Suchfunktion">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle">
               WÄHLE DEIN SPIEL
             </h2>
-            <p className="mt-4 body-lg text-white/80 font-semibold">Bereit für den ultimativen Partyspaß?</p>
-            <div className="mt-6 flex justify-center">
+            <p className="mt-2 body-lg text-white/80 font-semibold">Bereit für den ultimativen Partyspaß?</p>
+            <div className="mt-3 flex justify-center">
               <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
             </div>
           </div>
@@ -292,22 +290,16 @@ export default function Home() {
           </div>
         </SectionContainer>
 
-        {/* Section Divider */}
-        <SectionDivider variant="gradient" showIcon={true} icon="🌟" />
-
         {/* 🌟 COMMUNITY STATS SECTION */}
         <SectionContainer variant="accent" id="community-stats">
           <CommunityStats />
         </SectionContainer>
 
-        {/* Section Divider */}
-        <SectionDivider variant="decorative" showIcon={true} icon="🎯" />
-
         {/* 🔗 FEATURED GAMES INTERNAL LINKING */}
         <SectionContainer variant="highlight" id="featured-games">
           <div className="px-4">
-            <div className="text-center mb-12">
-              <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+            <div className="text-center mb-6">
+              <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-2">
                 🎯 Beliebte Online Trinkspiele
               </h2>
               <p className="body-lg text-white/80">
@@ -341,17 +333,14 @@ export default function Home() {
           </div>
         </SectionContainer>
 
-        {/* Section Divider */}
-        <SectionDivider variant="minimal" />
-
         {/* ❓ FAQ TEASER SECTION */}
         <SectionContainer variant="default" id="faq-teaser">
           <div className="px-4">
-            <div className="text-center mb-12">
-              <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+            <div className="text-center mb-6">
+              <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-2">
                 ❓ Häufig gestellte Fragen
               </h2>
-              <p className="body-lg text-white/80 mb-8">
+              <p className="body-lg text-white/80 mb-4">
                 Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!
               </p>
               <InternalLinkCard
@@ -366,24 +355,15 @@ export default function Home() {
           </div>
         </SectionContainer>
 
-        {/* Section Divider */}
-        <SectionDivider variant="gradient" showIcon={true} icon="💬" />
-
         {/* 💬 TESTIMONIALS SECTION */}
         <SectionContainer variant="accent" id="testimonials">
           <TestimonialsSection />
         </SectionContainer>
 
-        {/* Section Divider */}
-        <SectionDivider variant="decorative" showIcon={true} icon="🚀" />
-
         {/* 🚀 SOCIAL MEDIA FOLLOW CTA */}
         <SectionContainer variant="highlight" id="social-follow">
           <FollowUsCTA />
         </SectionContainer>
-
-        {/* Section Divider */}
-        <SectionDivider variant="minimal" />
 
         {/* 📤 SOCIAL SHARING SECTION */}
         <SectionContainer variant="minimal" id="social-sharing">
