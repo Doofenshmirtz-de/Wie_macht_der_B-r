@@ -157,9 +157,6 @@ export function SocialMediaLinks({
               whitespace-nowrap animate-fade-in
             `}>
               <div className="font-semibold">{social.name}</div>
-              {!social.isActive && (
-                <div className="text-orange-300 text-xs">Coming Soon!</div>
-              )}
               <div className="text-white/70 text-xs">{social.description}</div>
               
               {/* Tooltip Arrow */}
@@ -174,9 +171,6 @@ export function SocialMediaLinks({
           {showLabels && variant !== 'floating' && (
             <div className={`${styles.label} text-center mt-1`}>
               {social.name}
-              {!social.isActive && (
-                <div className="text-orange-400 text-xs">Coming Soon</div>
-              )}
             </div>
           )}
         </div>
@@ -203,10 +197,10 @@ export function FollowUsCTA({
         
         {/* Header */}
         <div className="mb-12">
-          <h2 className="heading-2 gradient-text text-shadow-glow mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             {title}
           </h2>
-          <p className="body-lg text-white/80 max-w-2xl mx-auto">
+          <p className="text-lg text-white/80 max-w-2xl mx-auto">
             {subtitle}
           </p>
         </div>
@@ -223,23 +217,14 @@ export function FollowUsCTA({
                 }
               `}>
                 
-                {/* Platform Icon & Status */}
+                {/* Platform Icon */}
                 <div className="text-center mb-4">
                   <div className={`
                     text-4xl mb-3 transition-transform duration-300
-                    ${social.isActive ? 'group-hover:scale-110' : ''}
+                    ${social.isActive ? 'group-hover:scale-110' : 'opacity-60'}
                   `}>
                     {social.icon}
                   </div>
-                  
-                  {social.isActive ? (
-                    <div className="w-3 h-3 bg-green-400 rounded-full mx-auto animate-pulse"></div>
-                  ) : (
-                    <div className="flex items-center justify-center gap-1">
-                      <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-                      <span className="text-xs text-orange-300 font-medium">Coming Soon</span>
-                    </div>
-                  )}
                 </div>
 
                 {/* Platform Info */}
@@ -267,15 +252,6 @@ export function FollowUsCTA({
                   )}
                 </div>
 
-                {/* Coming Soon Overlay */}
-                {!social.isActive && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-xl flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-2xl mb-2">🔥</div>
-                      <div className="text-sm font-bold text-orange-300">Coming Soon</div>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           ))}
@@ -283,10 +259,10 @@ export function FollowUsCTA({
 
         {/* Newsletter CTA */}
         <div className="bg-gradient-to-r from-purple-500/20 to-orange-500/20 rounded-xl p-8 border border-white/10">
-          <h3 className="heading-4 text-white mb-4">
+          <h3 className="text-xl font-bold text-white mb-4">
             📧 Verpasse keine Updates!
           </h3>
-          <p className="body-base text-white/80 mb-6">
+          <p className="text-base text-white/80 mb-6">
             Melde dich für unseren Newsletter an und erfahre als Erste*r von neuen Features, 
             exklusiven Events und Party-Tipps!
           </p>

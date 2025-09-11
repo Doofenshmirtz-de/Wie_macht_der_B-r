@@ -55,38 +55,8 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen overflow-hidden">
-      {/* Epic Background Effects */}
+      {/* Clean Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 opacity-40"></div>
-      <div className="absolute top-20 left-10 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute top-40 right-20 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-pink-400/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
-      
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => {
-          const leftPos = Math.random() * 100;
-          const topPos = Math.random() * 100;
-          const delay = Math.random() * 3;
-          const duration = 2 + Math.random() * 3;
-          
-          return (
-            <div
-              key={i}
-              className="epic-particle absolute w-2 h-2 bg-yellow-400/30 rounded-full animate-particle-float anim-delay-dynamic"
-              style={{
-                "--left-pos": `${leftPos}%`,
-                "--top-pos": `${topPos}%`,
-                "--animation-delay": `${delay}s`,
-                "--animation-duration": `${duration}s`,
-                left: `var(--left-pos)`,
-                top: `var(--top-pos)`,
-                animationDelay: `var(--animation-delay)`,
-                animationDuration: `var(--animation-duration)`,
-              } as React.CSSProperties}
-            />
-          );
-        })}
-      </div>
 
       <div className="relative z-10 mx-auto max-w-screen-7xl px-4 py-8">
         {/* Epic Hero Section with Image and Download Button */}
@@ -108,13 +78,6 @@ export default function Home() {
                     quality={85}
                   />
                   
-                  {/* Floating Elements */}
-                  <div className="absolute top-4 right-4 bg-yellow-400 text-black font-black text-sm px-3 py-1 rounded-full animate-float-badge">
-                    🍻 PARTY TIME!
-                  </div>
-                  <div className="absolute bottom-4 left-4 bg-red-500 text-white font-bold text-sm px-3 py-1 rounded-full animate-pulse">
-                    🔥 TRINKSPIELE
-                  </div>
                 </div>
               </div>
             </div>
@@ -123,20 +86,20 @@ export default function Home() {
             <div className="order-1 lg:order-2 text-center lg:text-left">
               {/* Main Title */}
               <div className="relative inline-block">
-                <h1 className="epic-title relative display-xl gradient-text text-shadow-glow animate-float-gentle"
+                <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4"
                   aria-label="Online Trinkspiele kostenlos - Wie macht der Bär"
                 >
                   ONLINE TRINKSPIELE
                   <br />
-                  <span className="heading-1 gradient-text">
+                  <span className="text-3xl lg:text-5xl font-bold text-yellow-300">
                     KOSTENLOS SPIELEN
                   </span>
                 </h1>
               </div>
               
-              {/* Epic Subtitle */}
-              <div className="mt-6 relative animate-scale-in">
-                <p className="epic-subtitle text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-200 drop-shadow-lg tracking-wide">
+              {/* Subtitle */}
+              <div className="mt-6">
+                <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-200 tracking-wide">
                   🍻 ONLINE TRINKSPIELE 🍻
                 </p>
                 <p className="mt-2 text-base sm:text-lg lg:text-xl text-white/90 font-semibold">
@@ -144,8 +107,8 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Catchy Description */}
-              <div className="mt-8 space-y-4 animate-slide-in-right">
+              {/* Description */}
+              <div className="mt-8 space-y-4">
                 <p className="text-lg text-white/80 leading-relaxed">
                   🎉 <strong>Bereit für den ultimativen Partyspaß?</strong> 
                 </p>
@@ -172,16 +135,14 @@ export default function Home() {
               {/* Download Button */}
               <div className="mt-10">
                 <button 
-                  className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 hover:scale-105 transition-all duration-300 rounded-lg shadow-lg border-2 border-blue-400/50"
+                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 rounded-lg shadow-lg"
                   aria-label="Jetzt downloaden"
                 >
-                  {/* Button Content */}
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">📱</span>
                     <span>JETZT DOWNLOADEN</span>
                     <span className="text-2xl">⬇️</span>
                   </div>
-                  
                 </button>
                 
                 {/* Download Subtext */}
@@ -197,13 +158,10 @@ export default function Home() {
         <SectionContainer variant="highlight" id="games-section">
           <div aria-label="Spieleauswahl mit Suchfunktion">
           <div className="text-center mb-8">
-            <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               WÄHLE DEIN SPIEL
             </h2>
-            <p className="mt-2 body-lg text-white/80 font-semibold">Bereit für den ultimativen Partyspaß?</p>
-            <div className="mt-3 flex justify-center">
-              <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
-            </div>
+            <p className="text-lg text-white/80 font-semibold">Bereit für den ultimativen Partyspaß?</p>
           </div>
 
           {/* 🔍 SUCHFUNKTION */}
@@ -296,10 +254,10 @@ export default function Home() {
         <SectionContainer variant="highlight" id="featured-games">
           <div className="px-4">
             <div className="text-center mb-6">
-              <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-2">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 🎯 Beliebte Online Trinkspiele
               </h2>
-              <p className="body-lg text-white/80">
+              <p className="text-lg text-white/80">
                 Entdecke die besten Browser Trinkspiele kostenlos ohne Download!
               </p>
             </div>
@@ -334,10 +292,10 @@ export default function Home() {
         <SectionContainer variant="default" id="faq-teaser">
           <div className="px-4">
             <div className="text-center mb-6">
-              <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-2">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 ❓ Häufig gestellte Fragen
               </h2>
-              <p className="body-lg text-white/80 mb-4">
+              <p className="text-lg text-white/80 mb-4">
                 Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!
               </p>
               <InternalLinkCard

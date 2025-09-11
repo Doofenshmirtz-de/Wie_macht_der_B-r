@@ -86,20 +86,26 @@ export function Header() {
                     🎮 Spiele
                   </span>
                 </button>
-                <span className={`group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50 cursor-not-allowed ${
+                <Link 
+                  href="/blog"
+                  className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
                     isTouch ? 'min-h-[44px] min-w-[44px]' : ''
-                  }`}>
-                  <span className="text-sm font-bold">
-                    📰 Blog (Coming Soon)
+                  }`}
+                >
+                  <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
+                    📰 Blog
                   </span>
-                </span>
-                <span className={`group relative px-4 py-2 rounded-lg transition-all duration-300 text-white/50 cursor-not-allowed ${
+                </Link>
+                <Link 
+                  href="/faq"
+                  className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
                     isTouch ? 'min-h-[44px] min-w-[44px]' : ''
-                  }`}>
-                  <span className="text-sm font-bold">
-                    ❓ FAQ (Coming Soon)
+                  }`}
+                >
+                  <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
+                    ❓ FAQ
                   </span>
-                </span>
+                </Link>
               </nav>
             </DesktopOnly>
         </div>

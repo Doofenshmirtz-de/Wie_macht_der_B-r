@@ -55,7 +55,7 @@ export default function GameSearch({
           {/* Search Icon & Input */}
           <div className="flex items-center gap-4">
             <div className="flex-shrink-0">
-              <SearchIcon size={32} className="animate-glow-pulse" />
+              <SearchIcon size={32} className="text-yellow-400" />
             </div>
             
             <div className="flex-1">
@@ -72,9 +72,7 @@ export default function GameSearch({
             {/* Filter Toggle Button */}
             <button
               onClick={handleFilterToggle}
-              className={`flex-shrink-0 btn-secondary px-4 py-2 label-base transition-all duration-300 ${
-                isExpanded ? 'animate-glow-pulse' : ''
-              }`}
+              className="flex-shrink-0 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors duration-300"
             >
               🎯 Filter
             </button>
