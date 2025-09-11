@@ -260,9 +260,13 @@ export function ItemList({
     return ErrorDisplay;
   }
 
+
+
+
+  
   const containerClasses = direction === 'vertical'
     ? `space-y-8 ${className}`
-    : `flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth ${className}`;
+    : `flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 pt-8 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth ${className}`;
 
   return (
     <div className="relative">

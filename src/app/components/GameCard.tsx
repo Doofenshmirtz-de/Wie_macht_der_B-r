@@ -39,7 +39,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
     <div 
       className={`epic-game-card game-card group snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] min-h-[550px] sm:min-h-[550px] relative overflow-hidden rounded-3xl transition-all duration-500 ${
         available 
-          ? "hover:scale-105 hover:-translate-y-2 cursor-pointer" 
+          ? "hover:scale-105 hover:-translate-y-1 cursor-pointer" 
           : "opacity-75 cursor-not-allowed"
       }`}
     >

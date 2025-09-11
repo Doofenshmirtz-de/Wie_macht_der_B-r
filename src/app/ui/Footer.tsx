@@ -61,7 +61,7 @@ export function Footer() {
 
       <div className="relative mx-auto max-w-screen-lg px-4 py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-6">
           
           {/* Logo & Description */}
           <div className="md:col-span-2">
@@ -163,7 +163,7 @@ export function Footer() {
         </div>
 
         {/* Social & Tech Stats */}
-        <div className="border-t border-white/10 pt-8">
+        <div className="pt-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             
             {/* Social Links */}
@@ -188,7 +188,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 text-center">
+        <div className="mt-4 text-center">
           <p className="text-white/40 text-xs">
             © 2024 Wie macht der Bär. Made with 🍻 für die beste Party-Community.
           </p>
@@ -197,9 +197,6 @@ export function Footer() {
           </p>
         </div>
       </div>
-      
-      {/* Bottom glow line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/60 to-transparent"></div>
     </footer>
   );
 }

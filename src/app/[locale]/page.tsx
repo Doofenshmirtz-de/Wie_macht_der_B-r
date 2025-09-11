@@ -170,25 +170,22 @@ export default function Home() {
               </div>
 
               {/* Download Button */}
-              <div className="mt-10 animate-scale-in">
-                <a 
-                  href="#games-section"
-                  className="btn-primary group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black animate-glow-pulse shimmer-effect border-glow"
-                  aria-label="Jetzt spielen"
+              <div className="mt-10">
+                <button 
+                  className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 hover:scale-105 transition-all duration-300 rounded-lg shadow-lg border-2 border-blue-400/50"
+                  aria-label="Jetzt downloaden"
                 >
                   {/* Button Content */}
-                  <div className="relative flex items-center gap-3">
-                    <span className="text-2xl">🎮</span>
-                    <span>JETZT SPIELEN</span>
-                    <span className="text-2xl">🎯</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">📱</span>
+                    <span>JETZT DOWNLOADEN</span>
+                    <span className="text-2xl">⬇️</span>
                   </div>
                   
-                  {/* Shine Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"></div>
-                </a>
+                </button>
                 
                 {/* Download Subtext */}
-                <p className="mt-4 text-sm text-yellow-200/80 font-semibold animate-text-glow">
+                <p className="mt-4 text-sm text-yellow-200/80 font-semibold">
                   🚀 Sofort loslegen und nie wieder langweilige Partys haben!
                 </p>
               </div>
@@ -259,7 +256,7 @@ export default function Home() {
                 initialData={initialGamesData || undefined}
                 itemsPerLoad={3}
                 direction="horizontal"
-                className="infinite-scroll-container"
+                className="infinite-scroll-container py-4"
                 renderItem={(game, index) => (
                   <GameCard 
                     game={game} 
@@ -372,8 +369,6 @@ export default function Home() {
 
       </div>
       
-      {/* 📤 FLOATING SOCIAL SHARE */}
-      <SocialSharing variant="floating" />
     </main>
   );
 }
