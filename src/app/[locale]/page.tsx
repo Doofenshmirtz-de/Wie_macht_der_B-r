@@ -13,6 +13,7 @@ import { SocialSharing } from "../ui/SocialSharing";
 import { InternalLinkCard } from "../ui/InternalLinkCard";
 import { FollowUsCTA } from "../ui/SocialMediaLinks";
 import { SectionContainer } from "../ui/SectionDivider";
+// import { initCrossPlatform } from "../lib/cross-platform-init";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
@@ -21,6 +22,8 @@ export default function Home() {
   
   useEffect(() => {
     setMounted(true);
+    // Cross-Platform-Optimierungen initialisieren
+    // initCrossPlatform();
   }, []);
 
   // Initiale Daten laden für SEO und Performance - sofort beim Mount
