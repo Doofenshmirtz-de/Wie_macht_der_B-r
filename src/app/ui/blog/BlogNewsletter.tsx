@@ -14,19 +14,19 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
 
   const content = {
     de: {
-      title: "📧 Bleib auf dem Laufenden!",
+      title: "Bleib auf dem Laufenden!",
       subtitle: "Verpasse keine neuen Artikel, Spiele-Updates und exklusiven Tipps",
       emailPlaceholder: "Deine E-Mail-Adresse",
       subscribeButton: "Jetzt abonnieren",
       subscribingButton: "Abonniere...",
-      successTitle: "🎉 Erfolgreich abonniert!",
+      successTitle: "Erfolgreich abonniert!",
       successMessage: "Vielen Dank! Du erhältst bald eine Bestätigungs-E-Mail.",
       benefits: [
-        "🎯 Wöchentliche Spiele-Empfehlungen",
-        "🔥 Exklusive Inhalte und Previews", 
-        "🎉 Einladungen zu Online-Events",
-        "💡 Profi-Tipps von Experten",
-        "📱 Neue Features als Erster testen"
+        "Wöchentliche Spiele-Empfehlungen",
+        "Exklusive Inhalte und Previews", 
+        "Einladungen zu Online-Events",
+        "Profi-Tipps von Experten",
+        "Neue Features als Erster testen"
       ],
       privacy: "Wir respektieren deine Privatsphäre. Keine Spam-Mails, jederzeit abbestellbar.",
       stats: {
@@ -36,19 +36,19 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
       }
     },
     en: {
-      title: "📧 Stay Updated!",
+      title: "Stay Updated!",
       subtitle: "Don't miss new articles, game updates and exclusive tips",
       emailPlaceholder: "Your email address",
       subscribeButton: "Subscribe Now",
       subscribingButton: "Subscribing...",
-      successTitle: "🎉 Successfully Subscribed!",
+      successTitle: "Successfully Subscribed!",
       successMessage: "Thank you! You'll receive a confirmation email soon.",
       benefits: [
-        "🎯 Weekly game recommendations",
-        "🔥 Exclusive content and previews",
-        "🎉 Invitations to online events",
-        "💡 Pro tips from experts",
-        "📱 Test new features first"
+        "Weekly game recommendations",
+        "Exclusive content and previews",
+        "Invitations to online events",
+        "Pro tips from experts",
+        "Test new features first"
       ],
       privacy: "We respect your privacy. No spam emails, unsubscribe anytime.",
       stats: {
@@ -83,7 +83,7 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
         
         <div className="relative mx-auto max-w-2xl px-4 text-center">
           <div className="card-elevated p-12 animate-scale-in">
-            <div className="text-6xl mb-6 animate-bounce">🎉</div>
+            <div className="text-6xl mb-6">✓</div>
             <h2 className="heading-2 gradient-text mb-4">
               {currentContent.successTitle}
             </h2>
@@ -113,7 +113,7 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
             
             {/* Left Side - Content */}
             <div>
-              <h2 className="heading-2 gradient-text text-shadow-glow mb-4">
+              <h2 className="heading-2 gradient-text mb-4">
                 {currentContent.title}
               </h2>
               <p className="body-lg text-white/80 mb-8">
@@ -128,9 +128,9 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
                     className="flex items-center gap-3 animate-fade-in"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <span className="text-lg">{benefit.split(' ')[0]}</span>
+                    <span className="text-lg">•</span>
                     <span className="body-sm text-white/90">
-                      {benefit.split(' ').slice(1).join(' ')}
+                      {benefit}
                     </span>
                   </div>
                 ))}
@@ -145,7 +145,7 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
                     style={{ animationDelay: `${index * 0.2}s` }}
                   >
                     <div className="body-sm text-white/70 mb-1">
-                      {key === 'subscribers' ? '👥' : key === 'articles' ? '📰' : '⭐'}
+                      {key === 'subscribers' ? 'Abonnenten' : key === 'articles' ? 'Artikel' : 'Bewertung'}
                     </div>
                     <div className="heading-6 text-white">{value}</div>
                   </div>
@@ -160,7 +160,7 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
                 {/* Email Input */}
                 <div className="relative">
                   <div className="flex items-center gap-4 card-elevated p-4">
-                    <SearchIcon size={24} className="text-purple-400 animate-glow-pulse" />
+                    <SearchIcon size={24} className="text-purple-400" />
                     <input
                       type="email"
                       value={email}
@@ -179,7 +179,7 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
                   disabled={isLoading || !email}
                   className={`
                     w-full btn-primary px-8 py-4 text-center transition-all duration-300
-                    ${isLoading ? 'animate-pulse' : 'animate-glow-pulse'}
+                    ${isLoading ? 'animate-pulse' : ''}
                     disabled:opacity-50 disabled:cursor-not-allowed
                   `}
                 >
@@ -198,18 +198,17 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
 
                 {/* Privacy Notice */}
                 <p className="body-xs text-white/60 text-center leading-relaxed">
-                  🔒 {currentContent.privacy}
+                  {currentContent.privacy}
                 </p>
               </form>
 
               {/* Social Proof */}
               <div className="mt-8 p-4 bg-gradient-to-r from-yellow-900/20 to-orange-900/20 rounded-xl border border-yellow-500/20">
                 <div className="flex items-center justify-center gap-2 text-yellow-300 mb-2">
-                  <span className="text-2xl">⭐</span>
                   <span className="heading-6">Vertraut von tausenden Gamern</span>
                 </div>
                 <p className="body-xs text-yellow-200 text-center">
-                  Schließe dich der größten deutschen Trinkspiele-Community an!
+                  Schließe dich der größten deutschen Partyspiele-Community an!
                 </p>
               </div>
             </div>

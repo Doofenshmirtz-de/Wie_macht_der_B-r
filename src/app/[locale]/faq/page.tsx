@@ -17,33 +17,29 @@ export default function FAQPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,165,0,0.15),transparent_50%)]"></div>
         
         <div className="relative z-10 max-w-4xl mx-auto">
-          <h2 className="display-lg gradient-text text-shadow-glow mb-6 animate-float-gentle">
-            ❓ FAQ - Online Trinkspiele
+          <h2 className="display-lg gradient-text mb-6">
+            FAQ - Online Partyspiele
           </h2>
           <p className="body-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Alles was du über <strong>kostenlose Browser Trinkspiele</strong> wissen musst! 
+            Alles was du über <strong>kostenlose Browser Partyspiele</strong> wissen musst! 
             Von Bomb Party Regeln bis zu Sicherheitstipps - hier findest du alle Antworten.
           </p>
           
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-            <div className="stat-card animate-float-gentle">
-              <div className="text-2xl mb-2">🎮</div>
+            <div className="stat-card">
               <div className="label-lg text-orange-300">15+</div>
               <div className="text-xs text-white/60">FAQ Themen</div>
             </div>
-            <div className="stat-card animate-float-gentle anim-delay-1">
-              <div className="text-2xl mb-2">⚡</div>
+            <div className="stat-card">
               <div className="label-lg text-orange-300">Sofort</div>
               <div className="text-xs text-white/60">Antworten</div>
             </div>
-            <div className="stat-card animate-float-gentle anim-delay-2">
-              <div className="text-2xl mb-2">🔍</div>
+            <div className="stat-card">
               <div className="label-lg text-orange-300">Durchsuchbar</div>
               <div className="text-xs text-white/60">FAQ System</div>
             </div>
-            <div className="stat-card animate-float-gentle anim-delay-3">
-              <div className="text-2xl mb-2">💡</div>
+            <div className="stat-card">
               <div className="label-lg text-orange-300">Hilfsreich</div>
               <div className="text-xs text-white/60">Tipps & Tricks</div>
             </div>
@@ -59,18 +55,18 @@ export default function FAQPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="heading-2 gradient-text mb-4">
-              🎯 Jetzt Online Trinkspiele kostenlos spielen!
+              Jetzt Online Partyspiele kostenlos spielen!
             </h2>
             <p className="body-lg text-white/80">
-              Hast du alle Antworten gefunden? Dann starte jetzt mit unseren Browser Trinkspielen!
+              Hast du alle Antworten gefunden? Dann starte jetzt mit unseren Browser Partyspielen!
             </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6">
             <InternalLinkCard
               href="/game/bomb"
-              title="Bomb Party Trinkspiel starten"
-              description="Das ultimative Wortspiel-Trinkspiel! Finde Wörter bevor die Bombe explodiert - Multiplayer bis 16 Spieler."
+              title="Bomb Party Partyspiel starten"
+              description="Das ultimative Wortspiel-Partyspiel! Finde Wörter bevor die Bombe explodiert - Multiplayer bis 16 Spieler."
               gameType="bomb"
               keywords={['Bomb Party', 'Multiplayer', 'Wortspiel']}
             />
@@ -96,14 +92,14 @@ export default function FAQPage() {
       <section className="py-16 px-4 bg-gradient-to-r from-purple-900/20 to-orange-900/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="heading-3 gradient-text mb-6">
-            📰 Mehr Trinkspiele Tipps & Guides
+            Mehr Partyspiele Tipps & Guides
           </h2>
           <p className="body-lg text-white/80 mb-8">
             Entdecke unseren Blog mit Partyplanung-Tipps, neuen Spielideen und Guides für die perfekte Party!
           </p>
           <InternalLinkCard
             href="/blog"
-            title="Trinkspiele Blog & Magazin"
+            title="Partyspiele Blog & Magazin"
             description="Partyplanung-Tipps, Spielregeln, Sicherheitshinweise und kreative Ideen für unvergessliche Partys."
             gameType="blog"
             keywords={['Blog', 'Partyplanung', 'Tipps']}

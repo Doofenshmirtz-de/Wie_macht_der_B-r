@@ -9,7 +9,7 @@ interface BlogHeroProps {
 export function BlogHero({ locale }: BlogHeroProps) {
   const content = {
     de: {
-      title: "🍻 Trinkspiele Magazin",
+      title: "Partyspiele Magazin",
       subtitle: "Die besten Tipps, Trends und Geheimnisse für unvergessliche Partys",
       description: "Entdecke die Welt der Trinkspiele, Partyplanung und geselligen Runden. Von klassischen Spielen bis zu den neuesten Online-Trends - hier findest du alles für den perfekten Partyabend!",
       stats: {
@@ -19,7 +19,7 @@ export function BlogHero({ locale }: BlogHeroProps) {
       }
     },
     en: {
-      title: "🍻 Drinking Games Magazine", 
+      title: "Party Games Magazine", 
       subtitle: "The best tips, trends and secrets for unforgettable parties",
       description: "Discover the world of drinking games, party planning and social gatherings. From classic games to the latest online trends - here you'll find everything for the perfect party night!",
       stats: {
@@ -54,7 +54,7 @@ export function BlogHero({ locale }: BlogHeroProps) {
       
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         {/* Main Title */}
-        <h2 className="display-lg gradient-text text-shadow-glow animate-float-gentle mb-6">
+        <h2 className="display-lg gradient-text mb-6">
           {currentContent.title}
         </h2>
         
@@ -88,14 +88,14 @@ export function BlogHero({ locale }: BlogHeroProps) {
         
         {/* CTA Buttons */}
         <div className="flex flex-wrap justify-center gap-4">
-          <button className="btn-primary px-8 py-4 animate-glow-pulse">
-            📚 Neueste Artikel
+          <button className="btn-primary px-8 py-4">
+            Neueste Artikel
           </button>
           <button className="btn-secondary px-8 py-4">
-            🎯 Beliebte Spiele
+            Beliebte Spiele
           </button>
           <button className="btn-ghost px-8 py-4">
-            📧 Newsletter
+            Newsletter
           </button>
         </div>
       </div>
