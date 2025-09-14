@@ -51,23 +51,23 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
     {
       href: '#games-section',
       label: '🎮 Spiele',
-      description: 'Alle verfügbaren Trinkspiele',
+      description: 'Alle verfügbaren Partyspiele',
       isScroll: true
     },
     {
       href: '/game/bomb',
       label: '💣 Bomb Party',
-      description: 'Wortspiel-Trinkspiel'
+      description: 'Wortspiel-Partyspiel'
     },
     {
       href: '/game/neverhaveiever', 
       label: '🤭 Ich hab noch nie',
-      description: 'Geständnis-Trinkspiel'
+      description: 'Geständnis-Partyspiel'
     },
     {
       href: '/game/truthordare',
       label: '🎯 Wahrheit oder Pflicht',
-      description: 'Mutprobe-Trinkspiel'
+      description: 'Mutprobe-Partyspiel'
     },
     {
       href: '#community-stats',
@@ -100,7 +100,7 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative z-50 p-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:bg-white/20"
+        className="relative z-50 p-2 rounded-lg bg-gradient-to-r from-orange-500/20 to-purple-500/20 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:bg-white/20"
         aria-label="Navigation öffnen"
         aria-expanded={isOpen}
       >
@@ -192,7 +192,7 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
           <div className="text-center">
             <p className="text-sm text-white/60">Wie macht der Bär</p>
-            <p className="text-xs text-white/40">Online Trinkspiele</p>
+            <p className="text-xs text-white/40">Online Partyspiele</p>
           </div>
         </div>
       </div>

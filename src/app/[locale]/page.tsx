@@ -13,6 +13,7 @@ import { SocialSharing } from "../ui/SocialSharing";
 import { InternalLinkCard } from "../ui/InternalLinkCard";
 import { FollowUsCTA } from "../ui/SocialMediaLinks";
 import { SectionContainer } from "../ui/SectionDivider";
+// import { initCrossPlatform } from "../lib/cross-platform-init";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
@@ -21,6 +22,8 @@ export default function Home() {
   
   useEffect(() => {
     setMounted(true);
+    // Cross-Platform-Optimierungen initialisieren
+    // initCrossPlatform();
   }, []);
 
   // Initiale Daten laden für SEO und Performance - sofort beim Mount
@@ -69,7 +72,7 @@ export default function Home() {
                 <div className="epic-image-container">
                   <Image 
                     src="/coverphotobear.jpg" 
-                    alt="Wie macht der Bär - Die besten Online Trinkspiele für deine Party" 
+                    alt="Wie macht der Bär - Die besten Online Partyspiele für deine Party" 
                     width={600} 
                     height={400}
                     className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
@@ -87,9 +90,9 @@ export default function Home() {
               {/* Main Title */}
               <div className="relative inline-block">
                 <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4"
-                  aria-label="Online Trinkspiele kostenlos - Wie macht der Bär"
+                  aria-label="Online Partyspiele kostenlos - Wie macht der Bär"
                 >
-                  ONLINE TRINKSPIELE
+                  ONLINE PARTYSPIELE
                   <br />
                   <span className="text-3xl lg:text-5xl font-bold text-yellow-300">
                     KOSTENLOS SPIELEN
@@ -100,7 +103,7 @@ export default function Home() {
               {/* Subtitle */}
               <div className="mt-6">
                 <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-200 tracking-wide">
-                  🍻 ONLINE TRINKSPIELE 🍻
+                  🍻 ONLINE PARTYSPIELE 🍻
                 </p>
                 <p className="mt-2 text-base sm:text-lg lg:text-xl text-white/90 font-semibold">
                   Die beste Spiele-Webseite der Welt!
@@ -113,7 +116,7 @@ export default function Home() {
                   🎉 <strong>Bereit für den ultimativen Partyspaß?</strong> 
                 </p>
                 <p className="text-base text-white/70 leading-relaxed">
-                  Spiele die besten Trinkspiele online mit deinen Freunden! 
+                  Spiele die besten Partyspiele online mit deinen Freunden! 
                   Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos und ohne Download.
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-6">
@@ -255,25 +258,25 @@ export default function Home() {
           <div className="px-4">
             <div className="text-center mb-6">
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                🎯 Beliebte Online Trinkspiele
+                🎯 Beliebte Online Partyspiele
               </h2>
               <p className="text-lg text-white/80">
-                Entdecke die besten Browser Trinkspiele kostenlos ohne Download!
+                Entdecke die besten Browser Partyspiele kostenlos ohne Download!
               </p>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               <InternalLinkCard
                 href="/game/bomb"
-                title="Bomb Party Trinkspiel Multiplayer"
-                description="Das ultimative Wortspiel-Trinkspiel online! Spiele Bomb Party kostenlos mit bis zu 16 Freunden."
+                title="Bomb Party Partyspiel Multiplayer"
+                description="Das ultimative Wortspiel-Partyspiel online! Spiele Bomb Party kostenlos mit bis zu 16 Freunden."
                 gameType="bomb"
                 keywords={['Bomb Party', 'Multiplayer', 'Kostenlos']}
               />
               <InternalLinkCard
                 href="/game/neverhaveiever"
                 title="Ich hab noch nie online kostenlos"
-                description="Das klassische Geständnis-Trinkspiel jetzt online! Finde heraus, wer was schon mal gemacht hat."
+                description="Das klassische Geständnis-Partyspiel jetzt online! Finde heraus, wer was schon mal gemacht hat."
                 gameType="neverhaveiever"
                 keywords={['Ich hab noch nie', 'Geständnisse', 'Online']}
               />
@@ -296,11 +299,11 @@ export default function Home() {
                 ❓ Häufig gestellte Fragen
               </h2>
               <p className="text-lg text-white/80 mb-4">
-                Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!
+                Alles was du über Online Partyspiele wissen musst - von Spielregeln bis Sicherheitstipps!
               </p>
               <InternalLinkCard
                 href="/faq"
-                title="Komplette FAQ zu Online Trinkspielen"
+                title="Komplette FAQ zu Online Partyspielen"
                 description="15+ Antworten zu Bomb Party Regeln, Browser Kompatibilität, Multiplayer Setup und verantwortungsvollem Trinken."
                 gameType="blog"
                 keywords={['FAQ', 'Hilfe', 'Antworten']}

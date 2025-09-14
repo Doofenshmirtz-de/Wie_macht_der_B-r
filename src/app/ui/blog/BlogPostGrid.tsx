@@ -14,9 +14,9 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
 
   const content = {
     de: {
-      title: "📰 Neueste Artikel",
+      title: "Neueste Artikel",
       subtitle: "Bleib auf dem Laufenden mit den aktuellsten Trends und Tipps",
-      featuredBadge: "⭐ Featured",
+      featuredBadge: "Featured",
       readMore: "Weiterlesen",
       loadMore: "Mehr laden",
       noMore: "Alle Artikel geladen",
@@ -25,12 +25,12 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
       posts: [
         {
           id: '1',
-          title: 'Die 10 besten Online-Trinkspiele für 2024',
-          excerpt: 'Entdecke die heißesten Trinkspiele des Jahres! Von klassischen Hits bis zu innovativen Online-Erlebnissen - hier findest du alles für unvergessliche Partynächte.',
+          title: 'Die 10 besten Online-Partyspiele für 2024',
+          excerpt: 'Entdecke die heißesten Partyspiele des Jahres! Von klassischen Hits bis zu innovativen Online-Erlebnissen - hier findest du alles für unvergessliche Partynächte.',
           author: 'Max Partyprofi',
           date: '15. Dez 2024',
           readTime: '8',
-          category: 'Trinkspiele',
+          category: 'Partyspiele',
           image: '/blog/online-trinkspiele-2024.jpg',
           featured: true,
           tags: ['Online', 'Top 10', 'Trends']
@@ -61,12 +61,12 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
         },
         {
           id: '4',
-          title: 'Trinkspiele ohne Alkohol: Spaß für alle',
-          excerpt: 'Auch ohne Alkohol kann gefeiert werden! Die besten alkoholfreien Alternativen zu klassischen Trinkspielen - genauso lustig, aber für jeden geeignet.',
+          title: 'Partyspiele ohne Alkohol: Spaß für alle',
+          excerpt: 'Auch ohne Alkohol kann gefeiert werden! Die besten alkoholfreien Alternativen zu klassischen Partyspielen - genauso lustig, aber für jeden geeignet.',
           author: 'Sarah Healthyfun',
           date: '8. Dez 2024',
           readTime: '6',
-          category: 'Trinkspiele',
+          category: 'Partyspiele',
           image: '/blog/alkoholfrei-feiern.jpg',
           featured: false,
           tags: ['Alkoholfrei', 'Inklusive', 'Gesund']
@@ -100,7 +100,7 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
     en: {
       title: "📰 Latest Articles",
       subtitle: "Stay updated with the latest trends and tips",
-      featuredBadge: "⭐ Featured",
+      featuredBadge: "Featured",
       readMore: "Read More",
       loadMore: "Load More",
       noMore: "All articles loaded",
@@ -214,7 +214,7 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
       <div className="relative mx-auto max-w-7xl px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+          <h2 className="heading-2 gradient-text mb-4">
             {currentContent.title}
           </h2>
           <p className="body-lg text-white/80">
@@ -372,9 +372,9 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
           <div className="text-center">
             <button 
               onClick={() => setCurrentPage(prev => prev + 1)}
-              className="btn-secondary px-8 py-4 animate-glow-pulse"
+              className="btn-secondary px-8 py-4"
             >
-              📚 {currentContent.loadMore}
+              {currentContent.loadMore}
             </button>
           </div>
         )}
@@ -383,7 +383,7 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
           <div className="text-center">
             <div className="card-elevated inline-block p-6">
               <p className="body-base text-white/80">
-                🎉 {currentContent.noMore}
+                {currentContent.noMore}
               </p>
             </div>
           </div>

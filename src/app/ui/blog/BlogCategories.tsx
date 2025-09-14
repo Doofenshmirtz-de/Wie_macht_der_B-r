@@ -12,7 +12,7 @@ export function BlogCategories({ locale }: BlogCategoriesProps) {
 
   const content = {
     de: {
-      title: "📂 Kategorien entdecken",
+      title: "Kategorien entdecken",
       subtitle: "Finde genau die Inhalte, die dich interessieren",
       categories: [
         {
@@ -25,11 +25,11 @@ export function BlogCategories({ locale }: BlogCategoriesProps) {
         },
         {
           id: 'drinking-games',
-          name: 'Trinkspiele',
+          name: 'Partyspiele',
           icon: BombIcon,
           count: 18,
           color: 'orange',
-          description: 'Klassische und moderne Trinkspiele'
+          description: 'Klassische und moderne Partyspiele'
         },
         {
           id: 'party-planning',
@@ -58,7 +58,7 @@ export function BlogCategories({ locale }: BlogCategoriesProps) {
       ]
     },
     en: {
-      title: "📂 Explore Categories",
+      title: "Explore Categories",
       subtitle: "Find exactly the content that interests you",
       categories: [
         {
@@ -71,11 +71,11 @@ export function BlogCategories({ locale }: BlogCategoriesProps) {
         },
         {
           id: 'drinking-games',
-          name: 'Drinking Games',
+          name: 'Party Games',
           icon: BombIcon,
           count: 18,
           color: 'orange',
-          description: 'Classic and modern drinking games'
+          description: 'Classic and modern party games'
         },
         {
           id: 'party-planning',
@@ -126,7 +126,7 @@ export function BlogCategories({ locale }: BlogCategoriesProps) {
       <div className="relative mx-auto max-w-6xl px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+          <h2 className="heading-2 gradient-text mb-4">
             {currentContent.title}
           </h2>
           <p className="body-lg text-white/80">
@@ -155,9 +155,7 @@ export function BlogCategories({ locale }: BlogCategoriesProps) {
                 <div className="flex justify-center mb-4">
                   <IconComponent 
                     size={32} 
-                    className={`transition-all duration-300 ${
-                      isActive ? 'animate-glow-pulse' : 'group-hover:animate-glow-pulse'
-                    }`} 
+                    className="transition-all duration-300" 
                   />
                 </div>
                 

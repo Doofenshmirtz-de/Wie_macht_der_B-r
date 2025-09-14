@@ -16,38 +16,38 @@ const FAQ_DATA: FAQItem[] = [
   // GENERAL KATEGORIE
   {
     id: 'what-are-online-drinking-games',
-    question: 'Was sind Online Trinkspiele und wie funktionieren sie?',
-    answer: 'Online Trinkspiele sind digitale Versionen klassischer Partyspiele, die direkt im Browser gespielt werden. Du brauchst keine App herunterzuladen - einfach die Website besuchen, Freunde einladen und sofort loslegen! Unsere Spiele wie Bomb Party, Ich hab noch nie und Wahrheit oder Pflicht sind kostenlos und für Erwachsene ab 18 Jahren konzipiert.',
+    question: 'Was sind Online Partyspiele und wie funktionieren sie?',
+    answer: 'Online Partyspiele sind digitale Versionen klassischer Partyspiele, die direkt im Browser gespielt werden. Du brauchst keine App herunterzuladen - einfach die Website besuchen, Freunde einladen und sofort loslegen! Unsere Spiele wie Bomb Party, Ich hab noch nie und Wahrheit oder Pflicht sind kostenlos und für Erwachsene ab 18 Jahren konzipiert.',
     category: 'general',
-    keywords: ['Online Trinkspiele', 'Browser Trinkspiele', 'kostenlos']
+    keywords: ['Online Partyspiele', 'Browser Partyspiele', 'kostenlos']
   },
   {
     id: 'why-online-drinking-games',
-    question: 'Warum Online Trinkspiele statt echte Karten oder Apps?',
-    answer: 'Online Trinkspiele bieten viele Vorteile: Keine Downloads nötig, sofort verfügbar, automatische Spielabläufe, Multiplayer-Funktionen und regelmäßige Updates mit neuen Inhalten. Du kannst spontan mit Freunden spielen, ohne Materialien vorzubereiten oder Apps zu installieren.',
+    question: 'Warum Online Partyspiele statt echte Karten oder Apps?',
+    answer: 'Online Partyspiele bieten viele Vorteile: Keine Downloads nötig, sofort verfügbar, automatische Spielabläufe, Multiplayer-Funktionen und regelmäßige Updates mit neuen Inhalten. Du kannst spontan mit Freunden spielen, ohne Materialien vorzubereiten oder Apps zu installieren.',
     category: 'general',
     keywords: ['Browser Spiele', 'ohne Download', 'Multiplayer']
   },
   {
     id: 'party-planning-drinking-games',
-    question: 'Welche Trinkspiele eignen sich am besten für Party-Planung?',
+    question: 'Welche Partyspiele eignen sich am besten für Party-Planung?',
     answer: 'Für Partys empfehlen wir eine Mischung aus verschiedenen Spieltypen: Bomb Party als energiegeladenes Wortspiel, Ich hab noch nie für lustige Geständnisse und Wahrheit oder Pflicht für mutige Aufgaben. So bleibt die Party abwechslungsreich und alle Gäste kommen auf ihre Kosten!',
     category: 'general',
-    keywords: ['Party Trinkspiele', 'Partyplanung', 'WG Party']
+    keywords: ['Party Partyspiele', 'Partyplanung', 'WG Party']
   },
   {
     id: 'drinking-games-for-small-groups',
-    question: 'Welche Trinkspiele funktionieren gut für kleine Gruppen?',
+    question: 'Welche Partyspiele funktionieren gut für kleine Gruppen?',
     answer: 'Alle unsere Spiele sind perfekt für kleine Gruppen ab 2 Personen! Besonders "Ich hab noch nie" und "Wahrheit oder Pflicht" sind ideal für intime Runden. Bomb Party macht schon ab 3-4 Spielern richtig Spaß und wird mit mehr Leuten noch spannender.',
     category: 'general',
-    keywords: ['kleine Gruppe', 'Trinkspiele zu zweit', '2 Personen']
+    keywords: ['kleine Gruppe', 'Partyspiele zu zweit', '2 Personen']
   },
   {
     id: 'student-drinking-games',
-    question: 'Gibt es spezielle Trinkspiele für Studenten und WG-Partys?',
-    answer: 'Absolut! Unsere Online Trinkspiele sind perfekt für Studenten-WGs: kostenlos, spontan spielbar und ohne Vorbereitungszeit. Bomb Party ist besonders beliebt bei WG-Partys, da es schnell erklärt ist und für viele Lacher sorgt. Perfekt für entspannte Abende oder Pre-Gaming!',
+    question: 'Gibt es spezielle Partyspiele für Studenten und WG-Partys?',
+    answer: 'Absolut! Unsere Online Partyspiele sind perfekt für Studenten-WGs: kostenlos, spontan spielbar und ohne Vorbereitungszeit. Bomb Party ist besonders beliebt bei WG-Partys, da es schnell erklärt ist und für viele Lacher sorgt. Perfekt für entspannte Abende oder Pre-Gaming!',
     category: 'general',
-    keywords: ['Studenten Trinkspiele', 'WG Party', 'Uni Party']
+    keywords: ['Studenten Partyspiele', 'WG Party', 'Uni Party']
   },
 
   // GAMES KATEGORIE
@@ -98,7 +98,7 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: 'no-download-required',
     question: 'Muss ich eine App herunterladen?',
-    answer: 'Nein! Alle unsere Trinkspiele laufen direkt im Browser - komplett ohne Download. Einfach die Website besuchen und sofort loslegen. Das spart Speicherplatz auf deinem Handy und du bist immer auf der neuesten Version. Perfekt für spontane Spiele!',
+    answer: 'Nein! Alle unsere Partyspiele laufen direkt im Browser - komplett ohne Download. Einfach die Website besuchen und sofort loslegen. Das spart Speicherplatz auf deinem Handy und du bist immer auf der neuesten Version. Perfekt für spontane Spiele!',
     category: 'technical',
     keywords: ['ohne Download', 'keine App', 'Browser Spiel']
   },
@@ -185,10 +185,10 @@ export function FAQSection({
 
   const getCategoryLabel = (category: string) => {
     switch (category) {
-      case 'general': return '🎮 Allgemein';
-      case 'games': return '🎯 Spiele';
-      case 'technical': return '⚙️ Technik';
-      case 'safety': return '🛡️ Sicherheit';
+      case 'general': return 'Allgemein';
+      case 'games': return 'Spiele';
+      case 'technical': return 'Technik';
+      case 'safety': return 'Sicherheit';
       default: return category;
     }
   };
@@ -199,11 +199,11 @@ export function FAQSection({
         
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="heading-2 gradient-text text-shadow-glow mb-4">
-            ❓ Häufig gestellte Fragen zu Online Trinkspielen
+          <h2 className="heading-2 gradient-text mb-4">
+            Häufig gestellte Fragen zu Online Partyspielen
           </h2>
           <p className="body-lg text-white/80 max-w-2xl mx-auto">
-            Alles was du über unsere kostenlosen Browser Trinkspiele wissen musst - 
+            Alles was du über unsere kostenlosen Browser Partyspiele wissen musst - 
             von Spielregeln bis Sicherheitstipps!
           </p>
         </div>
@@ -234,7 +234,7 @@ export function FAQSection({
                 : 'bg-white/10 text-white/70 hover:bg-white/20'
             }`}
           >
-            🌟 Alle
+            Alle
           </button>
           {categories.map(category => (
             <button
@@ -309,7 +309,7 @@ export function FAQSection({
         {/* Contact CTA */}
         <div className="text-center mt-12 p-6 bg-gradient-to-r from-orange-500/20 to-purple-500/20 rounded-xl border border-white/10">
           <h3 className="heading-5 text-white mb-2">
-            🤔 Weitere Fragen?
+            Weitere Fragen?
           </h3>
           <p className="body-base text-white/80 mb-4">
             Hast du eine Frage, die hier nicht beantwortet wurde? 
@@ -320,10 +320,10 @@ export function FAQSection({
               href="#social" 
               className="btn-secondary text-sm"
             >
-              📧 Kontakt
+              Kontakt
             </a>
             <Link href="/" className="btn-primary text-sm">
-              🎮 Spiele jetzt!
+              Spiele jetzt!
             </Link>
           </div>
         </div>
