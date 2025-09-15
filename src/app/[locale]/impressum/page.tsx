@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function ImpressumPage() {
   return (
     <div className="min-h-screen pt-20 px-4">
@@ -46,12 +48,12 @@ export default function ImpressumPage() {
         </div>
 
         <div className="mt-8 text-center">
-          <a 
+          <Link 
             href="/" 
             className="btn-primary px-6 py-3"
           >
             ← Zurück zur Startseite
-          </a>
+          </Link>
         </div>
       </section>
     </div>
