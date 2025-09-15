@@ -159,7 +159,7 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
 };
 
-// Ensure next-intl can discover the i18n config (./i18n.ts)
+// Ensure next-intl can discover the i18n config (./next-intl.config.ts)
 const withNextIntl = createNextIntlPlugin();
 
 // PWA Configuration
