@@ -159,6 +159,9 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
 };
 
+// Ensure next-intl can discover the i18n config (./i18n.ts)
+const withNextIntl = createNextIntlPlugin();
+
 // PWA Configuration
 const withPWAConfig = withPWA({
   dest: 'public',
@@ -218,8 +221,6 @@ const withPWAConfig = withPWA({
     },
   ],
 });
-// Ensure next-intl can discover the i18n config (./i18n.ts)
-const withNextIntl = createNextIntlPlugin('./i18n.ts');
 
-const configWithPWA = withPWAConfig(nextConfig as any) as any;
-export default withNextIntl(configWithPWA as any) as any;
+const configWithNextIntl = withNextIntl(nextConfig as any) as any;
+export default withPWAConfig(configWithNextIntl as any) as any;

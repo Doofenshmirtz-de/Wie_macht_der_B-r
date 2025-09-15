@@ -143,13 +143,13 @@ export function Footer() {
             <h4 className="text-lg font-bold text-yellow-300 mb-4">ℹ️ Info</h4>
             <ul className="space-y-2">
                <li>
-                 <Link href={"/de/privacy" as const} className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">📋 Datenschutz</Link>
+                 <Link href="/privacy" className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">📋 Datenschutz</Link>
                </li>
                 <li>
-                  <Link href={"/de/impressum" as const} className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">📝 Impressum</Link>
+                  <Link href="/impressum" className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">📝 Impressum</Link>
                 </li>
                <li>
-                 <Link href={"/de/faq" as const} className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">❓ FAQ</Link>
+                 <Link href="/faq" className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">❓ FAQ</Link>
                </li>
               <li>
                 <span className="text-white/50 text-sm">📞 Kontakt</span>

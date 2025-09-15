@@ -1,5 +1,3 @@
-'use client';
-
 import { FAQSection } from '../../ui/FAQSection';
 import { SocialSharing } from '../../ui/SocialSharing';
 import { InternalLinkCard } from '../../ui/InternalLinkCard';

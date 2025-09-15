@@ -10,7 +10,9 @@ export const routing = defineRouting({
     '/game/truthordare': '/game/truthordare',
     '/game/neverhaveiever': '/game/neverhaveiever',
     '/faq': '/faq',
-    '/blog': '/blog'
+    '/blog': '/blog',
+    '/privacy': '/privacy',
+    '/impressum': '/impressum'
   }
 } as const);
 
