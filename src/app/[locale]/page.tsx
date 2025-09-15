@@ -86,12 +86,12 @@ export default function Home() {
             <div className="order-1 lg:order-2 text-center lg:text-left">
               {/* Main Title */}
               <div className="relative inline-block">
-                <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4"
+                <h1 className="heading-2 lg:text-5xl text-white mb-4"
                   aria-label="Online Trinkspiele kostenlos - Wie macht der Bär"
                 >
                   ONLINE TRINKSPIELE
                   <br />
-                  <span className="text-3xl lg:text-5xl font-bold text-yellow-300">
+                  <span className="gradient-text-static">
                     KOSTENLOS SPIELEN
                   </span>
                 </h1>
@@ -102,17 +102,17 @@ export default function Home() {
                 <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-200 tracking-wide">
                   🍻 ONLINE TRINKSPIELE 🍻
                 </p>
-                <p className="mt-2 text-base sm:text-lg lg:text-xl text-white/90 font-semibold">
+                <p className="mt-2 body-xl text-white/90 font-semibold">
                   Die beste Spiele-Webseite der Welt!
                 </p>
               </div>
 
               {/* Description */}
               <div className="mt-8 space-y-4">
-                <p className="text-lg text-white/80 leading-relaxed">
+                <p className="body-lg text-white/80 leading-relaxed">
                   🎉 <strong>Bereit für den ultimativen Partyspaß?</strong> 
                 </p>
-                <p className="text-base text-white/70 leading-relaxed">
+                <p className="body-base text-white/70 leading-relaxed">
                   Spiele die besten Trinkspiele online mit deinen Freunden! 
                   Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos und ohne Download.
                 </p>
@@ -135,14 +135,12 @@ export default function Home() {
               {/* Download Button */}
               <div className="mt-10">
                 <button 
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 rounded-lg shadow-lg"
+                  className="btn-primary px-8 py-4 text-lg font-bold inline-flex items-center gap-3"
                   aria-label="Jetzt downloaden"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">📱</span>
-                    <span>JETZT DOWNLOADEN</span>
-                    <span className="text-2xl">⬇️</span>
-                  </div>
+                  <span className="text-2xl">📱</span>
+                  <span>JETZT DOWNLOADEN</span>
+                  <span className="text-2xl">⬇️</span>
                 </button>
                 
                 {/* Download Subtext */}
@@ -158,10 +156,10 @@ export default function Home() {
         <SectionContainer variant="highlight" id="games-section">
           <div aria-label="Spieleauswahl mit Suchfunktion">
           <div className="text-center mb-8">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+            <h2 className="heading-2 text-white mb-4">
               WÄHLE DEIN SPIEL
             </h2>
-            <p className="text-lg text-white/80 font-semibold">Bereit für den ultimativen Partyspaß?</p>
+            <p className="body-lg text-white/80 font-semibold">Bereit für den ultimativen Partyspaß?</p>
           </div>
 
           {/* 🔍 SUCHFUNKTION */}
@@ -254,10 +252,10 @@ export default function Home() {
         <SectionContainer variant="highlight" id="featured-games">
           <div className="px-4">
             <div className="text-center mb-6">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                🎯 Beliebte Online Trinkspiele
-              </h2>
-              <p className="text-lg text-white/80">
+            <h2 className="heading-2 text-white mb-4">
+              🎯 Beliebte Online Trinkspiele
+            </h2>
+              <p className="body-lg text-white/80">
                 Entdecke die besten Browser Trinkspiele kostenlos ohne Download!
               </p>
             </div>
@@ -292,10 +290,10 @@ export default function Home() {
         <SectionContainer variant="default" id="faq-teaser">
           <div className="px-4">
             <div className="text-center mb-6">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+              <h2 className="heading-2 text-white mb-4">
                 ❓ Häufig gestellte Fragen
               </h2>
-              <p className="text-lg text-white/80 mb-4">
+              <p className="body-lg text-white/80 mb-4">
                 Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!
               </p>
               <InternalLinkCard

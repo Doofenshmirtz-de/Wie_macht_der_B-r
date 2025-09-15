@@ -199,7 +199,7 @@ export function FAQSection({
         
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="heading-2 gradient-text text-shadow-glow mb-4">
+          <h2 className="heading-2 text-white mb-4">
             ❓ Häufig gestellte Fragen zu Online Trinkspielen
           </h2>
           <p className="body-lg text-white/80 max-w-2xl mx-auto">

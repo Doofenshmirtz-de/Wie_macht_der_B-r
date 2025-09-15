@@ -17,7 +17,7 @@ export default function FAQPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,165,0,0.15),transparent_50%)]"></div>
         
         <div className="relative z-10 max-w-4xl mx-auto">
-          <h2 className="display-lg gradient-text text-shadow-glow mb-6 animate-float-gentle">
+          <h2 className="display-lg gradient-text-static mb-6 animate-float-gentle">
             ❓ FAQ - Online Trinkspiele
           </h2>
           <p className="body-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -58,7 +58,7 @@ export default function FAQPage() {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="heading-2 gradient-text mb-4">
+            <h2 className="heading-2 gradient-text-static mb-4">
               🎯 Jetzt Online Trinkspiele kostenlos spielen!
             </h2>
             <p className="body-lg text-white/80">
@@ -95,7 +95,7 @@ export default function FAQPage() {
       {/* Blog Teaser */}
       <section className="py-16 px-4 bg-gradient-to-r from-purple-900/20 to-orange-900/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="heading-3 gradient-text mb-6">
+          <h2 className="heading-3 gradient-text-static mb-6">
             📰 Mehr Trinkspiele Tipps & Guides
           </h2>
           <p className="body-lg text-white/80 mb-8">

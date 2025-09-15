@@ -126,7 +126,7 @@ export function BlogCategories({ locale }: BlogCategoriesProps) {
       <div className="relative mx-auto max-w-6xl px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+          <h2 className="heading-2 text-white animate-float-gentle mb-4">
             {currentContent.title}
           </h2>
           <p className="body-lg text-white/80">

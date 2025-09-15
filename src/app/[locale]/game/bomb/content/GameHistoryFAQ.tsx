@@ -214,7 +214,7 @@ export function GameHistoryFAQ({ locale }: GameHistoryFAQProps) {
         {/* History Section */}
         <div className="mb-20">
           <div className="text-center mb-16">
-            <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+            <h2 className="heading-2 text-white animate-float-gentle mb-4">
               {currentContent.history.title}
             </h2>
             <p className="body-lg text-white/80">
@@ -257,7 +257,7 @@ export function GameHistoryFAQ({ locale }: GameHistoryFAQProps) {
         {/* FAQ Section */}
         <div>
           <div className="text-center mb-16">
-            <h2 className="heading-2 gradient-text text-shadow-glow animate-float-gentle mb-4">
+            <h2 className="heading-2 text-white animate-float-gentle mb-4">
               {currentContent.faq.title}
             </h2>
             <p className="body-lg text-white/80">

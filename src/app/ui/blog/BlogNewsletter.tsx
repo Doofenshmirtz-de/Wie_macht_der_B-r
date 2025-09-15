@@ -84,7 +84,7 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
         <div className="relative mx-auto max-w-2xl px-4 text-center">
           <div className="card-elevated p-12 animate-scale-in">
             <div className="text-6xl mb-6 animate-bounce">🎉</div>
-            <h2 className="heading-2 gradient-text mb-4">
+            <h2 className="heading-2 text-white mb-4">
               {currentContent.successTitle}
             </h2>
             <p className="body-lg text-white/80 mb-8">
@@ -113,7 +113,7 @@ export function BlogNewsletter({ locale }: BlogNewsletterProps) {
             
             {/* Left Side - Content */}
             <div>
-              <h2 className="heading-2 gradient-text text-shadow-glow mb-4">
+              <h2 className="heading-2 text-white mb-4">
                 {currentContent.title}
               </h2>
               <p className="body-lg text-white/80 mb-8">
