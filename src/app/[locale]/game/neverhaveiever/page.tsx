@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { neverHaveIEverCategoriesDE, neverHaveIEverCategoriesEN } from "./shared/categories";
-import type { AppLocale } from "@/i18n/routing";
 import { CategorySelection } from "./components/CategorySelection";
 import { GameCard } from "./components/GameCard";
 import { NeverHaveIEverSettings } from "./components/NeverHaveIEverSettings";
@@ -15,7 +14,7 @@ type Category = "casual" | "party" | "eighteen";
 
 export default function NeverHaveIEverPage() {
   const params = useParams();
-  const locale = params.locale as AppLocale;
+  const locale = params.locale as string;
   
   const categories = locale === "de" ? neverHaveIEverCategoriesDE : neverHaveIEverCategoriesEN;
   

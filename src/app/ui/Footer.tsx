@@ -2,12 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { createNavigation } from "next-intl/navigation";
-import { routing } from "@/i18n/routing";
+import Link from "next/link";
 // import { CommunityStats } from "./CommunityStats"; // Unused import
-// import { useLocale, useTranslations } from "next-intl";
-
-const { Link } = createNavigation(routing);
 
 export function Footer() {
   // const locale = useLocale();

@@ -1,8 +1,6 @@
 import "../globals.css";
 import "../styles/design-system.css";
-import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
-import { getMessages } from "next-intl/server";
 import { Header } from "../ui/Header";
 import { Footer } from "../ui/Footer";
 import { MobileOptimizations } from "../ui/MobileOptimizations";
@@ -37,60 +35,56 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
     notFound();
   }
 
-  const messages = await getMessages();
-
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <AnalyticsProvider>
-        <SettingsProvider>
-          <SoundProvider>
-            <div className="min-h-screen">
-            <div className="relative overflow-hidden">
-              {/* Mobile & Responsive Optimizations */}
-              <MobileOptimizations />
-              <TouchOptimizations />
-              
-              {/* Development Tools */}
-              <ResponsiveDebugPanel />
-              
-              {/* Enhanced Accessibility */}
-              <SkipLinks />
-              <AccessibilityEnhancements />
-              
-              <Header />
-              
-              <main id="main-content" tabIndex={-1}>
-                {children}
-              </main>
-              
-              <Footer />
-              
-              {/* Accessibility Tools */}
-              
-              {/* PWA & Technical Components */}
-              <PWAInstallPrompt />
-              <ServiceWorkerRegistration />
-              <CookieBanner />
-              
-              {/* ARIA Live Region for Announcements */}
-              <div 
-                id="live-region" 
-                className="live-region" 
-                aria-live="polite" 
-                aria-atomic="true"
-              />
-            </div>
-            </div>
-          </SoundProvider>
-        </SettingsProvider>
-      </AnalyticsProvider>
-      
-      {/* Hero Enhancement Script */}
-      <Script
-        src="/scripts/hero-enhancements.js"
-        strategy="afterInteractive"
-      />
-    </NextIntlClientProvider>
+    <AnalyticsProvider>
+      <SettingsProvider>
+        <SoundProvider>
+          <div className="min-h-screen">
+          <div className="relative overflow-hidden">
+            {/* Mobile & Responsive Optimizations */}
+            <MobileOptimizations />
+            <TouchOptimizations />
+            
+            {/* Development Tools */}
+            <ResponsiveDebugPanel />
+            
+            {/* Enhanced Accessibility */}
+            <SkipLinks />
+            <AccessibilityEnhancements />
+            
+            <Header />
+            
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
+            
+            <Footer />
+            
+            {/* Accessibility Tools */}
+            
+            {/* PWA & Technical Components */}
+            <PWAInstallPrompt />
+            <ServiceWorkerRegistration />
+            <CookieBanner />
+            
+            {/* ARIA Live Region for Announcements */}
+            <div 
+              id="live-region" 
+              className="live-region" 
+              aria-live="polite" 
+              aria-atomic="true"
+            />
+          </div>
+          </div>
+          
+          {/* Hero Enhancement Script */}
+          <Script
+            src="/scripts/hero-enhancements.js"
+            strategy="afterInteractive"
+          />
+        </SoundProvider>
+      </SettingsProvider>
+    </AnalyticsProvider>
   );
 }
 

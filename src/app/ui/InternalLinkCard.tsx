@@ -1,10 +1,10 @@
 'use client';
 
-import { createNavigation } from 'next-intl/navigation';
-import { routing } from '@/i18n/routing';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { BombIcon, GameIcon } from './EnhancedIcons';
 
-type ValidHref = keyof typeof routing.pathnames;
+type ValidHref = "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" | "/faq" | "/blog";
 
 interface InternalLinkCardProps {
   href: ValidHref;
@@ -15,7 +15,6 @@ interface InternalLinkCardProps {
   className?: string;
 }
 
-const { Link } = createNavigation(routing);
 
 export function InternalLinkCard({ 
   href, 
@@ -52,8 +51,18 @@ export function InternalLinkCard({
     }
   };
 
+  // Simple locale detection - will be updated on client side
+  const [locale, setLocale] = useState('de');
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname;
+      setLocale(pathname.startsWith('/en') ? 'en' : 'de');
+    }
+  }, []);
+  
   return (
-    <Link href={href} className={`block ${className}`}>
+    <Link href={`/${locale}${href}`} className={`block ${className}`}>
       <div className={`
         group relative p-4 rounded-xl border-2 transition-all duration-300 
         hover:scale-105 hover:shadow-xl backdrop-blur-sm bg-white/5

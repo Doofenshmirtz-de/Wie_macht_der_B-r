@@ -2,18 +2,14 @@
 
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { useLocale } from "next-intl";
-import { createNavigation } from "next-intl/navigation";
-import { routing } from "@/i18n/routing";
+import Link from "next/link";
 import { useResponsive } from "../hooks/useResponsive";
 import { DesktopOnly, MobileOnly } from "./MobileOptimizations";
 import { MobileNavigationMenu } from "./MobileNavigationMenu";
 
-const { Link } = createNavigation(routing);
-
 export function Header() {
   const pathname = usePathname();
-  const locale = useLocale();
+  const locale = pathname.startsWith('/en') ? 'en' : 'de';
   const { isMobile, isTouch } = useResponsive();
   
   // Safe href that falls back to root if pathname is not in defined routes
@@ -55,7 +51,7 @@ export function Header() {
       }`}>
         {/* Logo with epic styling */}
         <div className="flex items-center gap-8">
-          <Link href="/" className="group relative flex items-center gap-3 hover:scale-105 transition-all duration-300">
+          <Link href={`/${locale}`} className="group relative flex items-center gap-3 hover:scale-105 transition-all duration-300">
           <div className="relative">
             <div className="absolute inset-0 bg-yellow-400 rounded-full blur-md group-hover:blur-lg transition-all duration-300 opacity-50"></div>
             <div className="relative h-12 w-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl border-2 border-yellow-300 shadow-2xl flex items-center justify-center">
@@ -87,7 +83,7 @@ export function Header() {
                   </span>
                 </button>
                 <Link 
-                  href="/blog"
+                  href={`/${locale}/blog`}
                   className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
                     isTouch ? 'min-h-[44px] min-w-[44px]' : ''
                   }`}
@@ -97,7 +93,7 @@ export function Header() {
                   </span>
                 </Link>
                 <Link 
-                  href="/faq"
+                  href={`/${locale}/faq`}
                   className={`group relative px-4 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 ${
                     isTouch ? 'min-h-[44px] min-w-[44px]' : ''
                   }`}

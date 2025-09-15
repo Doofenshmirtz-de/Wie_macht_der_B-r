@@ -1,5 +1,4 @@
 import withPWA from 'next-pwa';
-import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig = {
   // Enable optimizations for faster builds
@@ -9,7 +8,6 @@ const nextConfig = {
     optimizePackageImports: ['lodash', 'react-icons'],
   },
 
-  // Note: i18n handled by next-intl in App Router
 
   // Performance & Security Headers
   async headers() {
@@ -87,7 +85,7 @@ const nextConfig = {
 
   // Image optimization
   images: {
-    formats: ['image/webp', 'image/avif'],
+    formats: ['image/webp', 'image/avif'] as const,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year
@@ -95,7 +93,6 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Note: i18n handled by next-intl in App Router
 
   // Webpack optimizations
   webpack: (config: any, { dev, isServer }: { dev: boolean; isServer: boolean }) => {
@@ -159,9 +156,6 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
 };
 
-// Ensure next-intl can discover the i18n config (./next-intl.config.ts)
-const withNextIntl = createNextIntlPlugin();
-
 // PWA Configuration
 const withPWAConfig = withPWA({
   dest: 'public',
@@ -222,5 +216,4 @@ const withPWAConfig = withPWA({
   ],
 });
 
-const configWithNextIntl = withNextIntl(nextConfig as any) as any;
-export default withPWAConfig(configWithNextIntl as any) as any;
+export default withPWAConfig(nextConfig as any);

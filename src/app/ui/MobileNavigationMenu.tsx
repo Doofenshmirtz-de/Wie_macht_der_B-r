@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { createNavigation } from 'next-intl/navigation';
-import { routing } from '@/i18n/routing';
+import Link from 'next/link';
 import { useResponsive } from '../hooks/useResponsive';
 
-const { Link } = createNavigation(routing);
 
 interface MobileNavigationMenuProps {
   className?: string;
@@ -21,6 +19,9 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
   const [isOpen, setIsOpen] = useState(false);
   const { isMobile } = useResponsive();
   const pathname = usePathname();
+  
+  // Get locale from pathname
+  const locale = pathname.startsWith('/en') ? 'en' : 'de';
 
   // Close menu when route changes
   useEffect(() => {
@@ -55,17 +56,17 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
       isScroll: true
     },
     {
-      href: '/game/bomb',
+      href: `/game/bomb`,
       label: '💣 Bomb Party',
       description: 'Wortspiel-Trinkspiel'
     },
     {
-      href: '/game/neverhaveiever', 
+      href: `/game/neverhaveiever`, 
       label: '🤭 Ich hab noch nie',
       description: 'Geständnis-Trinkspiel'
     },
     {
-      href: '/game/truthordare',
+      href: `/game/truthordare`,
       label: '🎯 Wahrheit oder Pflicht',
       description: 'Mutprobe-Trinkspiel'
     },
@@ -76,7 +77,7 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
       isScroll: true
     },
     {
-      href: '/faq',
+      href: `/faq`,
       label: '❓ FAQ',
       description: 'Häufige Fragen'
     }
@@ -167,7 +168,7 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
             ) : (
               <Link
                 key={item.href}
-                href={item.href as RoutePath}
+                href={`/${locale}${item.href}` as RoutePath}
                 className="group block p-4 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 transition-all duration-300"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >

@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef, Suspense } from "react";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 import { useSearchParams } from "next/navigation";
 import { categoriesDE, categoriesEN } from "./shared/categories";
-import type { AppLocale } from "@/i18n/routing";
 import { useParams } from "next/navigation";
 
 
@@ -41,10 +40,10 @@ type GameMode = "single" | "multi";
 type MultiplayerMode = "host" | "client";
 
 function BombGamePageContent() {
-  const t = useTranslations();
+  const { t } = useTranslation();
   const params = useParams();
   const searchParams = useSearchParams();
-  const locale = params.locale as AppLocale;
+  const locale = params.locale as string;
   const { getRandomBombTimer } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   

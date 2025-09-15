@@ -1,0 +1,8 @@
+{
+  "locales": ["de", "en"],
+  "defaultLocale": "de",
+  "pages": {
+    "*": ["common"]
+  },
+  "loadLocaleFrom": (lang, ns) => import(`./src/app/messages/${lang}.json`).then(m => m.default)
+}

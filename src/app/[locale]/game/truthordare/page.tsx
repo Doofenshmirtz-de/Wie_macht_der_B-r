@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 // useTranslations import removed - not used in current implementation
 import { useParams } from "next/navigation";
 import { truthOrDareCategoriesDE, truthOrDareCategoriesEN } from "./shared/categories";
-import type { AppLocale } from "@/i18n/routing";
 import { CategorySelection } from "./components/CategorySelection";
 import { GameCard } from "./components/GameCard";
 import { TruthOrDareSettings } from "./components/TruthOrDareSettings";
@@ -17,7 +16,7 @@ type GameMode = "selection" | "truth" | "dare";
 
 export default function TruthOrDarePage() {
   const params = useParams();
-  const locale = params.locale as AppLocale;
+  const locale = params.locale as string;
   
   const categories = locale === "de" ? truthOrDareCategoriesDE : truthOrDareCategoriesEN;
   

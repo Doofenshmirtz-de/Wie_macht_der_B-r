@@ -1,12 +1,11 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { createNavigation } from "next-intl/navigation";
-import { routing } from "@/i18n/routing";
+import Link from "next/link";
 import type { GameCard as GameCardType } from "../lib/game-actions";
 import { useGameAnalytics } from "../hooks/useGameAnalytics";
 
-const { Link: LocaleLink } = createNavigation(routing);
 
 interface GameCardProps {
   game: GameCardType;
@@ -15,6 +14,16 @@ interface GameCardProps {
 }
 
 export function GameCard({ game, priority = false }: GameCardProps) {
+  // Simple locale detection - will be updated on client side
+  const [locale, setLocale] = useState('de');
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname;
+      setLocale(pathname.startsWith('/en') ? 'en' : 'de');
+    }
+  }, []);
+
   const {
     title,
     description,
@@ -159,12 +168,12 @@ export function GameCard({ game, priority = false }: GameCardProps) {
     return cardContent;
   }
   
-  // Type-safe href validation
-  const validHref: "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" = href as "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever";
+  // Type-safe href validation with locale
+  const validHref = `/${locale}${href}`;
   
   return (
-    <LocaleLink href={validHref} className="block" onClick={handleGameClick}>
+    <Link href={validHref} className="block" onClick={handleGameClick}>
       {cardContent}
-    </LocaleLink>
+    </Link>
   );
 }

@@ -1,12 +1,32 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+// Disable static generation for this page
+export const dynamic = 'force-dynamic';
 
 export default function OfflinePage() {
   const router = useRouter();
+  const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    setIsOnline(navigator.onLine);
+    
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const handleRetry = () => {
-    if (navigator.onLine) {
+    if (isOnline) {
       router.refresh();
     } else {
       window.location.reload();
@@ -85,8 +105,8 @@ export default function OfflinePage() {
 
         {/* Network Status Indicator */}
         <div className="text-xs text-gray-500">
-          Status: <span className={navigator.onLine ? 'text-green-400' : 'text-red-400'}>
-            {navigator.onLine ? 'Online' : 'Offline'}
+          Status: <span className={isOnline ? 'text-green-400' : 'text-red-400'}>
+            {isOnline ? 'Online' : 'Offline'}
           </span>
         </div>
       </div>
