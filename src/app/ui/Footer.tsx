@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 // import { CommunityStats } from "./CommunityStats"; // Unused import
 
 export function Footer() {
-  // const locale = useLocale();
-  // const t = useTranslations('Footer');
+  const pathname = usePathname();
+  const locale = pathname.startsWith('/en') ? 'en' : 'de';
   
   const [isClient, setIsClient] = useState(false);
 
@@ -139,13 +140,13 @@ export function Footer() {
             <h4 className="text-lg font-bold text-yellow-300 mb-4">ℹ️ Info</h4>
             <ul className="space-y-2">
                <li>
-                 <Link href="/privacy" className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">📋 Datenschutz</Link>
+                 <Link href={`/${locale}/privacy`} className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">📋 {locale === 'en' ? 'Privacy' : 'Datenschutz'}</Link>
                </li>
                 <li>
-                  <Link href="/impressum" className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">📝 Impressum</Link>
+                  <Link href={`/${locale}/impressum`} className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">📝 {locale === 'en' ? 'Imprint' : 'Impressum'}</Link>
                 </li>
                <li>
-                 <Link href="/faq" className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">❓ FAQ</Link>
+                 <Link href={`/${locale}/faq`} className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">❓ FAQ</Link>
                </li>
               <li>
                 <span className="text-white/50 text-sm">📞 Kontakt</span>
