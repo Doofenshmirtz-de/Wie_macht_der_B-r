@@ -15,22 +15,25 @@ export function Header() {
   // Safe href that falls back to root if pathname is not in defined routes
   const getValidHref = (path: string): 
     "/" | "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" | "/faq" | "/blog" => {
-    if (path === "/" || path === "/de" || path === "/en" || path === "/de/" || path === "/en/") {
+    // Remove locale prefix for processing
+    const pathWithoutLocale = path.replace(/^\/[a-z]{2}/, '');
+    
+    if (pathWithoutLocale === "/" || pathWithoutLocale === "") {
       return "/";
     }
-    if (path.includes("/game/bomb")) {
+    if (pathWithoutLocale.includes("/game/bomb")) {
       return "/game/bomb";
     }
-    if (path.includes("/game/truthordare")) {
+    if (pathWithoutLocale.includes("/game/truthordare")) {
       return "/game/truthordare";
     }
-    if (path.includes("/game/neverhaveiever")) {
+    if (pathWithoutLocale.includes("/game/neverhaveiever")) {
       return "/game/neverhaveiever";
     }
-    if (path.includes("/faq")) {
+    if (pathWithoutLocale.includes("/faq")) {
       return "/faq";
     }
-    if (path.includes("/blog")) {
+    if (pathWithoutLocale.includes("/blog")) {
       return "/blog";
     }
     return "/";
@@ -79,7 +82,7 @@ export function Header() {
                   }`}
                 >
                   <span className="text-sm font-bold text-yellow-200 group-hover:text-yellow-300 transition-colors">
-                    🎮 Spiele
+                    🎮 {locale === 'de' ? 'Spiele' : 'Games'}
                   </span>
                 </button>
                 <Link 
@@ -116,13 +119,12 @@ export function Header() {
         <div className="flex items-center gap-3">
           {/* Language Label - Hidden on Mobile */}
           <span className="hidden sm:block text-xs text-yellow-200/80 font-bold tracking-wider">
-            SPRACHE
+            {locale === 'de' ? 'SPRACHE' : 'LANGUAGE'}
           </span>
           
           <Link
             aria-label="Deutsch"
-            href={getValidHref(pathname || "/")}
-            locale="de"
+            href={`/de${getValidHref(pathname || "/")}`}
             className={`group relative ${isMobile ? 'h-10 w-12' : 'h-12 w-16'} rounded-xl overflow-hidden border-3 transition-all duration-300 ${
               !isMobile ? 'hover:scale-110 hover:-translate-y-2 hover:shadow-2xl' : 'active:scale-95'
             } ${
@@ -151,8 +153,7 @@ export function Header() {
           
           <Link
             aria-label="English"
-            href={getValidHref(pathname || "/")}
-            locale="en"
+            href={`/en${getValidHref(pathname || "/")}`}
             className={`group relative ${isMobile ? 'h-10 w-12' : 'h-12 w-16'} rounded-xl overflow-hidden border-3 transition-all duration-300 ${
               !isMobile ? 'hover:scale-110 hover:-translate-y-2 hover:shadow-2xl' : 'active:scale-95'
             } ${

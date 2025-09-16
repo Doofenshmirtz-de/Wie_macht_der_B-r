@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { getInitialGames } from "../lib/game-actions";
-import { ItemList } from "../components/ItemList";
 import { GameCard } from "../components/GameCard";
 import GameSearch from "../ui/GameSearch";
 import { useGameSearch } from "../hooks/useGameSearch";
@@ -16,8 +16,74 @@ import { SectionContainer } from "../ui/SectionDivider";
 import type { GetGamesResult } from "../lib/game-actions";
 
 export default function Home() {
+  const params = useParams();
+  const locale = params.locale as string;
   const [mounted, setMounted] = useState(false);
   const [initialGamesData, setInitialGamesData] = useState<GetGamesResult | undefined>(undefined);
+  
+  // Übersetzungen direkt definieren
+  const t = (key: string) => {
+    const translations: Record<string, Record<string, string>> = {
+      de: {
+        'home:heroTitle': 'ONLINE TRINKSPIELE',
+        'home:heroSubtitle': 'KOSTENLOS SPIELEN',
+        'home:heroDescription': 'Die beste Spiele-Webseite der Welt!',
+        'home:readyForParty': 'Bereit für den ultimativen Partyspaß?',
+        'home:playDescription': 'Spiele die besten Trinkspiele online mit deinen Freunden! Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos und ohne Download.',
+        'home:instantPlay': 'Sofort spielbar',
+        'home:multiplayer': 'Multiplayer',
+        'home:partyHard': 'Party Hard',
+        'home:downloadNow': 'JETZT DOWNLOADEN',
+        'home:downloadSubtext': 'Sofort loslegen und nie wieder langweilige Partys haben!',
+        'home:chooseGame': 'WÄHLE DEIN SPIEL',
+        'home:chooseGameDescription': 'Bereit für den ultimativen Partyspaß?',
+        'home:popularGames': 'Beliebte Online Trinkspiele',
+        'home:popularGamesDescription': 'Entdecke die besten Browser Trinkspiele kostenlos ohne Download!',
+        'home:faqTitle': 'Häufig gestellte Fragen',
+        'home:faqDescription': 'Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!',
+        'home:noGamesFound': 'Keine Spiele gefunden!',
+        'home:noGamesDescription': 'Versuche es mit anderen Suchbegriffen oder filtere weniger spezifisch.',
+        'home:showAllGames': 'Alle Spiele anzeigen',
+        'home:loadingGames': 'Lade weitere Spiele...',
+        'games:bombParty.title': 'Bomb Party Trinkspiel Multiplayer',
+        'games:bombParty.description': 'Das ultimative Wortspiel-Trinkspiel online! Spiele Bomb Party kostenlos mit bis zu 16 Freunden.',
+        'games:neverHaveIEver.title': 'Ich hab noch nie online kostenlos',
+        'games:neverHaveIEver.description': 'Das klassische Geständnis-Trinkspiel jetzt online! Finde heraus, wer was schon mal gemacht hat.',
+        'games:truthOrDare.title': 'Wahrheit oder Pflicht Browser Spiel',
+        'games:truthOrDare.description': 'Mutige Wahrheiten und verrückte Aufgaben! Das perfekte Partyspiel für Erwachsene online.'
+      },
+      en: {
+        'home:heroTitle': 'ONLINE DRINKING GAMES',
+        'home:heroSubtitle': 'PLAY FOR FREE',
+        'home:heroDescription': 'The best gaming website in the world!',
+        'home:readyForParty': 'Ready for the ultimate party fun?',
+        'home:playDescription': 'Play the best drinking games online with your friends! Bomb Party, Never Have I Ever, Truth or Dare - all free and without download.',
+        'home:instantPlay': 'Instant play',
+        'home:multiplayer': 'Multiplayer',
+        'home:partyHard': 'Party Hard',
+        'home:downloadNow': 'DOWNLOAD NOW',
+        'home:downloadSubtext': 'Start immediately and never have boring parties again!',
+        'home:chooseGame': 'CHOOSE YOUR GAME',
+        'home:chooseGameDescription': 'Ready for the ultimate party fun?',
+        'home:popularGames': 'Popular Online Drinking Games',
+        'home:popularGamesDescription': 'Discover the best browser drinking games for free without download!',
+        'home:faqTitle': 'Frequently Asked Questions',
+        'home:faqDescription': 'Everything you need to know about online drinking games - from game rules to safety tips!',
+        'home:noGamesFound': 'No games found!',
+        'home:noGamesDescription': 'Try different search terms or filter less specifically.',
+        'home:showAllGames': 'Show all games',
+        'home:loadingGames': 'Loading more games...',
+        'games:bombParty.title': 'Bomb Party Drinking Game Multiplayer',
+        'games:bombParty.description': 'The ultimate word game drinking game online! Play Bomb Party for free with up to 16 friends.',
+        'games:neverHaveIEver.title': 'Never Have I Ever online free',
+        'games:neverHaveIEver.description': 'The classic confession drinking game now online! Find out who has done what before.',
+        'games:truthOrDare.title': 'Truth or Dare Browser Game',
+        'games:truthOrDare.description': 'Bold truths and crazy challenges! The perfect party game for adults online.'
+      }
+    };
+    
+    return translations[locale]?.[key] || key;
+  };
   
   useEffect(() => {
     setMounted(true);
@@ -87,12 +153,12 @@ export default function Home() {
               {/* Main Title */}
               <div className="relative inline-block">
                 <h1 className="heading-2 lg:text-5xl text-white mb-4"
-                  aria-label="Online Trinkspiele kostenlos - Wie macht der Bär"
+                  aria-label={t('home:title')}
                 >
-                  ONLINE TRINKSPIELE
+                  {t('home:heroTitle')}
                   <br />
                   <span className="gradient-text-static">
-                    KOSTENLOS SPIELEN
+                    {t('home:heroSubtitle')}
                   </span>
                 </h1>
               </div>
@@ -100,34 +166,33 @@ export default function Home() {
               {/* Subtitle */}
               <div className="mt-6">
                 <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-200 tracking-wide">
-                  🍻 ONLINE TRINKSPIELE 🍻
+                  🍻 {t('home:heroTitle')} 🍻
                 </p>
                 <p className="mt-2 body-xl text-white/90 font-semibold">
-                  Die beste Spiele-Webseite der Welt!
+                  {t('home:heroDescription')}
                 </p>
               </div>
 
               {/* Description */}
               <div className="mt-8 space-y-4">
                 <p className="body-lg text-white/80 leading-relaxed">
-                  🎉 <strong>Bereit für den ultimativen Partyspaß?</strong> 
+                  🎉 <strong>{t('home:readyForParty')}</strong> 
                 </p>
                 <p className="body-base text-white/70 leading-relaxed">
-                  Spiele die besten Trinkspiele online mit deinen Freunden! 
-                  Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos und ohne Download.
+                  {t('home:playDescription')}
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-6">
                   <div className="flex items-center gap-2 text-yellow-300 font-bold">
                     <span className="text-2xl">⚡</span>
-                    <span>Sofort spielbar</span>
+                    <span>{t('home:instantPlay')}</span>
                   </div>
                   <div className="flex items-center gap-2 text-yellow-300 font-bold">
                     <span className="text-2xl">👥</span>
-                    <span>Multiplayer</span>
+                    <span>{t('home:multiplayer')}</span>
                   </div>
                   <div className="flex items-center gap-2 text-yellow-300 font-bold">
                     <span className="text-2xl">🎯</span>
-                    <span>Party Hard</span>
+                    <span>{t('home:partyHard')}</span>
                   </div>
                 </div>
               </div>
@@ -136,30 +201,30 @@ export default function Home() {
               <div className="mt-10">
                 <button 
                   className="btn-primary px-8 py-4 text-lg font-bold inline-flex items-center gap-3"
-                  aria-label="Jetzt downloaden"
+                  aria-label={t('home:downloadNow')}
                 >
                   <span className="text-2xl">📱</span>
-                  <span>JETZT DOWNLOADEN</span>
+                  <span>{t('home:downloadNow')}</span>
                   <span className="text-2xl">⬇️</span>
                 </button>
                 
                 {/* Download Subtext */}
                 <p className="mt-4 text-sm text-yellow-200/80 font-semibold">
-                  🚀 Sofort loslegen und nie wieder langweilige Partys haben!
+                  🚀 {t('home:downloadSubtext')}
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Game Selection Section with Search & Advanced Infinite Scroll */}
+        {/* Game Selection Section with Search & Simple Carousel */}
         <SectionContainer variant="highlight" id="games-section">
           <div aria-label="Spieleauswahl mit Suchfunktion">
           <div className="text-center mb-8">
             <h2 className="heading-2 text-white mb-4">
-              WÄHLE DEIN SPIEL
+              {t('home:chooseGame')}
             </h2>
-            <p className="body-lg text-white/80 font-semibold">Bereit für den ultimativen Partyspaß?</p>
+            <p className="body-lg text-white/80 font-semibold">{t('home:chooseGameDescription')}</p>
           </div>
 
           {/* 🔍 SUCHFUNKTION */}
@@ -192,52 +257,39 @@ export default function Home() {
                   <div className="text-center w-full py-16">
                     <div className="text-6xl mb-6">😢</div>
                     <h3 className="text-2xl font-bold text-white mb-4">
-                      Keine Spiele gefunden!
+                      {t('home:noGamesFound')}
                     </h3>
                     <p className="text-white/60 mb-6">
-                      Versuche es mit anderen Suchbegriffen oder filtere weniger spezifisch.
+                      {t('home:noGamesDescription')}
                     </p>
                     <button
                       onClick={clearFilters}
                       className="cr-button-primary px-6 py-3 font-bold"
                     >
-                      🔄 Alle Spiele anzeigen
+                      🔄 {t('home:showAllGames')}
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              /* Standard Advanced Infinite Scroll */
-              <ItemList
-                initialData={initialGamesData || undefined}
-                itemsPerLoad={3}
-                direction="horizontal"
-                className="infinite-scroll-container py-4"
-                renderItem={(game, index) => (
+              /* Einfaches Karussell ohne Infinite Scroll */
+              <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-8 px-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                {initialGamesData?.games?.map((game, index) => (
                   <GameCard 
+                    key={game.id}
                     game={game} 
                     index={index}
-                    priority={index < 2} // Erste 2 Karten haben Priority Loading
+                    priority={index < 2}
                   />
-                )}
-                loadingComponent={
-                  <div className="snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] flex items-center justify-center p-8">
+                )) || (
+                  <div className="flex items-center justify-center p-8 min-w-[320px]">
                     <div className="text-center">
                       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
-                      <span className="text-white/80 font-bold">Lade weitere Spiele...</span>
+                      <span className="text-white/80 font-bold">{t('home:loadingGames')}</span>
                     </div>
                   </div>
-                }
-                errorComponent={
-                  <div className="snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] flex items-center justify-center p-8">
-                    <div className="text-center text-red-400">
-                      <div className="text-4xl mb-4">⚠️</div>
-                      <p className="font-bold">Fehler beim Laden</p>
-                      <p className="text-sm text-white/60 mt-2">Versuche es später erneut</p>
-                    </div>
-                  </div>
-                }
-              />
+                )}
+              </div>
             )}
           </div>
           </div>
@@ -253,34 +305,34 @@ export default function Home() {
           <div className="px-4">
             <div className="text-center mb-6">
             <h2 className="heading-2 text-white mb-4">
-              🎯 Beliebte Online Trinkspiele
+              🎯 {t('home:popularGames')}
             </h2>
               <p className="body-lg text-white/80">
-                Entdecke die besten Browser Trinkspiele kostenlos ohne Download!
+                {t('home:popularGamesDescription')}
               </p>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               <InternalLinkCard
-                href="/game/bomb"
-                title="Bomb Party Trinkspiel Multiplayer"
-                description="Das ultimative Wortspiel-Trinkspiel online! Spiele Bomb Party kostenlos mit bis zu 16 Freunden."
+                href={`/${locale}/game/bomb`}
+                title={t('games:bombParty.title')}
+                description={t('games:bombParty.description')}
                 gameType="bomb"
-                keywords={['Bomb Party', 'Multiplayer', 'Kostenlos']}
+                keywords={locale === 'de' ? ['Bomb Party', 'Multiplayer', 'Kostenlos'] : ['Bomb Party', 'Multiplayer', 'Free']}
               />
               <InternalLinkCard
-                href="/game/neverhaveiever"
-                title="Ich hab noch nie online kostenlos"
-                description="Das klassische Geständnis-Trinkspiel jetzt online! Finde heraus, wer was schon mal gemacht hat."
+                href={`/${locale}/game/neverhaveiever`}
+                title={t('games:neverHaveIEver.title')}
+                description={t('games:neverHaveIEver.description')}
                 gameType="neverhaveiever"
-                keywords={['Ich hab noch nie', 'Geständnisse', 'Online']}
+                keywords={locale === 'de' ? ['Ich hab noch nie', 'Geständnisse', 'Online'] : ['Never Have I Ever', 'Confessions', 'Online']}
               />
               <InternalLinkCard
-                href="/game/truthordare"
-                title="Wahrheit oder Pflicht Browser Spiel"
-                description="Mutige Wahrheiten und verrückte Aufgaben! Das perfekte Partyspiel für Erwachsene online."
+                href={`/${locale}/game/truthordare`}
+                title={t('games:truthOrDare.title')}
+                description={t('games:truthOrDare.description')}
                 gameType="truthordare"
-                keywords={['Wahrheit oder Pflicht', 'Erwachsene', 'Browser']}
+                keywords={locale === 'de' ? ['Wahrheit oder Pflicht', 'Erwachsene', 'Browser'] : ['Truth or Dare', 'Adults', 'Browser']}
               />
             </div>
           </div>
@@ -291,14 +343,14 @@ export default function Home() {
           <div className="px-4">
             <div className="text-center mb-6">
               <h2 className="heading-2 text-white mb-4">
-                ❓ Häufig gestellte Fragen
+                ❓ {t('home:faqTitle')}
               </h2>
               <p className="body-lg text-white/80 mb-4">
-                Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!
+                {t('home:faqDescription')}
               </p>
               <InternalLinkCard
-                href="/faq"
-                title="Komplette FAQ zu Online Trinkspielen"
+                href={`/${locale}/faq`}
+                title={t('home:faqTitle')}
                 description="15+ Antworten zu Bomb Party Regeln, Browser Kompatibilität, Multiplayer Setup und verantwortungsvollem Trinken."
                 gameType="blog"
                 keywords={['FAQ', 'Hilfe', 'Antworten']}
@@ -330,5 +382,6 @@ export default function Home() {
 }
 
 // Die EpicGameCard Komponente wurde durch die neue GameCard Komponente ersetzt
+
 
 

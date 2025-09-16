@@ -4,5 +4,5 @@
   "pages": {
     "*": ["common"]
   },
-  "loadLocaleFrom": (lang, ns) => import(`./src/app/messages/${lang}.json`).then(m => m.default)
+  "loadLocaleFrom": "./src/app/messages"
 }

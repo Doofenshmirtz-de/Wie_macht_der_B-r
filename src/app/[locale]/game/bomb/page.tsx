@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef, Suspense } from "react";
-import useTranslation from "next-translate/useTranslation";
 import { useSearchParams } from "next/navigation";
 import { categoriesDE, categoriesEN } from "./shared/categories";
 import { useParams } from "next/navigation";
@@ -40,12 +39,67 @@ type GameMode = "single" | "multi";
 type MultiplayerMode = "host" | "client";
 
 function BombGamePageContent() {
-  const { t } = useTranslation();
   const params = useParams();
   const searchParams = useSearchParams();
   const locale = params.locale as string;
   const { getRandomBombTimer } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  
+  // Übersetzungen direkt definieren
+  const t = (key: string) => {
+    const translations: Record<string, Record<string, string>> = {
+      de: {
+        'bombParty': 'Bomb Party',
+        'playerSetup': 'Spieler Setup',
+        'playerName': 'Name des Spielers',
+        'addPlayer': 'Spieler hinzufügen',
+        'minTwoPlayers': 'Mindestens 2 Spieler erforderlich',
+        'playersReady': 'Spieler bereit!',
+        'roundsCount': 'Anzahl der Runden',
+        'chooseCategory': 'Kategorie wählen',
+        'casual': 'Einfach',
+        'hard': 'Schwer',
+        'spicy': 'Scharf',
+        'currentRound': 'Aktuelle Runde',
+        'startGame': 'Spiel starten',
+        'scoreboard': 'Punktestand',
+        'passPhone': 'Gib das Handy weiter',
+        'nextWord': 'Nächstes Wort',
+        'gameOver': 'Spiel vorbei!',
+        'whoLostTitle': 'Wer hat verloren?',
+        'selectLoser': 'Verlierer auswählen',
+        'confirmLoser': 'Verlierer bestätigen',
+        'losses': 'Niederlagen',
+        'winner': 'Gewinner'
+      },
+      en: {
+        'bombParty': 'Bomb Party',
+        'playerSetup': 'Player Setup',
+        'playerName': 'Player name',
+        'addPlayer': 'Add player',
+        'minTwoPlayers': 'At least 2 players required',
+        'playersReady': 'Players ready!',
+        'roundsCount': 'Number of rounds',
+        'chooseCategory': 'Choose category',
+        'casual': 'Casual',
+        'hard': 'Hard',
+        'spicy': 'Spicy',
+        'currentRound': 'Current round',
+        'startGame': 'Start game',
+        'scoreboard': 'Scoreboard',
+        'passPhone': 'Pass the phone',
+        'nextWord': 'Next word',
+        'gameOver': 'Game over!',
+        'whoLostTitle': 'Who lost?',
+        'selectLoser': 'Select loser',
+        'confirmLoser': 'Confirm loser',
+        'losses': 'losses',
+        'winner': 'Winner'
+      }
+    };
+    
+    return translations[locale]?.[key] || key;
+  };
   
   const categories = locale === "de" ? categoriesDE : categoriesEN;
   

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { BombIcon, GameIcon } from './EnhancedIcons';
 
-type ValidHref = "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" | "/faq" | "/blog";
+type ValidHref = "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" | "/faq" | "/blog" | "/de/game/bomb" | "/de/game/truthordare" | "/de/game/neverhaveiever" | "/de/faq" | "/de/blog" | "/en/game/bomb" | "/en/game/truthordare" | "/en/game/neverhaveiever" | "/en/faq" | "/en/blog" | "/de" | "/en";
 
 interface InternalLinkCardProps {
   href: ValidHref;
@@ -62,7 +62,7 @@ export function InternalLinkCard({
   }, []);
   
   return (
-    <Link href={`/${locale}${href}`} className={`block ${className}`}>
+    <Link href={href} className={`block ${className}`}>
       <div className={`
         group relative p-4 rounded-xl border-2 transition-all duration-300 
         hover:scale-105 hover:shadow-xl backdrop-blur-sm bg-white/5
@@ -113,10 +113,20 @@ interface RelatedGamesProps {
 }
 
 export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesProps) {
+  // Simple locale detection - will be updated on client side
+  const [locale, setLocale] = useState('de');
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname;
+      setLocale(pathname.startsWith('/en') ? 'en' : 'de');
+    }
+  }, []);
+
   const games = [
     {
       id: 'bomb',
-      href: '/game/bomb' as ValidHref,
+      href: `/${locale}/game/bomb` as ValidHref,
       title: 'Bomb Party Trinkspiel',
       description: 'Das ultimative Wortspiel-Trinkspiel! Finde Wörter bevor die Bombe explodiert. Multiplayer-Modus verfügbar.',
       keywords: ['Bomb Party', 'Trinkspiel', 'Multiplayer'],
@@ -124,7 +134,7 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
     },
     {
       id: 'neverhaveiever',
-      href: '/game/neverhaveiever' as ValidHref,
+      href: `/${locale}/game/neverhaveiever` as ValidHref,
       title: 'Ich hab noch nie online',
       description: 'Das klassische Geständnis-Trinkspiel! Finde heraus, wer was schon mal gemacht hat.',
       keywords: ['Ich hab noch nie', 'Geständnisse', 'Party'],
@@ -132,7 +142,7 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
     },
     {
       id: 'truthordare',
-      href: '/game/truthordare' as ValidHref,
+      href: `/${locale}/game/truthordare` as ValidHref,
       title: 'Wahrheit oder Pflicht Browser',
       description: 'Mutige Wahrheiten und verrückte Aufgaben! Das perfekte Partyspiel für Erwachsene.',
       keywords: ['Wahrheit oder Pflicht', 'Aufgaben', 'Erwachsene'],
@@ -178,7 +188,7 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
         {/* Back to Homepage CTA */}
         <div className="text-center mt-8">
           <InternalLinkCard
-            href={"/" as ValidHref}
+            href={`/${locale}` as ValidHref}
             title="Alle Online Trinkspiele anzeigen"
             description="Zurück zur Übersicht aller kostenlosen Browser Trinkspiele und Partyspiele."
             gameType="blog"

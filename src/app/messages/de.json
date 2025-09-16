@@ -25,5 +25,45 @@
   "selectLoser": "Verlierer auswählen",
   "confirmLoser": "Verlierer bestätigen",
   "losses": "Niederlagen",
-  "winner": "Gewinner"
+  "winner": "Gewinner",
+  "home": {
+    "title": "Online Trinkspiele kostenlos spielen | Wie macht der Bär",
+    "description": "Die besten Online Trinkspiele kostenlos! Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles ohne Download spielbar.",
+    "heroTitle": "ONLINE TRINKSPIELE",
+    "heroSubtitle": "KOSTENLOS SPIELEN",
+    "heroDescription": "Die beste Spiele-Webseite der Welt!",
+    "readyForParty": "Bereit für den ultimativen Partyspaß?",
+    "playDescription": "Spiele die besten Trinkspiele online mit deinen Freunden! Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos und ohne Download.",
+    "instantPlay": "Sofort spielbar",
+    "multiplayer": "Multiplayer",
+    "partyHard": "Party Hard",
+    "downloadNow": "JETZT DOWNLOADEN",
+    "downloadSubtext": "Sofort loslegen und nie wieder langweilige Partys haben!",
+    "chooseGame": "WÄHLE DEIN SPIEL",
+    "chooseGameDescription": "Bereit für den ultimativen Partyspaß?",
+    "popularGames": "Beliebte Online Trinkspiele",
+    "popularGamesDescription": "Entdecke die besten Browser Trinkspiele kostenlos ohne Download!",
+    "faqTitle": "Häufig gestellte Fragen",
+    "faqDescription": "Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!",
+    "noGamesFound": "Keine Spiele gefunden!",
+    "noGamesDescription": "Versuche es mit anderen Suchbegriffen oder filtere weniger spezifisch.",
+    "showAllGames": "Alle Spiele anzeigen",
+    "loadingGames": "Lade weitere Spiele...",
+    "loadingError": "Fehler beim Laden",
+    "tryAgainLater": "Versuche es später erneut"
+  },
+  "games": {
+    "bombParty": {
+      "title": "Bomb Party Trinkspiel Multiplayer",
+      "description": "Das ultimative Wortspiel-Trinkspiel online! Spiele Bomb Party kostenlos mit bis zu 16 Freunden."
+    },
+    "neverHaveIEver": {
+      "title": "Ich hab noch nie online kostenlos",
+      "description": "Das klassische Geständnis-Trinkspiel jetzt online! Finde heraus, wer was schon mal gemacht hat."
+    },
+    "truthOrDare": {
+      "title": "Wahrheit oder Pflicht Browser Spiel",
+      "description": "Mutige Wahrheiten und verrückte Aufgaben! Das perfekte Partyspiel für Erwachsene online."
+    }
+  }
 }
