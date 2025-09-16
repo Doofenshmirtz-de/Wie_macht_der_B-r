@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { BombIcon, GameIcon } from './EnhancedIcons';
 
-type ValidHref = "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" | "/faq" | "/blog" | "/de/game/bomb" | "/de/game/truthordare" | "/de/game/neverhaveiever" | "/de/faq" | "/de/blog" | "/en/game/bomb" | "/en/game/truthordare" | "/en/game/neverhaveiever" | "/en/faq" | "/en/blog" | "/de" | "/en";
+type ValidHref = "/game/bomb" | "/game/truthordare" | "/game/neverhaveiever" | "/faq" | "/blog" | "/de/game/bomb" | "/de/game/truthordare" | "/de/game/neverhaveiever" | "/de/faq" | "/de/blog" | "/en/game/bomb" | "/en/game/truthordare" | "/en/game/neverhaveiever" | "/en/faq" | "/en/blog" | "/de" | "/en" | `/${string}/game/bomb` | `/${string}/game/truthordare` | `/${string}/game/neverhaveiever` | `/${string}/faq` | `/${string}/blog` | `/${string}`;
 
 interface InternalLinkCardProps {
   href: ValidHref;
@@ -51,16 +51,6 @@ export function InternalLinkCard({
     }
   };
 
-  // Simple locale detection - will be updated on client side
-  const [locale, setLocale] = useState('de');
-  
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const pathname = window.location.pathname;
-      setLocale(pathname.startsWith('/en') ? 'en' : 'de');
-    }
-  }, []);
-  
   return (
     <Link href={href} className={`block ${className}`}>
       <div className={`
