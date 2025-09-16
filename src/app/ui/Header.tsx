@@ -65,7 +65,7 @@ export function Header() {
             <div className="text-xl font-black bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent drop-shadow-lg tracking-wide">
               WIE MACHT DER BÄR
             </div>
-            <p className="text-xs text-yellow-200/90 font-bold tracking-widest">TRINKSPIELE DELUXE</p>
+            <p className="text-xs text-yellow-200/90 font-bold tracking-widest">PARTYSPIELE DELUXE</p>
           </div>
         </Link>
 

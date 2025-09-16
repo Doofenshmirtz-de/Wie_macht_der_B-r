@@ -36,10 +36,10 @@
   --color-accent-800: #065f46;
   --color-accent-900: #064e3b;
 
-  /* 🔤 TYPOGRAPHY SCALE */
-  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-heading: 'Clash Display', 'Inter', sans-serif;
-  --font-family-mono: 'JetBrains Mono', 'Courier New', monospace;
+  /* 🔤 TYPOGRAPHY SCALE - Cross-Platform Optimized */
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-family-heading: 'Clash Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
 
   /* Typography Scale - Perfect Fifth (1.5) */
   --text-xs: 0.75rem;    /* 12px */
@@ -394,11 +394,20 @@
 
 .gradient-text {
   background: linear-gradient(135deg, var(--color-primary-400), var(--color-secondary-500), var(--color-accent-500));
+  background-size: 300% 300%;
+  animation: gradient-shift 4s ease infinite;
+  
+  /* Cross-Platform Gradient Text Support */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 300% 300%;
-  animation: gradient-shift 4s ease infinite;
+  color: transparent; /* Fallback for browsers without background-clip support */
+  
+  /* Fallback for older browsers */
+  @supports not (background-clip: text) {
+    color: var(--color-primary-400);
+    background: none;
+  }
 }
 
 /* 🌟 MICRO-INTERACTIONS */
@@ -453,6 +462,18 @@
 
 .backdrop-blur-strong {
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px); /* Safari support */
+}
+
+/* Cross-Platform Scrollbar Hiding */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-gutter: stable; /* Fallback for modern browsers */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 .border-glow {
@@ -885,6 +906,123 @@
 }
 
 /* ===================================================================
+   CROSS-PLATFORM CSS RESET & CONSISTENCY
+   =================================================================== */
+
+/* Cross-Platform CSS Reset für konsistente Darstellung */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cross-Platform Font-Rendering für alle Elemente */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: inherit;
+}
+
+/* Cross-Platform Button Reset */
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Cross-Platform Input Reset */
+input,
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+/* Cross-Platform Link Reset */
+a {
+  color: inherit;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+/* Cross-Platform Image Reset */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Cross-Platform List Reset */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Cross-Platform Table Reset */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ===================================================================
+   CROSS-PLATFORM TOUCH OPTIMIZATIONS
+   =================================================================== */
+
+/* Touch Device Detection and Optimization */
+@media (pointer: coarse) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 24px;
+  }
+  
+  .hero-cta-button {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 14px 28px;
+  }
+}
+
+/* Cross-Platform Touch Highlight Removal */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection for content areas */
+p, span, div[contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Cross-Platform Input Styling */
+input, textarea, select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 8px;
+}
+
+/* ===================================================================
    BROWSER FALLBACKS & COMPATIBILITY
    =================================================================== */
 
@@ -914,10 +1052,56 @@
   overflow: hidden;
 }
 
-/* Font Loading Optimization */
+/* Cross-Platform Font Loading Optimization */
 .hero-title,
-.hero-subtitle {
+.hero-subtitle,
+h1, h2, h3, h4, h5, h6 {
   font-display: swap;
+  font-family: var(--font-family-heading);
+}
+
+/* Cross-Platform Font Fallback Strategy */
+body {
+  font-family: var(--font-family-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Cross-Platform Font Consistency */
+* {
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Cross-Platform Root Element Consistency */
+:root {
+  /* Force consistent font rendering across all platforms */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Cross-Platform Body Consistency */
+body {
+  /* Force consistent body rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-family-primary);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.025em;
+}
+
+/* macOS-specific font optimizations */
+@supports (-webkit-font-smoothing: antialiased) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 /* ===================================================================
@@ -952,12 +1136,122 @@
   }
 }
 
-/* Motion Preferences */
+/* Cross-Platform Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Cross-Platform Animation Performance */
+.hero-image,
+.hero-cta-button,
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Cross-Platform Transition Optimizations */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cross-Platform Layout Consistency */
+.hero-section,
+.hero-container,
+.hero-grid,
+.hero-image-column,
+.hero-content-column {
+  /* Force consistent rendering across platforms */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Cross-Platform Text Consistency */
+.hero-title,
+.hero-subtitle,
+.hero-text {
+  /* Force consistent text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-family-heading);
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+/* Cross-Platform Button Consistency */
+.hero-cta-button,
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  /* Force consistent button rendering */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: var(--font-family-primary);
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Cross-Platform Browser Detection and Optimization */
+@supports (-webkit-backdrop-filter: blur(10px)) {
+  .card-elevated {
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* Cross-Platform Font-Size Consistency */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Safari/WebKit specific */
+  .hero-title {
+    font-size: 3.5rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem !important;
+    line-height: 1.5 !important;
+  }
+}
+
+/* Cross-Platform Windows Optimization */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* IE/Edge specific */
+  .hero-title {
+    font-size: 3.5rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem !important;
+    line-height: 1.5 !important;
+  }
+}
+
+/* Cross-Platform Firefox Optimization */
+@-moz-document url-prefix() {
+  .hero-title {
+    font-size: 3.5rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem !important;
+    line-height: 1.5 !important;
   }
 }
 
