@@ -71,7 +71,7 @@ export default function DatenschutzPage({ params }: { params: { locale: string }
                 
                 <h3 className="heading-4 text-white mb-3">Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h3>
                 <p className="text-white/80 mb-4">
-                  Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle" in dieser Datenschutzerklärung entnehmen.
+                  Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt &ldquo;Hinweis zur Verantwortlichen Stelle&rdquo; in dieser Datenschutzerklärung entnehmen.
                 </p>
 
                 <h3 className="heading-4 text-white mb-3">Wie erfassen wir Ihre Daten?</h3>
@@ -113,7 +113,7 @@ export default function DatenschutzPage({ params }: { params: { locale: string }
               <div className="mb-8">
                 <h2 className="heading-3 text-white mb-4">4. Cookies</h2>
                 <p className="text-white/80 mb-4">
-                  Unsere Internetseiten verwenden so genannte „Cookies". Cookies sind kleine Textdateien und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (dauerhafte Cookies) auf Ihrem Endgerät gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht. Bei dauerhaften Cookies bleibt die Cookie-ID bis zur manuellen Löschung durch Sie oder bis zur automatischen Löschung durch Ihren Webbrowser bestehen.
+                  Unsere Internetseiten verwenden so genannte &ldquo;Cookies&rdquo;. Cookies sind kleine Textdateien und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (dauerhafte Cookies) auf Ihrem Endgerät gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht. Bei dauerhaften Cookies bleibt die Cookie-ID bis zur manuellen Löschung durch Sie oder bis zur automatischen Löschung durch Ihren Webbrowser bestehen.
                 </p>
                 <p className="text-white/80 mb-4">
                   Cookies haben verschiedene Funktionen. Zahlreiche Cookies sind technisch notwendig, da bestimmte Websitefunktionen ohne diese nicht funktionieren würden (z. B. die Warenkorbfunktion oder die Anzeige von Videos). Andere Cookies dienen dazu, das Nutzerverhalten auszuwerten oder Werbung anzuzeigen.
@@ -154,10 +154,10 @@ export default function DatenschutzPage({ params }: { params: { locale: string }
               <div className="mb-8">
                 <h2 className="heading-3 text-white mb-4">7. Google Analytics</h2>
                 <p className="text-white/80 mb-4">
-                  Diese Website nutzt Funktionen des Webanalysedienstes Google Analytics. Anbieter ist die Google Ireland Limited („Google"), Gordon House, Barrow Street, Dublin 4, Irland.
+                  Diese Website nutzt Funktionen des Webanalysedienstes Google Analytics. Anbieter ist die Google Ireland Limited (&ldquo;Google&rdquo;), Gordon House, Barrow Street, Dublin 4, Irland.
                 </p>
                 <p className="text-white/80 mb-4">
-                  Google Analytics verwendet so genannte „Cookies". Das sind Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.
+                  Google Analytics verwendet so genannte &ldquo;Cookies&rdquo;. Das sind Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.
                 </p>
                 <p className="text-white/80">
                   Die Speicherung von Google-Analytics-Cookies und die Nutzung dieses Analyse-Tools erfolgen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der Analyse des Nutzerverhaltens, um sowohl sein Webangebot als auch seine Werbung zu optimieren.
