@@ -1,16 +1,28 @@
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: 'Datenschutz' });
+  const locale = params.locale as string;
+  
+  const translations = {
+    de: {
+      title: 'Datenschutzerklärung - Wie macht der Bär',
+      description: 'Informationen zum Umgang mit Ihren Daten auf unserer Trinkspiel-Website.'
+    },
+    en: {
+      title: 'Privacy Policy - Wie macht der Bär',
+      description: 'Information about how we handle your data on our drinking game website.'
+    }
+  };
+  
+  const t = translations[locale as keyof typeof translations] || translations.de;
   
   return {
-    title: t('title'),
-    description: t('description'),
+    title: t.title,
+    description: t.description,
     robots: 'index, follow',
     openGraph: {
-      title: t('title'),
-      description: t('description'),
+      title: t.title,
+      description: t.description,
       type: 'website',
       locale: params.locale,
     },
@@ -18,6 +30,8 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 }
 
 export default function DatenschutzPage({ params }: { params: { locale: string } }) {
+  const locale = params.locale as string;
+  
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -185,7 +199,7 @@ export default function DatenschutzPage({ params }: { params: { locale: string }
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <a 
-            href="/" 
+            href={`/${locale}`} 
             className="btn-primary px-8 py-4 inline-flex items-center gap-2"
           >
             ← Zurück zur Startseite
