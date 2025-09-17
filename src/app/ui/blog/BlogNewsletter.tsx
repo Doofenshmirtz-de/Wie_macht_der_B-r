@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { GameIcon, FireIcon, PartyIcon, SparkleIcon, RocketIcon, StarIcon, UsersIcon, HeartIcon, TrophyIcon, SearchIcon } from '../EnhancedIcons';
+// Removed unused imports - now using custom Symlys
 
 // Abstract Symlys for Newsletter
 const NewsletterSymly = ({ size = 24, className = '' }: { size?: number; className?: string }) => (

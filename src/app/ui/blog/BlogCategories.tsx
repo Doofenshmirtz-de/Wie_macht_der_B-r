@@ -7,7 +7,7 @@ import { BombIcon, GameIcon, TrophyIcon, UsersIcon, ShareIcon } from '../Enhance
 export function BlogCategories({ locale }: { locale: 'de' | 'en' }) {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const t = locale === 'en' ? {
+  const _ = locale === 'en' ? {
     title: 'Explore Categories',
     categories: ['Drinking Games', 'Party Planning', 'Game Reviews', 'Tutorials']
   } : {

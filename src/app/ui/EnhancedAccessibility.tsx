@@ -12,7 +12,7 @@ interface AccessibilityEnhancementsProps {
 export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhancementsProps) {
   const { isMobile } = useResponsive();
   const params = useParams();
-  const locale = (params as any)?.locale === 'en' ? 'en' : 'de';
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
 
   const t = locale === 'en' ? {
     title: 'Accessibility',
