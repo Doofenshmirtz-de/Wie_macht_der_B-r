@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useResponsive } from '../hooks/useResponsive';
 import { useAccessibility } from '../hooks/useAccessibility';
+import { useParams } from 'next/navigation';
 
 interface AccessibilityEnhancementsProps {
   className?: string;
@@ -10,6 +11,39 @@ interface AccessibilityEnhancementsProps {
 
 export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhancementsProps) {
   const { isMobile } = useResponsive();
+  const params = useParams();
+  const locale = (params as any)?.locale === 'en' ? 'en' : 'de';
+
+  const t = locale === 'en' ? {
+    title: 'Accessibility',
+    close: 'Close settings',
+    highContrast: 'High contrast',
+    highContrastDesc: 'Improves visibility',
+    animations: 'Animations',
+    animationsStatus: (mode: string) => mode === 'system' ? 'System' : (mode === 'reduced' ? 'Reduced' : 'Normal'),
+    animationsDesc: '(Based on system settings or your choice)',
+    toggleAnimations: 'Toggle animations',
+    fontSize: 'Font size',
+    sizes: { small: 'Small', normal: 'Normal', large: 'Large', xl: 'Extra large' },
+    reset: 'Reset settings',
+    keyboardHint: 'Use Tab to navigate and Enter to select',
+    openAria: 'Open accessibility settings'
+  } : {
+    title: 'Barrierefreiheit',
+    close: 'Einstellungen schließen',
+    highContrast: 'Hoher Kontrast',
+    highContrastDesc: 'Verbessert die Sichtbarkeit',
+    animations: 'Animationen',
+    animationsStatus: (mode: string) => mode === 'system' ? 'System' : (mode === 'reduced' ? 'Reduziert' : 'Normal'),
+    animationsDesc: '(Basiert auf System-Einstellungen oder deiner Auswahl)',
+    toggleAnimations: 'Animationen umschalten',
+    fontSize: 'Schriftgröße',
+    sizes: { small: 'Klein', normal: 'Normal', large: 'Groß', xl: 'Sehr groß' },
+    reset: 'Einstellungen zurücksetzen',
+    keyboardHint: 'Verwende Tab zum Navigieren und Enter zum Auswählen',
+    openAria: 'Barrierefreiheits-Einstellungen öffnen'
+  };
+
   const {
     reducedMotion,
     highContrast,
@@ -17,6 +51,8 @@ export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhan
     toggleHighContrast,
     changeFontSize,
     resetToDefaults,
+    cycleMotionPreference,
+    motionMode,
   } = useAccessibility();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +63,7 @@ export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhan
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-4 left-4 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        aria-label="Barrierefreiheits-Einstellungen öffnen"
+        aria-label={t.openAria}
         aria-expanded={isOpen}
       >
         <span className="text-xl" role="img" aria-label="Accessibility">♿</span>
@@ -42,19 +78,18 @@ export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhan
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Panel mit Funktionen des ehemaligen Top-Right Menüs */}
+          {/* Panel */}
           <div className={`fixed ${isMobile ? 'bottom-0 left-0 right-0' : 'bottom-20 left-4'} z-50 bg-white dark:bg-gray-800 rounded-t-lg ${!isMobile ? 'rounded-lg' : ''} shadow-xl max-w-sm ${isMobile ? 'w-full' : 'w-80'}`}>
-            
             {/* Header */}
             <div className="p-4 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Barrierefreiheit
+                  {t.title}
                 </h2>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-1"
-                  aria-label="Einstellungen schließen"
+                  aria-label={t.close}
                 >
                   ✕
                 </button>
@@ -63,14 +98,14 @@ export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhan
 
             {/* Content */}
             <div className="p-4 space-y-4">
-              {/* High Contrast (umschaltbar) */}
+              {/* High Contrast */}
               <div className="flex items-center justify-between">
                 <div>
                   <label htmlFor="high-contrast" className="text-sm font-medium text-gray-900 dark:text-white">
-                    Hoher Kontrast
+                    {t.highContrast}
                   </label>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Verbessert die Sichtbarkeit
+                    {t.highContrastDesc}
                   </p>
                 </div>
                 <button
@@ -90,28 +125,32 @@ export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhan
                 </button>
               </div>
 
-              {/* Animationen (Status, read-only) */}
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">Animationen</span>
-                  <span className={`text-xs font-semibold ${reducedMotion ? 'text-yellow-600 dark:text-yellow-400' : 'text-green-600 dark:text-green-400'}`}>
-                    {reducedMotion ? 'Reduziert (System)' : 'Normal'}
-                  </span>
+              {/* Animations (toggle) */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">{t.animations}</span>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t.animationsDesc}</p>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">(Basiert auf System-Einstellungen)</p>
+                <button
+                  onClick={cycleMotionPreference}
+                  className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${reducedMotion ? 'bg-yellow-500 text-black' : 'bg-green-600 text-white'} `}
+                  aria-label={t.toggleAnimations}
+                >
+                  {t.animationsStatus(motionMode)}
+                </button>
               </div>
 
-              {/* Schriftgröße (4 Stufen) */}
+              {/* Schriftgröße */}
               <div>
                 <label className="text-sm font-medium text-gray-900 dark:text-white mb-2 block">
-                  Schriftgröße
+                  {t.fontSize}
                 </label>
                 <div className="grid grid-cols-4 gap-2">
                   {[
-                    { value: 'small', label: 'Klein' },
-                    { value: 'normal', label: 'Normal' },
-                    { value: 'large', label: 'Groß' },
-                    { value: 'xl', label: 'Sehr groß' },
+                    { value: 'small', label: t.sizes.small },
+                    { value: 'normal', label: t.sizes.normal },
+                    { value: 'large', label: t.sizes.large },
+                    { value: 'xl', label: t.sizes.xl },
                   ].map((size) => (
                     <button
                       key={size.value}
@@ -135,14 +174,14 @@ export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhan
                   onClick={resetToDefaults}
                   className="w-full cr-button-danger p-2 text-sm font-semibold rounded-lg"
                 >
-                  🔄 Einstellungen zurücksetzen
+                  🔄 {t.reset}
                 </button>
               </div>
 
               {/* Keyboard Navigation Hint */}
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  💡 Verwende Tab zum Navigieren und Enter zum Auswählen
+                  💡 {t.keyboardHint}
                 </p>
               </div>
             </div>
@@ -153,7 +192,6 @@ export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhan
   );
 }
 
-// Skip Link Component
 export function SkipLinks() {
   return (
     <div className="skip-links">
@@ -168,27 +206,4 @@ export function SkipLinks() {
       </a>
     </div>
   );
-}
-
-// Screen Reader Announcements
-interface ScreenReaderAnnouncementProps {
-  message: string;
-  priority?: 'polite' | 'assertive';
-}
-
-export function ScreenReaderAnnouncement({ message, priority = 'polite' }: ScreenReaderAnnouncementProps) {
-  useEffect(() => {
-    const liveRegion = document.getElementById('live-region');
-    if (liveRegion) {
-      liveRegion.setAttribute('aria-live', priority);
-      liveRegion.textContent = message;
-      
-      // Clear after announcement
-      setTimeout(() => {
-        liveRegion.textContent = '';
-      }, 1000);
-    }
-  }, [message, priority]);
-
-  return null;
 }

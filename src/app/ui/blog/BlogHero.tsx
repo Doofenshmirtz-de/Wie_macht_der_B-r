@@ -9,24 +9,26 @@ interface BlogHeroProps {
 export function BlogHero({ locale }: BlogHeroProps) {
   const content = {
     de: {
-      title: "🍻 Trinkspiele Magazin",
+      title: "🎉 Partyspiele Magazin",
       subtitle: "Die besten Tipps, Trends und Geheimnisse für unvergessliche Partys",
-      description: "Entdecke die Welt der Trinkspiele, Partyplanung und geselligen Runden. Von klassischen Spielen bis zu den neuesten Online-Trends - hier findest du alles für den perfekten Partyabend!",
+      description: "Entdecke die Welt der Partyspiele, Partyplanung und geselligen Runden. Von klassischen Spielen bis zu den neuesten Online-Trends - hier findest du alles für den perfekten Partyabend!",
       stats: {
         articles: "50+ Artikel",
         readers: "10.000+ Leser",
         games: "25+ Spiele"
-      }
+      },
+      ctas: { latest: 'Neueste Artikel', popular: 'Beliebte Spiele', newsletter: 'Newsletter' }
     },
     en: {
-      title: "🍻 Drinking Games Magazine", 
+      title: "🎉 Party Games Magazine", 
       subtitle: "The best tips, trends and secrets for unforgettable parties",
-      description: "Discover the world of drinking games, party planning and social gatherings. From classic games to the latest online trends - here you'll find everything for the perfect party night!",
+      description: "Discover the world of party games, party planning and social gatherings. From classic games to the latest online trends - here you'll find everything for the perfect party night!",
       stats: {
         articles: "50+ Articles",
         readers: "10,000+ Readers", 
         games: "25+ Games"
-      }
+      },
+      ctas: { latest: 'Latest Articles', popular: 'Popular Games', newsletter: 'Newsletter' }
     }
   };
 
@@ -54,7 +56,7 @@ export function BlogHero({ locale }: BlogHeroProps) {
       
       <div className="relative mx-auto max-w-4xl px-4 text-center">
         {/* Main Title */}
-        <h2 className="display-lg gradient-text-static animate-float-gentle mb-6">
+        <h2 className="display-lg text-white mb-6">
           {currentContent.title}
         </h2>
         
@@ -89,13 +91,13 @@ export function BlogHero({ locale }: BlogHeroProps) {
         {/* CTA Buttons */}
         <div className="flex flex-wrap justify-center gap-4">
           <button className="btn-primary px-8 py-4 animate-glow-pulse">
-            📚 Neueste Artikel
+            📚 {currentContent.ctas.latest}
           </button>
           <button className="btn-secondary px-8 py-4">
-            🎯 Beliebte Spiele
+            🎯 {currentContent.ctas.popular}
           </button>
           <button className="btn-ghost px-8 py-4">
-            📧 Newsletter
+            📧 {currentContent.ctas.newsletter}
           </button>
         </div>
       </div>

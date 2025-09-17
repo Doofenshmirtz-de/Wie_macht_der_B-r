@@ -1,14 +1,19 @@
 'use client';
 
+import React from 'react';
 import { useState } from 'react';
 import { BombIcon, GameIcon, TrophyIcon, UsersIcon, ShareIcon } from '../EnhancedIcons';
 
-interface BlogCategoriesProps {
-  locale: 'de' | 'en';
-}
-
-export function BlogCategories({ locale }: BlogCategoriesProps) {
+export function BlogCategories({ locale }: { locale: 'de' | 'en' }) {
   const [activeCategory, setActiveCategory] = useState('all');
+
+  const t = locale === 'en' ? {
+    title: 'Explore Categories',
+    categories: ['Drinking Games', 'Party Planning', 'Game Reviews', 'Tutorials']
+  } : {
+    title: 'Kategorien entdecken',
+    categories: ['Partyspiele', 'Partyplanung', 'Spiele-Reviews', 'Tutorials']
+  };
 
   const content = {
     de: {

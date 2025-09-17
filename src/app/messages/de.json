@@ -1,8 +1,8 @@
 {
   "Blog": {
-    "title": "Blog - Trinkspiele Magazin | Wie macht der Bär",
-    "description": "Entdecke die besten Tipps, Trends und Geheimnisse für unvergessliche Partys. Von klassischen Trinkspielen bis zu Online-Trends - dein Magazin für den perfekten Partyabend!",
-    "keywords": "Trinkspiele Blog, Partyplanung, Trinkspiele Tipps, Online Trinkspiele, Partyspiele Magazin, Saufspiele Guide, Drinking Games Blog"
+    "title": "Blog - Partyspiele Magazin | Wie macht der Bär",
+    "description": "Entdecke die besten Tipps, Trends und Geheimnisse für unvergessliche Partys. Von klassischen Partyspielen bis zu Online-Trends - dein Magazin für den perfekten Partyabend!",
+    "keywords": "Partyspiele Blog, Partyplanung, Party Tipps, Online Partyspiele, Partyspiele Magazin"
   },
   "bombParty": "Bomb Party",
   "playerSetup": "Spieler Setup",
@@ -27,13 +27,13 @@
   "losses": "Niederlagen",
   "winner": "Gewinner",
   "home": {
-    "title": "Online Trinkspiele kostenlos spielen | Wie macht der Bär",
-    "description": "Die besten Online Trinkspiele kostenlos! Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles ohne Download spielbar.",
-    "heroTitle": "ONLINE TRINKSPIELE",
+    "title": "Online Partyspiele kostenlos spielen | Wie macht der Bär",
+    "description": "Die besten Online Partyspiele kostenlos! Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles ohne Download spielbar.",
+    "heroTitle": "ONLINE PARTYSPIELE",
     "heroSubtitle": "KOSTENLOS SPIELEN",
     "heroDescription": "Die beste Spiele-Webseite der Welt!",
     "readyForParty": "Bereit für den ultimativen Partyspaß?",
-    "playDescription": "Spiele die besten Trinkspiele online mit deinen Freunden! Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos und ohne Download.",
+    "playDescription": "Spiele die besten Partyspiele online mit deinen Freunden! Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos und ohne Download.",
     "instantPlay": "Sofort spielbar",
     "multiplayer": "Multiplayer",
     "partyHard": "Party Hard",
@@ -41,10 +41,10 @@
     "downloadSubtext": "Sofort loslegen und nie wieder langweilige Partys haben!",
     "chooseGame": "WÄHLE DEIN SPIEL",
     "chooseGameDescription": "Bereit für den ultimativen Partyspaß?",
-    "popularGames": "Beliebte Online Trinkspiele",
-    "popularGamesDescription": "Entdecke die besten Browser Trinkspiele kostenlos ohne Download!",
+    "popularGames": "Beliebte Online Partyspiele",
+    "popularGamesDescription": "Entdecke die besten Browser Partyspiele kostenlos ohne Download!",
     "faqTitle": "Häufig gestellte Fragen",
-    "faqDescription": "Alles was du über Online Trinkspiele wissen musst - von Spielregeln bis Sicherheitstipps!",
+    "faqDescription": "Alles was du über Online Partyspiele wissen musst - von Spielregeln bis Sicherheitstipps!",
     "noGamesFound": "Keine Spiele gefunden!",
     "noGamesDescription": "Versuche es mit anderen Suchbegriffen oder filtere weniger spezifisch.",
     "showAllGames": "Alle Spiele anzeigen",
@@ -54,12 +54,12 @@
   },
   "games": {
     "bombParty": {
-      "title": "Bomb Party Trinkspiel Multiplayer",
-      "description": "Das ultimative Wortspiel-Trinkspiel online! Spiele Bomb Party kostenlos mit bis zu 16 Freunden."
+      "title": "Bomb Party Partyspiel Multiplayer",
+      "description": "Das ultimative Wortspiel online! Spiele Bomb Party kostenlos mit bis zu 16 Freunden."
     },
     "neverHaveIEver": {
       "title": "Ich hab noch nie online kostenlos",
-      "description": "Das klassische Geständnis-Trinkspiel jetzt online! Finde heraus, wer was schon mal gemacht hat."
+      "description": "Das klassische Geständnis-Partyspiel jetzt online! Finde heraus, wer was schon mal gemacht hat."
     },
     "truthOrDare": {
       "title": "Wahrheit oder Pflicht Browser Spiel",

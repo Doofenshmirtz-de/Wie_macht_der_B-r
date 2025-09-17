@@ -15,53 +15,53 @@ interface FAQItem {
 const FAQ_DATA: FAQItem[] = [
   // GENERAL KATEGORIE
   {
-    id: 'what-are-online-drinking-games',
-    question: 'Was sind Online Trinkspiele und wie funktionieren sie?',
-    answer: 'Online Trinkspiele sind digitale Versionen klassischer Partyspiele, die direkt im Browser gespielt werden. Du brauchst keine App herunterzuladen - einfach die Website besuchen, Freunde einladen und sofort loslegen! Unsere Spiele wie Bomb Party, Ich hab noch nie und Wahrheit oder Pflicht sind kostenlos und für Erwachsene ab 18 Jahren konzipiert.',
+    id: 'what-are-online-party-games',
+    question: 'Was sind Online Partyspiele und wie funktionieren sie?',
+    answer: 'Online Partyspiele sind digitale Versionen klassischer Spiele für gesellige Runden, die direkt im Browser gespielt werden. Du brauchst keine App herunterzuladen - einfach die Website besuchen, Freunde einladen und sofort loslegen! Unsere Spiele wie Bomb Party, Ich hab noch nie und Wahrheit oder Pflicht sind kostenlos und für Erwachsene ab 18 Jahren konzipiert.',
     category: 'general',
-    keywords: ['Online Trinkspiele', 'Browser Trinkspiele', 'kostenlos']
+    keywords: ['Online Partyspiele', 'Browser Partyspiele', 'kostenlos']
   },
   {
-    id: 'why-online-drinking-games',
-    question: 'Warum Online Trinkspiele statt echte Karten oder Apps?',
-    answer: 'Online Trinkspiele bieten viele Vorteile: Keine Downloads nötig, sofort verfügbar, automatische Spielabläufe, Multiplayer-Funktionen und regelmäßige Updates mit neuen Inhalten. Du kannst spontan mit Freunden spielen, ohne Materialien vorzubereiten oder Apps zu installieren.',
+    id: 'why-online-party-games',
+    question: 'Warum Online Partyspiele statt echte Karten oder Apps?',
+    answer: 'Online Partyspiele bieten viele Vorteile: Keine Downloads nötig, sofort verfügbar, automatische Spielabläufe, Multiplayer-Funktionen und regelmäßige Updates mit neuen Inhalten. Du kannst spontan mit Freunden spielen, ohne Materialien vorzubereiten oder Apps zu installieren.',
     category: 'general',
     keywords: ['Browser Spiele', 'ohne Download', 'Multiplayer']
   },
   {
-    id: 'party-planning-drinking-games',
-    question: 'Welche Trinkspiele eignen sich am besten für Party-Planung?',
+    id: 'party-planning-games',
+    question: 'Welche Partyspiele eignen sich am besten für die Party-Planung?',
     answer: 'Für Partys empfehlen wir eine Mischung aus verschiedenen Spieltypen: Bomb Party als energiegeladenes Wortspiel, Ich hab noch nie für lustige Geständnisse und Wahrheit oder Pflicht für mutige Aufgaben. So bleibt die Party abwechslungsreich und alle Gäste kommen auf ihre Kosten!',
     category: 'general',
-    keywords: ['Party Trinkspiele', 'Partyplanung', 'WG Party']
+    keywords: ['Partyspiele', 'Partyplanung', 'WG Party']
   },
   {
-    id: 'drinking-games-for-small-groups',
-    question: 'Welche Trinkspiele funktionieren gut für kleine Gruppen?',
+    id: 'party-games-small-groups',
+    question: 'Welche Partyspiele funktionieren gut für kleine Gruppen?',
     answer: 'Alle unsere Spiele sind perfekt für kleine Gruppen ab 2 Personen! Besonders "Ich hab noch nie" und "Wahrheit oder Pflicht" sind ideal für intime Runden. Bomb Party macht schon ab 3-4 Spielern richtig Spaß und wird mit mehr Leuten noch spannender.',
     category: 'general',
-    keywords: ['kleine Gruppe', 'Trinkspiele zu zweit', '2 Personen']
+    keywords: ['kleine Gruppe', 'Partyspiele zu zweit', '2 Personen']
   },
   {
-    id: 'student-drinking-games',
-    question: 'Gibt es spezielle Trinkspiele für Studenten und WG-Partys?',
-    answer: 'Absolut! Unsere Online Trinkspiele sind perfekt für Studenten-WGs: kostenlos, spontan spielbar und ohne Vorbereitungszeit. Bomb Party ist besonders beliebt bei WG-Partys, da es schnell erklärt ist und für viele Lacher sorgt. Perfekt für entspannte Abende oder Pre-Gaming!',
+    id: 'student-party-games',
+    question: 'Gibt es spezielle Partyspiele für Studenten und WG-Partys?',
+    answer: 'Absolut! Unsere Online Partyspiele sind perfekt für Studenten-WGs: kostenlos, spontan spielbar und ohne Vorbereitungszeit. Bomb Party ist besonders beliebt bei WG-Partys, da es schnell erklärt ist und für viele Lacher sorgt. Perfekt für entspannte Abende oder Pre-Gaming!',
     category: 'general',
-    keywords: ['Studenten Trinkspiele', 'WG Party', 'Uni Party']
+    keywords: ['Studenten Partyspiele', 'WG Party', 'Uni Party']
   },
 
   // GAMES KATEGORIE
   {
     id: 'bomb-party-rules',
-    question: 'Wie funktioniert das Bomb Party Trinkspiel?',
-    answer: 'Bomb Party ist ein schnelles Wortspiel: Du bekommst eine Buchstaben-Kombination und musst Wörter finden, die diese enthalten, bevor die Bombe explodiert! Schaffst du es nicht rechtzeitig, musst du trinken. Das Spiel wird immer schneller und sorgt für garantierte Lachanfälle. Bis zu 16 Spieler können gleichzeitig mitspielen!',
+    question: 'Wie funktioniert das Bomb Party Spiel?',
+    answer: 'Bomb Party ist ein schnelles Wortspiel: Du bekommst eine Buchstaben-Kombination und musst Wörter finden, die diese enthalten, bevor die Bombe explodiert! Das Spiel wird immer schneller und sorgt für garantierte Lachanfälle. Bis zu 16 Spieler können gleichzeitig mitspielen!',
     category: 'games',
-    keywords: ['Bomb Party Regeln', 'Bomb Party Trinkspiel', 'Wortspiel']
+    keywords: ['Bomb Party Regeln', 'Bomb Party', 'Wortspiel']
   },
   {
     id: 'never-have-i-ever-online',
     question: 'Wie spielt man "Ich hab noch nie" online?',
-    answer: 'Bei "Ich hab noch nie" werden Aussagen vorgelesen wie "Ich hab noch nie... einen Film im Kino gesehen". Alle, die das schon mal gemacht haben, müssen trinken! Unser Online-System bietet hunderte von Fragen in verschiedenen Kategorien - von harmlos bis pikant. Perfekt um Freunde besser kennenzulernen!',
+    answer: 'Bei "Ich hab noch nie" werden Aussagen vorgelesen wie "Ich hab noch nie... einen Film im Kino gesehen". Alle, die das schon mal gemacht haben, müssen ihre Joker-Trinkkarte einsetzen – oder eine alternative Strafe wählen! Unser Online-System bietet hunderte von Fragen in verschiedenen Kategorien - von harmlos bis pikant. Perfekt um Freunde besser kennenzulernen!',
     category: 'games',
     keywords: ['Ich hab noch nie', 'Never Have I Ever', 'Geständnisse']
   },
@@ -73,9 +73,9 @@ const FAQ_DATA: FAQItem[] = [
     keywords: ['Wahrheit oder Pflicht Erwachsene', 'Truth or Dare', 'Aufgaben']
   },
   {
-    id: 'drinking-games-without-alcohol',
+    id: 'play-without-alcohol',
     question: 'Kann man die Spiele auch ohne Alkohol spielen?',
-    answer: 'Natürlich! Alle unsere Spiele funktionieren genauso gut mit alkoholfreien Getränken. Statt Alkohol könnt ihr Softdrinks, Wasser oder lustige "Strafen" wie Süßigkeiten essen verwenden. Die Spiele bleiben genauso unterhaltsam und eignen sich auch perfekt für alkoholfreie Partys!',
+    answer: 'Natürlich! Alle unsere Spiele funktionieren genauso gut ohne Alkohol. Stattdessen könnt ihr Softdrinks, Wasser oder lustige "Strafen" wie Süßigkeiten essen verwenden. Die Spiele bleiben genauso unterhaltsam und eignen sich perfekt für alkoholfreie Partys!',
     category: 'games',
     keywords: ['ohne Alkohol', 'alkoholfrei', 'Softdrinks']
   },
@@ -98,7 +98,7 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: 'no-download-required',
     question: 'Muss ich eine App herunterladen?',
-    answer: 'Nein! Alle unsere Trinkspiele laufen direkt im Browser - komplett ohne Download. Einfach die Website besuchen und sofort loslegen. Das spart Speicherplatz auf deinem Handy und du bist immer auf der neuesten Version. Perfekt für spontane Spiele!',
+    answer: 'Nein! Alle unsere Partyspiele laufen direkt im Browser - komplett ohne Download. Einfach die Website besuchen und sofort loslegen. Das spart Speicherplatz auf deinem Handy und du bist immer auf der neuesten Version. Perfekt für spontane Spiele!',
     category: 'technical',
     keywords: ['ohne Download', 'keine App', 'Browser Spiel']
   },
@@ -112,16 +112,16 @@ const FAQ_DATA: FAQItem[] = [
 
   // SAFETY KATEGORIE
   {
-    id: 'responsible-drinking',
-    question: 'Wie kann ich verantwortungsvoll mit Alkohol umgehen?',
-    answer: 'Sicherheit geht vor! Trinkt immer in Maßen, sorgt für genug Wasser und Essen. Bestimmt einen nüchternen Fahrer oder nutzt öffentliche Verkehrsmittel. Hört auf euren Körper und zwingt niemanden zum Trinken. Unsere Spiele sollen Spaß machen, nicht gefährlich werden!',
+    id: 'responsible-play',
+    question: 'Wie spiele ich verantwortungsvoll?',
+    answer: 'Sicherheit geht vor! Wenn ihr Alkohol trinkt, dann immer in Maßen, sorgt für genug Wasser und Essen. Bestimmt einen nüchternen Fahrer oder nutzt öffentliche Verkehrsmittel. Hört auf euren Körper und zwingt niemanden zum Trinken. Unsere Spiele sollen Spaß machen, nicht gefährlich werden!',
     category: 'safety',
-    keywords: ['verantwortlich trinken', 'Sicherheit', 'Maßen']
+    keywords: ['verantwortlich spielen', 'Sicherheit', 'Maßen']
   },
   {
-    id: 'drinking-limits',
-    question: 'Wie erkenne ich meine Grenzen beim Trinken?',
-    answer: 'Achtet auf Warnsignale: Schwindel, Übelkeit oder verlangsamte Reaktionen. Trinkt viel Wasser zwischen den alkoholischen Getränken. Esst vor und während dem Spielen. Wenn ihr euch unwohl fühlt, hört sofort auf. Eure Gesundheit ist wichtiger als jedes Spiel!',
+    id: 'know-your-limits',
+    question: 'Wie erkenne ich meine Grenzen?',
+    answer: 'Achtet auf Warnsignale: Schwindel, Übelkeit oder verlangsamte Reaktionen. Trinkt viel Wasser zwischen Getränken. Esst vor und während dem Spielen. Wenn ihr euch unwohl fühlt, macht eine Pause. Eure Gesundheit ist wichtiger als jedes Spiel!',
     category: 'safety',
     keywords: ['Grenzen', 'Warnsignale', 'Gesundheit']
   },
@@ -200,10 +200,10 @@ export function FAQSection({
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="heading-2 text-white mb-4">
-            ❓ Häufig gestellte Fragen zu Online Trinkspielen
+            ❓ Häufig gestellte Fragen zu Online Partyspielen
           </h2>
           <p className="body-lg text-white/80 max-w-2xl mx-auto">
-            Alles was du über unsere kostenlosen Browser Trinkspiele wissen musst - 
+            Alles was du über unsere kostenlosen Browser Partyspiele wissen musst - 
             von Spielregeln bis Sicherheitstipps!
           </p>
         </div>

@@ -117,16 +117,16 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
     {
       id: 'bomb',
       href: `/${locale}/game/bomb` as ValidHref,
-      title: 'Bomb Party Trinkspiel',
-      description: 'Das ultimative Wortspiel-Trinkspiel! Finde Wörter bevor die Bombe explodiert. Multiplayer-Modus verfügbar.',
-      keywords: ['Bomb Party', 'Trinkspiel', 'Multiplayer'],
+      title: 'Bomb Party',
+      description: 'Das ultimative Wortspiel! Finde Wörter bevor die Bombe explodiert. Multiplayer-Modus verfügbar.',
+      keywords: ['Bomb Party', 'Partyspiel', 'Multiplayer'],
       gameType: 'bomb' as const
     },
     {
       id: 'neverhaveiever',
       href: `/${locale}/game/neverhaveiever` as ValidHref,
       title: 'Ich hab noch nie online',
-      description: 'Das klassische Geständnis-Trinkspiel! Finde heraus, wer was schon mal gemacht hat.',
+      description: 'Das klassische Geständnis-Partyspiel! Finde heraus, wer was schon mal gemacht hat.',
       keywords: ['Ich hab noch nie', 'Geständnisse', 'Party'],
       gameType: 'neverhaveiever' as const
     },
@@ -154,10 +154,10 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-            🎮 Andere Online Trinkspiele
+            🎮 Andere Online Partyspiele
           </h2>
           <p className="text-base text-white/80">
-            Entdecke weitere kostenlose Browser Trinkspiele für deine Party!
+            Entdecke weitere kostenlose Browser Partyspiele für deine Party!
           </p>
         </div>
         
@@ -179,10 +179,10 @@ export function RelatedGames({ currentGame = '', className = '' }: RelatedGamesP
         <div className="text-center mt-8">
           <InternalLinkCard
             href={`/${locale}` as ValidHref}
-            title="Alle Online Trinkspiele anzeigen"
-            description="Zurück zur Übersicht aller kostenlosen Browser Trinkspiele und Partyspiele."
+            title="Alle Online Partyspiele anzeigen"
+            description="Zurück zur Übersicht aller kostenlosen Browser Partyspiele."
             gameType="blog"
-            keywords={['Online Trinkspiele', 'Kostenlos', 'Browser']}
+            keywords={['Online Partyspiele', 'Kostenlos', 'Browser']}
             className="max-w-md mx-auto"
           />
         </div>

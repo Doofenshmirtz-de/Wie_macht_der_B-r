@@ -61,6 +61,56 @@ const GAMES_DATABASE: GameCard[] = [
   }
 ];
 
+// Lokalisierte Spieltitel und -beschreibungen
+const GAME_LOCALIZATIONS = {
+  de: {
+    "bomb-party": {
+      title: "Bomb Party",
+      description: "Der Klassiker",
+      subtitle: "Wörter finden bevor die Bombe explodiert!",
+      players: "2-8 Spieler",
+      difficulty: "Einfach"
+    },
+    "never-have-i-ever": {
+      title: "Ich hab noch nie",
+      description: "Der Wahrheitskracher",
+      subtitle: "Geständnisse und peinliche Momente!",
+      players: "3-12 Spieler",
+      difficulty: "Einfach"
+    },
+    "truth-or-dare": {
+      title: "Wahrheit oder Pflicht",
+      description: "Der Partykracher",
+      subtitle: "Ehrliche Fragen und mutige Aufgaben!",
+      players: "2-10 Spieler",
+      difficulty: "Einfach"
+    }
+  },
+  en: {
+    "bomb-party": {
+      title: "Bomb Party",
+      description: "The Classic",
+      subtitle: "Find words before the bomb explodes!",
+      players: "2-8 Players",
+      difficulty: "Easy"
+    },
+    "never-have-i-ever": {
+      title: "Never Have I Ever",
+      description: "The Truth Cracker",
+      subtitle: "Confessions and embarrassing moments!",
+      players: "3-12 Players",
+      difficulty: "Easy"
+    },
+    "truth-or-dare": {
+      title: "Truth or Dare",
+      description: "The Party Cracker",
+      subtitle: "Honest questions and brave challenges!",
+      players: "2-10 Players",
+      difficulty: "Easy"
+    }
+  }
+};
+
 export interface GetGamesParams {
   offset?: number;
   limit?: number;
@@ -80,8 +130,9 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export async function getGames({
   offset = 0,
   limit = 3,
-  direction = 'forward'
-}: GetGamesParams = {}): Promise<GetGamesResult> {
+  direction = 'forward',
+  locale = 'de'
+}: GetGamesParams & { locale?: 'de' | 'en' } = {}): Promise<GetGamesResult> {
   // Realistische Latenz simulieren
   await delay(800);
 
@@ -104,11 +155,27 @@ export async function getGames({
     }
   }
 
-  console.log(`🎮 Server Action: getGames(offset=${offset}, limit=${limit}, direction=${direction})`);
-  console.log(`📊 Returning ${games.length} games, zirkulär=true`);
+  // Lokalisierung anwenden
+  const localizedGames = games.map(game => {
+    const localization = GAME_LOCALIZATIONS[locale]?.[game.id as keyof typeof GAME_LOCALIZATIONS[typeof locale]];
+    if (localization) {
+      return {
+        ...game,
+        title: localization.title,
+        description: localization.description,
+        subtitle: localization.subtitle,
+        players: localization.players,
+        difficulty: localization.difficulty
+      };
+    }
+    return game;
+  });
+
+  console.log(`🎮 Server Action: getGames(offset=${offset}, limit=${limit}, direction=${direction}, locale=${locale})`);
+  console.log(`📊 Returning ${localizedGames.length} games, zirkulär=true`);
 
   return {
-    games,
+    games: localizedGames,
     hasMore: true, // Zirkuläres Scrollen - immer mehr verfügbar
     nextOffset: direction === 'forward' 
       ? (offset + limit) % totalGames 
@@ -118,8 +185,8 @@ export async function getGames({
 }
 
 // Initial laden für SEO
-export async function getInitialGames(): Promise<GetGamesResult> {
-  return getGames({ offset: 0, limit: 3 });
+export async function getInitialGames(locale: 'de' | 'en' = 'de'): Promise<GetGamesResult> {
+  return getGames({ offset: 0, limit: 3, locale });
 }
 
 // Für Suchfunktionalität (optional)

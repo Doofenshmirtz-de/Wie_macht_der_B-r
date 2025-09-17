@@ -25,12 +25,12 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
       posts: [
         {
           id: '1',
-          title: 'Die 10 besten Online-Trinkspiele für 2024',
-          excerpt: 'Entdecke die heißesten Trinkspiele des Jahres! Von klassischen Hits bis zu innovativen Online-Erlebnissen - hier findest du alles für unvergessliche Partynächte.',
+          title: 'Die 10 besten Online-Partyspiele für 2024',
+          excerpt: 'Entdecke die heißesten Partyspiele des Jahres! Von klassischen Hits bis zu innovativen Online-Erlebnissen - hier findest du alles für unvergessliche Partynächte.',
           author: 'Max Partyprofi',
           date: '15. Dez 2024',
           readTime: '8',
-          category: 'Trinkspiele',
+          category: 'Partyspiele',
           image: '/blog/online-trinkspiele-2024.jpg',
           featured: true,
           tags: ['Online', 'Top 10', 'Trends']
@@ -61,12 +61,12 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
         },
         {
           id: '4',
-          title: 'Trinkspiele ohne Alkohol: Spaß für alle',
-          excerpt: 'Auch ohne Alkohol kann gefeiert werden! Die besten alkoholfreien Alternativen zu klassischen Trinkspielen - genauso lustig, aber für jeden geeignet.',
+          title: 'Partyspiele ohne Alkohol: Spaß für alle',
+          excerpt: 'Auch ohne Alkohol kann gefeiert werden! Die besten alkoholfreien Alternativen zu klassischen Partyspielen - genauso lustig, aber für jeden geeignet.',
           author: 'Sarah Healthyfun',
           date: '8. Dez 2024',
           readTime: '6',
-          category: 'Trinkspiele',
+          category: 'Partyspiele',
           image: '/blog/alkoholfrei-feiern.jpg',
           featured: false,
           tags: ['Alkoholfrei', 'Inklusive', 'Gesund']
@@ -109,12 +109,12 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
       posts: [
         {
           id: '1',
-          title: 'The 10 Best Online Drinking Games for 2024',
-          excerpt: 'Discover the hottest drinking games of the year! From classic hits to innovative online experiences - here you\'ll find everything for unforgettable party nights.',
+          title: 'The 10 Best Online Party Games for 2024',
+          excerpt: 'Discover the hottest party games of the year! From classic hits to innovative online experiences - here you\'ll find everything for unforgettable party nights.',
           author: 'Max Partyprofi',
           date: 'Dec 15, 2024',
           readTime: '8',
-          category: 'Drinking Games',
+          category: 'Party Games',
           image: '/blog/online-drinking-games-2024.jpg',
           featured: true,
           tags: ['Online', 'Top 10', 'Trends']
@@ -145,12 +145,12 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
         },
         {
           id: '4',
-          title: 'Drinking Games Without Alcohol: Fun for Everyone',
-          excerpt: 'You can party without alcohol too! The best non-alcoholic alternatives to classic drinking games - just as fun, but suitable for everyone.',
+          title: 'Party Games Without Alcohol: Fun for Everyone',
+          excerpt: 'You can party without alcohol too! The best non-alcoholic alternatives to classic party games - just as fun, but suitable for everyone.',
           author: 'Sarah Healthyfun',
           date: 'Dec 8, 2024',
           readTime: '6',
-          category: 'Drinking Games',
+          category: 'Party Games',
           image: '/blog/alcohol-free-party.jpg',
           featured: false,
           tags: ['Alcohol-free', 'Inclusive', 'Healthy']
@@ -214,7 +214,7 @@ export function BlogPostGrid({ locale }: BlogPostGridProps) {
       <div className="relative mx-auto max-w-7xl px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="heading-2 gradient-text-static animate-float-gentle mb-4">
+          <h2 className="heading-2 text-white animate-float-gentle mb-4">
             {currentContent.title}
           </h2>
           <p className="body-lg text-white/80">

@@ -15,7 +15,7 @@ interface GameCardProps {
 
 export function GameCard({ game, priority = false }: GameCardProps) {
   // Simple locale detection - will be updated on client side
-  const [locale, setLocale] = useState('de');
+  const [locale, setLocale] = useState<'de' | 'en'>('de');
   
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -42,6 +42,20 @@ export function GameCard({ game, priority = false }: GameCardProps) {
   const handleGameClick = () => {
     // Tracke Spielauswahl für Analytics
     trackGameSelection(title);
+  };
+
+  const labels = locale === 'en' ? {
+    available: 'AVAILABLE',
+    soon: 'SOON',
+    players: 'PLAYERS',
+    difficulty: 'DIFFICULTY',
+    play: 'PLAY!'
+  } : {
+    available: 'VERFÜGBAR',
+    soon: 'BALD',
+    players: 'SPIELER',
+    difficulty: 'SCHWIERIGKEIT',
+    play: 'SPIELEN!'
   };
 
   const cardContent = (
@@ -72,7 +86,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
               <div className="relative h-12 w-12 sm:h-14 sm:w-14 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-2xl border-2 border-white/30 shadow-2xl flex items-center justify-center">
                 <Image 
                   src={iconSrc} 
-                  alt={`${title} Trinkspiel Icon - Jetzt online spielen`} 
+                  alt={`${title} Icon`} 
                   width={24} 
                   height={24} 
                   className="drop-shadow-lg sm:w-7 sm:h-7"
@@ -89,11 +103,11 @@ export function GameCard({ game, priority = false }: GameCardProps) {
             <div className="ml-auto">
               {available ? (
                 <div className="bg-green-500 text-white text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-full border border-green-300 shadow-lg">
-                  VERFÜGBAR
+                  {labels.available}
                 </div>
               ) : (
                 <div className="bg-gray-600 text-gray-300 text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-full border border-gray-500">
-                  BALD
+                  {labels.soon}
                 </div>
               )}
             </div>
@@ -112,7 +126,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
           {available && imageSrc ? (
             <Image 
               src={imageSrc} 
-              alt={`${title} - ${subtitle} Trinkspiel für ${players} online spielen`} 
+              alt={`${title} - ${subtitle} für ${players}`} 
               fill 
               sizes="420px"
               className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
@@ -131,7 +145,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
           {available && (
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
               <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
-                <span className="text-white font-bold text-sm">SPIELEN!</span>
+                <span className="text-white font-bold text-sm">{labels.play}</span>
               </div>
             </div>
           )}
@@ -141,11 +155,11 @@ export function GameCard({ game, priority = false }: GameCardProps) {
         <div className="flex justify-between items-center mt-auto pt-4 pb-4 bg-black/20 rounded-lg mx-2">
           <div className="flex gap-3 sm:gap-4 px-3">
             <div className="text-center">
-              <p className="text-xs text-yellow-200 font-bold">SPIELER</p>
+              <p className="text-xs text-yellow-200 font-bold">{labels.players}</p>
               <p className="text-sm text-white font-bold">{players}</p>
             </div>
             <div className="text-center">
-              <p className="text-xs text-yellow-200 font-bold">SCHWIERIGKEIT</p>
+              <p className="text-xs text-yellow-200 font-bold">{labels.difficulty}</p>
               <p className="text-sm text-white font-bold">{difficulty}</p>
             </div>
           </div>

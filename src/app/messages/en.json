@@ -1,8 +1,8 @@
 {
   "Blog": {
-    "title": "Blog - Drinking Games Magazine | Wie macht der Bär", 
-    "description": "Discover the best tips, trends and secrets for unforgettable parties. From classic drinking games to online trends - your magazine for the perfect party night!",
-    "keywords": "Drinking Games Blog, Party Planning, Drinking Game Tips, Online Drinking Games, Party Games Magazine, Drinking Games Guide"
+    "title": "Blog - Party Games Magazine | Wie macht der Bär", 
+    "description": "Discover the best tips, trends and secrets for unforgettable parties. From classic party games to online trends - your magazine for the perfect party night!",
+    "keywords": "Party Games Blog, Party Planning, Party Tips, Online Party Games, Party Games Magazine"
   },
   "bombParty": "Bomb Party",
   "playerSetup": "Player Setup",
@@ -27,13 +27,13 @@
   "losses": "losses",
   "winner": "Winner",
   "home": {
-    "title": "Free Online Drinking Games | Wie macht der Bär",
-    "description": "The best free online drinking games! Bomb Party, Never Have I Ever, Truth or Dare - all playable without download.",
-    "heroTitle": "ONLINE DRINKING GAMES",
+    "title": "Free Online Party Games | Wie macht der Bär",
+    "description": "The best free online party games! Bomb Party, Never Have I Ever, Truth or Dare - all playable without download.",
+    "heroTitle": "ONLINE PARTY GAMES",
     "heroSubtitle": "PLAY FOR FREE",
     "heroDescription": "The best gaming website in the world!",
     "readyForParty": "Ready for the ultimate party fun?",
-    "playDescription": "Play the best drinking games online with your friends! Bomb Party, Never Have I Ever, Truth or Dare - all free and without download.",
+    "playDescription": "Play the best party games online with your friends! Bomb Party, Never Have I Ever, Truth or Dare - all free and without download.",
     "instantPlay": "Instant play",
     "multiplayer": "Multiplayer",
     "partyHard": "Party Hard",
@@ -41,10 +41,10 @@
     "downloadSubtext": "Start immediately and never have boring parties again!",
     "chooseGame": "CHOOSE YOUR GAME",
     "chooseGameDescription": "Ready for the ultimate party fun?",
-    "popularGames": "Popular Online Drinking Games",
-    "popularGamesDescription": "Discover the best browser drinking games for free without download!",
+    "popularGames": "Popular Online Party Games",
+    "popularGamesDescription": "Discover the best browser party games for free without download!",
     "faqTitle": "Frequently Asked Questions",
-    "faqDescription": "Everything you need to know about online drinking games - from game rules to safety tips!",
+    "faqDescription": "Everything you need to know about online party games - from game rules to safety tips!",
     "noGamesFound": "No games found!",
     "noGamesDescription": "Try different search terms or filter less specifically.",
     "showAllGames": "Show all games",
@@ -54,12 +54,12 @@
   },
   "games": {
     "bombParty": {
-      "title": "Bomb Party Drinking Game Multiplayer",
-      "description": "The ultimate word game drinking game online! Play Bomb Party for free with up to 16 friends."
+      "title": "Bomb Party Party Game Multiplayer",
+      "description": "The ultimate word game online! Play Bomb Party for free with up to 16 friends."
     },
     "neverHaveIEver": {
       "title": "Never Have I Ever online free",
-      "description": "The classic confession drinking game now online! Find out who has done what before."
+      "description": "The classic confession party game now online! Find out who has done what before."
     },
     "truthOrDare": {
       "title": "Truth or Dare Browser Game",

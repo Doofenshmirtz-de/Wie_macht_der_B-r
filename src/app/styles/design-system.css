@@ -989,3 +989,35 @@
     color: #1a1a1a;
   }
 }
+
+/* High Contrast Mode Support (ergänzt) */
+.high-contrast .gradient-text,
+.high-contrast .gradient-text-enhanced {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: currentColor !important;
+}
+
+.high-contrast .gradient-bg,
+.high-contrast .panel-bg {
+  background: #000000 !important;
+}
+
+/* High Contrast Core Variables and Base Overrides */
+.high-contrast {
+  --background: #000000;
+  --foreground: #ffffff;
+  filter: contrast(1.75) brightness(1.1);
+}
+
+.high-contrast body {
+  background: #000000 !important;
+  color: var(--foreground) !important;
+}
+
+.high-contrast *:focus {
+  outline: 3px solid #ffffff !important;
+  outline-offset: 3px;
+}
