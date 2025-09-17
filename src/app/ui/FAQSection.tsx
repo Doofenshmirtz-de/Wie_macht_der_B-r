@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { BombIcon, GameIcon, SearchIcon } from './EnhancedIcons';
 
 interface FAQItem {
   id: string;
   question: string;
   answer: string;
-  category: 'general' | 'games' | 'technical' | 'safety';
+  category: 'general' | 'games' | 'technical';
   keywords: string[];
 }
 
@@ -22,11 +23,25 @@ const FAQ_DATA: FAQItem[] = [
     keywords: ['Online Partyspiele', 'Browser Partyspiele', 'kostenlos']
   },
   {
+    id: 'what-are-online-party-games-en',
+    question: 'What are Online Party Games and how do they work?',
+    answer: 'Online party games are digital versions of classic social games that you can play directly in your browser. You don\'t need to download any app - just visit the website, invite friends and start playing immediately! Our games like Bomb Party, Never Have I Ever and Truth or Dare are free and designed for adults 18+.',
+    category: 'general',
+    keywords: ['Online Party Games', 'Browser Party Games', 'free']
+  },
+  {
     id: 'why-online-party-games',
     question: 'Warum Online Partyspiele statt echte Karten oder Apps?',
     answer: 'Online Partyspiele bieten viele Vorteile: Keine Downloads nötig, sofort verfügbar, automatische Spielabläufe, Multiplayer-Funktionen und regelmäßige Updates mit neuen Inhalten. Du kannst spontan mit Freunden spielen, ohne Materialien vorzubereiten oder Apps zu installieren.',
     category: 'general',
     keywords: ['Browser Spiele', 'ohne Download', 'Multiplayer']
+  },
+  {
+    id: 'why-online-party-games-en',
+    question: 'Why Online Party Games instead of real cards or apps?',
+    answer: 'Online party games offer many advantages: No downloads needed, immediately available, automatic game flows, multiplayer functions and regular updates with new content. You can spontaneously play with friends without preparing materials or installing apps.',
+    category: 'general',
+    keywords: ['Browser Games', 'no download', 'Multiplayer']
   },
   {
     id: 'party-planning-games',
@@ -110,49 +125,40 @@ const FAQ_DATA: FAQItem[] = [
     keywords: ['Internet', 'Offline', 'WLAN', 'mobile Daten']
   },
 
-  // SAFETY KATEGORIE
-  {
-    id: 'responsible-play',
-    question: 'Wie spiele ich verantwortungsvoll?',
-    answer: 'Sicherheit geht vor! Wenn ihr Alkohol trinkt, dann immer in Maßen, sorgt für genug Wasser und Essen. Bestimmt einen nüchternen Fahrer oder nutzt öffentliche Verkehrsmittel. Hört auf euren Körper und zwingt niemanden zum Trinken. Unsere Spiele sollen Spaß machen, nicht gefährlich werden!',
-    category: 'safety',
-    keywords: ['verantwortlich spielen', 'Sicherheit', 'Maßen']
-  },
-  {
-    id: 'know-your-limits',
-    question: 'Wie erkenne ich meine Grenzen?',
-    answer: 'Achtet auf Warnsignale: Schwindel, Übelkeit oder verlangsamte Reaktionen. Trinkt viel Wasser zwischen Getränken. Esst vor und während dem Spielen. Wenn ihr euch unwohl fühlt, macht eine Pause. Eure Gesundheit ist wichtiger als jedes Spiel!',
-    category: 'safety',
-    keywords: ['Grenzen', 'Warnsignale', 'Gesundheit']
-  },
-  {
-    id: 'peer-pressure',
-    question: 'Was tun wenn ich nicht trinken möchte?',
-    answer: 'Jeder hat das Recht "Nein" zu sagen! Echte Freunde respektieren das. Ihr könnt jederzeit alkoholfreie Alternativen wählen oder andere "Strafen" vereinbaren. Niemand sollte zum Trinken gedrängt werden - Spaß funktioniert auch ohne Alkohol!',
-    category: 'safety',
-    keywords: ['Nein sagen', 'Peer Pressure', 'alkoholfrei']
-  }
+  // SAFETY KATEGORIE - Entfernt, da nicht mehr passend
 ];
 
 interface FAQSectionProps {
   showSearch?: boolean;
   maxItems?: number;
-  categories?: Array<'general' | 'games' | 'technical' | 'safety'>;
+  categories?: Array<'general' | 'games' | 'technical'>;
 }
 
 export function FAQSection({ 
   showSearch = true, 
   maxItems,
-  categories = ['general', 'games', 'technical', 'safety']
+  categories = ['general', 'games', 'technical']
 }: FAQSectionProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [openItems, setOpenItems] = useState<Set<string>>(new Set());
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
 
-  // Filter FAQ items
+  // Filter FAQ items by language and other criteria
   const filteredFAQs = FAQ_DATA
     .filter(item => categories.includes(item.category))
     .filter(item => {
+      // Filter by language: show German items for 'de' and English items for 'en'
+      const isGermanItem = !item.id.endsWith('-en');
+      const isEnglishItem = item.id.endsWith('-en');
+      
+      if (locale === 'en') {
+        if (!isEnglishItem) return false;
+      } else {
+        if (!isGermanItem) return false;
+      }
+      
       const matchesSearch = searchTerm === '' || 
         item.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.answer.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -178,18 +184,25 @@ export function FAQSection({
     switch (category) {
       case 'games': return <GameIcon size={20} className="text-orange-400" />;
       case 'technical': return <BombIcon size={20} className="text-blue-400" />;
-      case 'safety': return <GameIcon size={20} className="text-green-400" />;
       default: return <GameIcon size={20} className="text-purple-400" />;
     }
   };
 
   const getCategoryLabel = (category: string) => {
-    switch (category) {
-      case 'general': return '🎮 Allgemein';
-      case 'games': return '🎯 Spiele';
-      case 'technical': return '⚙️ Technik';
-      case 'safety': return '🛡️ Sicherheit';
-      default: return category;
+    if (locale === 'en') {
+      switch (category) {
+        case 'general': return '🎮 General';
+        case 'games': return '🎯 Games';
+        case 'technical': return '⚙️ Technical';
+        default: return category;
+      }
+    } else {
+      switch (category) {
+        case 'general': return '🎮 Allgemein';
+        case 'games': return '🎯 Spiele';
+        case 'technical': return '⚙️ Technik';
+        default: return category;
+      }
     }
   };
 
@@ -200,11 +213,13 @@ export function FAQSection({
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="heading-2 text-white mb-4">
-            ❓ Häufig gestellte Fragen zu Online Partyspielen
+            ❓ {locale === 'en' ? 'Frequently Asked Questions about Online Party Games' : 'Häufig gestellte Fragen zu Online Partyspielen'}
           </h2>
           <p className="body-lg text-white/80 max-w-2xl mx-auto">
-            Alles was du über unsere kostenlosen Browser Partyspiele wissen musst - 
-            von Spielregeln bis Sicherheitstipps!
+            {locale === 'en' 
+              ? 'Everything you need to know about our free browser party games - from game rules to technical tips!'
+              : 'Alles was du über unsere kostenlosen Browser Partyspiele wissen musst - von Spielregeln bis Techniktipps!'
+            }
           </p>
         </div>
 
@@ -215,7 +230,7 @@ export function FAQSection({
               <SearchIcon size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" />
               <input
                 type="text"
-                placeholder="FAQ durchsuchen..."
+                placeholder={locale === 'en' ? 'Search FAQ...' : 'FAQ durchsuchen...'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-orange-400/50 transition-colors"
@@ -234,7 +249,7 @@ export function FAQSection({
                 : 'bg-white/10 text-white/70 hover:bg-white/20'
             }`}
           >
-            🌟 Alle
+            🌟 {locale === 'en' ? 'All' : 'Alle'}
           </button>
           {categories.map(category => (
             <button
@@ -255,7 +270,12 @@ export function FAQSection({
         <div className="space-y-4">
           {filteredFAQs.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-white/60">Keine FAQ-Einträge gefunden. Versuche einen anderen Suchbegriff!</p>
+              <p className="text-white/60">
+                {locale === 'en' 
+                  ? 'No FAQ entries found. Try a different search term!'
+                  : 'Keine FAQ-Einträge gefunden. Versuche einen anderen Suchbegriff!'
+                }
+              </p>
             </div>
           ) : (
             filteredFAQs.map((item) => (
@@ -309,21 +329,23 @@ export function FAQSection({
         {/* Contact CTA */}
         <div className="text-center mt-12 p-6 bg-gradient-to-r from-orange-500/20 to-purple-500/20 rounded-xl border border-white/10">
           <h3 className="heading-5 text-white mb-2">
-            🤔 Weitere Fragen?
+            🤔 {locale === 'en' ? 'More Questions?' : 'Weitere Fragen?'}
           </h3>
           <p className="body-base text-white/80 mb-4">
-            Hast du eine Frage, die hier nicht beantwortet wurde? 
-            Kontaktiere uns gerne über soziale Medien!
+            {locale === 'en' 
+              ? 'Do you have a question that wasn\'t answered here? Feel free to contact us via social media!'
+              : 'Hast du eine Frage, die hier nicht beantwortet wurde? Kontaktiere uns gerne über soziale Medien!'
+            }
           </p>
           <div className="flex justify-center gap-4">
             <a 
               href="#social" 
               className="btn-secondary text-sm"
             >
-              📧 Kontakt
+              📧 {locale === 'en' ? 'Contact' : 'Kontakt'}
             </a>
             <Link href="/" className="btn-primary text-sm">
-              🎮 Spiele jetzt!
+              🎮 {locale === 'en' ? 'Play Now!' : 'Spiele jetzt!'}
             </Link>
           </div>
         </div>

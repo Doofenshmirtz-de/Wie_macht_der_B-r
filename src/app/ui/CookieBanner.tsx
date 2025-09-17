@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useAnalytics } from '../providers/AnalyticsProvider';
+import { useParams } from 'next/navigation';
 
 export function CookieBanner() {
   const { consent, giveConsent, revokeConsent } = useAnalytics();
   const [showBanner, setShowBanner] = useState(false);
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
 
   useEffect(() => {
     // Zeige Banner nur wenn noch keine Entscheidung getroffen wurde
@@ -45,11 +48,16 @@ export function CookieBanner() {
                   Cookies & Analytics
                 </h3>
                 <p className="text-gray-300 text-xs leading-relaxed">
-                  Wir verwenden Google Analytics, um unsere Website zu verbessern. 
-                  Alle Daten werden anonymisiert und GDPR-konform verarbeitet. 
+                  {locale === 'en' 
+                    ? 'We use Google Analytics to improve our website. All data is anonymized and processed in compliance with GDPR.'
+                    : 'Wir verwenden Google Analytics, um unsere Website zu verbessern. Alle Daten werden anonymisiert und GDPR-konform verarbeitet.'
+                  }
                   <br className="hidden sm:block" />
                   <span className="text-yellow-400">
-                    Mehr Details in unserer Datenschutzerklärung
+                    {locale === 'en' 
+                      ? 'More details in our privacy policy'
+                      : 'Mehr Details in unserer Datenschutzerklärung'
+                    }
                   </span>
                 </p>
               </div>
@@ -62,13 +70,13 @@ export function CookieBanner() {
               onClick={handleDecline}
               className="flex-1 sm:flex-none px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors duration-200"
             >
-              Ablehnen
+              {locale === 'en' ? 'Decline' : 'Ablehnen'}
             </button>
             <button
               onClick={handleAccept}
               className="flex-1 sm:flex-none px-4 py-2 text-xs font-semibold text-black bg-yellow-400 hover:bg-yellow-300 rounded-lg transition-colors duration-200"
             >
-              Akzeptieren
+              {locale === 'en' ? 'Accept' : 'Akzeptieren'}
             </button>
           </div>
         </div>

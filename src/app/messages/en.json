@@ -4,6 +4,102 @@
     "description": "Discover the best tips, trends and secrets for unforgettable parties. From classic party games to online trends - your magazine for the perfect party night!",
     "keywords": "Party Games Blog, Party Planning, Party Tips, Online Party Games, Party Games Magazine"
   },
+  "Header": {
+    "title": "WIE MACHT DER BÄR PARTY GAMES DELUXE"
+  },
+  "Community": {
+    "title": "OUR COMMUNITY",
+    "description": "Thousands of players are already having fun - join in!",
+    "playersOnline": "Players online",
+    "gamesToday": "Games today", 
+    "totalPlayed": "Total played",
+    "reviews": "reviews",
+    "cta": "Become part of the best party games community!",
+    "loveTitle": "What real players say about our party games",
+    "shareExperience": "Share your experience!",
+    "question": "Did you also have fun with our games? Tell the world!",
+    "writeReview": "Write review",
+    "share": "Share",
+    "followTitle": "Follow us for the latest updates!",
+    "tiktok": "Bomb Party Challenges & Party Game Trends",
+    "instagram": "Party Inspiration & Gaming Highlights", 
+    "youtube": "Party Game Tutorials & Live Streams",
+    "twitter": "News, Updates & Community Chat",
+    "discord": "Community Server for Multiplayer Events",
+    "comingSoon": "Coming soon"
+  },
+  "Newsletter": {
+    "title": "Don't miss any updates!",
+    "description": "Sign up for our newsletter and be the first to know about new features, exclusive events and party tips!",
+    "button": "Subscribe",
+    "disclaimer": "No spam, only the best party updates! Unsubscribe anytime."
+  },
+  "Share": {
+    "title": "SHARE THE FUN!",
+    "description": "Show your friends the coolest online party games!",
+    "button": "SHARE NOW",
+    "subtitle": "Quick share via your system",
+    "platformTitle": "Or choose your platform:",
+    "statistic": "Over 2,134 players have already shared us!"
+  },
+  "CookieBanner": {
+    "text": "We use Google Analytics to improve our website. All data is anonymized and processed in compliance with GDPR.",
+    "link": "More details in our privacy policy",
+    "decline": "Decline",
+    "accept": "Accept"
+  },
+  "Search": {
+    "placeholder": "Search for games... (e.g. 'Bomb', 'Truth', '4..."
+  },
+  "AppInstall": {
+    "title": "Install as app?",
+    "subtitle": "Faster access & offline games",
+    "install": "Install",
+    "later": "Later",
+    "dontShow": "Don't show again"
+  },
+  "FAQ": {
+    "title": "FAQ - Online Party Games",
+    "subtitle": "Everything you need to know about free browser party games! From Bomb Party rules to safety tips - find all answers here.",
+    "topics": "FAQ Topics",
+    "instantAnswers": "Instant Answers",
+    "searchableSystem": "Searchable FAQ System",
+    "helpfulTips": "Helpful Tips & Tricks",
+    "sectionTitle": "Frequently Asked Questions about Online Party Games",
+    "sectionSubtitle": "Everything you need to know about our free browser party games - from game rules to safety tips!",
+    "all": "All",
+    "general": "General",
+    "games": "Games",
+    "technical": "Technical",
+    "safety": "Safety",
+    "questions": {
+      "whatAreOnlinePartyGames": "What are online party games and how do they work?",
+      "whyOnlineInsteadOfCards": "Why online party games instead of real cards or apps?",
+      "bestForPartyPlanning": "Which party games work best for party planning?",
+      "goodForSmallGroups": "Which party games work well for small groups?",
+      "specialForStudents": "Are there special party games for students and shared apartment parties?",
+      "howDoesBombPartyWork": "How does the Bomb Party game work?",
+      "howToPlayNeverHaveIEver": "How do you play 'Never Have I Ever' online?",
+      "isTruthOrDareForAdults": "Is Truth or Dare also suitable for adults?",
+      "canPlayWithoutAlcohol": "Can you play the games without alcohol?",
+      "whichBrowsersSupported": "Which browsers and devices are supported?",
+      "howDoesMultiplayerWork": "How does the multiplayer mode work?",
+      "needToDownloadApp": "Do I need to download an app?",
+      "needInternetConnection": "Do I need an internet connection to play?",
+      "howToPlayResponsibly": "How do I play responsibly?",
+      "howToRecognizeLimits": "How do I recognize my limits?",
+      "whatIfDontWantToDrink": "What to do if I don't want to drink?"
+    },
+    "moreQuestions": "More questions?",
+    "moreQuestionsText": "Do you have a question that wasn't answered here? Feel free to contact us via social media!",
+    "playNowTitle": "Play Online Party Games for free now!",
+    "playNowText": "Found all answers? Then start now with our browser party games!",
+    "moreTipsTitle": "More Party Game Tips & Guides",
+    "moreTipsText": "Discover our blog with party planning tips, new game ideas and guides for the perfect party!",
+    "blogLinkTitle": "Party Games Blog & Magazine",
+    "blogLinkSubtitle": "Party planning tips, game rules, safety guidelines and creative ideas for unforgettable parties.",
+    "blogKeywords": "BlogPartyPlanningTips"
+  },
   "bombParty": "Bomb Party",
   "playerSetup": "Player Setup",
   "playerName": "Player name",
@@ -55,15 +151,46 @@
   "games": {
     "bombParty": {
       "title": "Bomb Party Party Game Multiplayer",
-      "description": "The ultimate word game online! Play Bomb Party for free with up to 16 friends."
+      "description": "The ultimate word game online! Play Bomb Party for free with up to 16 friends.",
+      "classic": "The Classic",
+      "subtitle": "Find words before the bomb explodes!",
+      "chooseMode": "Choose game mode",
+      "chooseModeText": "How do you want to play today?",
+      "singlePhone": "Single Phone",
+      "singlePhoneDesc": "Classic mode: All players share one device and pass it around",
+      "multiplePhones": "Multiple Phones", 
+      "multiplePhonesDesc": "Multiplayer mode: Each player uses their own device via peer-to-peer connections",
+      "tip": "Tip: P2P works best when everyone is on the same WiFi",
+      "settings": "Settings",
+      "otherGames": "Other Online Party Games",
+      "otherGamesText": "Discover more free browser party games for your party!"
     },
     "neverHaveIEver": {
       "title": "Never Have I Ever online free",
-      "description": "The classic confession party game now online! Find out who has done what before."
+      "description": "The classic confession party game now online! Find out who has done what before.",
+      "chooseCategory": "Choose a category",
+      "subtitle": "Ready for 'Never Have I Ever'?",
+      "casual": "Casual",
+      "casualDesc": "Harmless and funny statements for everyone. Perfect for getting to know each other!",
+      "party": "Party",
+      "partyDesc": "Wild party situations and drinking experiences. Who did what?",
+      "adult": "18+",
+      "adultDesc": "Adults only! Spicy and intimate statements for brave players.",
+      "instructions": "Instructions"
     },
     "truthOrDare": {
       "title": "Truth or Dare Browser Game",
-      "description": "Bold truths and crazy challenges! The perfect party game for adults online."
+      "description": "Bold truths and crazy challenges! The perfect party game for adults online.",
+      "chooseCategory": "Truth or Dare",
+      "subtitle": "Choose a category",
+      "adventure": "Decide on your adventure!",
+      "easy": "Easy",
+      "easyDesc": "Harmless questions and funny tasks for all ages. Perfect for family celebrations!",
+      "adult": "18+",
+      "adultDesc": "Adults only! Cheeky questions and spicy tasks for brave players.",
+      "instructions": "Instructions",
+      "otherGames": "Other Online Party Games",
+      "otherGamesText": "Discover more free browser party games for your party!"
     }
   }
 }

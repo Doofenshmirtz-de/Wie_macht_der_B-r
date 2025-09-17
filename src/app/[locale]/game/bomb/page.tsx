@@ -470,10 +470,10 @@ function BombGamePageContent() {
         {/* Mode Indicator */}
         {gameMode && (
           <div className="text-sm text-white/60 mb-2">
-            {gameMode === "single" ? "📱 Einzelnes Handy" : 
-             multiplayerMode === "host" ? "👑 Host Modus" : 
-             multiplayerMode === "client" ? "📱 Client Modus" : 
-             "🌐 Multiplayer"}
+            {gameMode === "single" ? (locale === "en" ? "📱 Single Phone" : "📱 Einzelnes Handy") : 
+             multiplayerMode === "host" ? (locale === "en" ? "👑 Host Mode" : "👑 Host Modus") : 
+             multiplayerMode === "client" ? (locale === "en" ? "📱 Client Mode" : "📱 Client Modus") : 
+             (locale === "en" ? "🌐 Multiplayer" : "🌐 Multiplayer")}
           </div>
         )}
       </div>
@@ -491,11 +491,11 @@ function BombGamePageContent() {
                 <button
                   onClick={() => setIsSettingsOpen(true)}
                   className="group relative px-6 py-3 rounded-xl overflow-hidden border-2 border-white/30 hover:border-yellow-300/70 bg-gradient-to-b from-orange-500/80 to-red-600/80 transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg mx-auto"
-                  aria-label="Bomb Party Einstellungen öffnen"
+                  aria-label={locale === "en" ? "Open Bomb Party settings" : "Bomb Party Einstellungen öffnen"}
                 >
                   <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
-                  <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
-                  <span className="text-white font-bold text-lg drop-shadow-lg">Einstellungen</span>
+                  <Image src="/icons/gear.svg" alt={locale === "en" ? "Settings" : "Einstellungen"} width={20} height={20} className="drop-shadow-lg" />
+                  <span className="text-white font-bold text-lg drop-shadow-lg">{locale === "en" ? "Settings" : "Einstellungen"}</span>
                 </button>
               </div>
             </div>
@@ -550,9 +550,9 @@ function BombGamePageContent() {
             <div className="inline-flex items-center gap-4 bg-white/10 rounded-xl px-4 py-2 text-sm">
               {gameMode === "single" && (
                 <>
-                  <span className="text-blue-300">📱 Einzelspiel</span>
+                  <span className="text-blue-300">📱 {locale === "en" ? "Single Player" : "Einzelspiel"}</span>
                   {players.length > 0 && (
-                    <span className="text-yellow-300">👥 {players.length} Spieler</span>
+                    <span className="text-yellow-300">👥 {players.length} {locale === "en" ? "Players" : "Spieler"}</span>
                   )}
                 </>
               )}
@@ -560,20 +560,20 @@ function BombGamePageContent() {
                 <>
                   <span className="text-purple-300">👑 Host</span>
                   {hostGameState && (
-                    <span className="text-yellow-300">👥 {hostGameState.players.length} Spieler</span>
+                    <span className="text-yellow-300">👥 {hostGameState.players.length} {locale === "en" ? "Players" : "Spieler"}</span>
                   )}
                 </>
               )}
               {gameMode === "multi" && multiplayerMode === "client" && (
                 <>
-                  <span className="text-green-300">📱 Teilnehmer</span>
+                  <span className="text-green-300">📱 {locale === "en" ? "Participant" : "Teilnehmer"}</span>
                   {clientGameState && (
-                    <span className="text-yellow-300">👥 {clientGameState.players.length} Spieler</span>
+                    <span className="text-yellow-300">👥 {clientGameState.players.length} {locale === "en" ? "Players" : "Spieler"}</span>
                   )}
                 </>
               )}
               {currentRound > 1 && (
-                <span className="text-orange-300">🎯 Runde {currentRound}/{totalRounds}</span>
+                <span className="text-orange-300">🎯 {locale === "en" ? "Round" : "Runde"} {currentRound}/{totalRounds}</span>
               )}
             </div>
           </div>
@@ -613,7 +613,7 @@ function BombGamePageContent() {
             {/* Players List */}
             {players.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-lg font-bold mb-3 text-yellow-300">Spieler ({players.length}):</h3>
+                <h3 className="text-lg font-bold mb-3 text-yellow-300">{locale === "en" ? "Players" : "Spieler"} ({players.length}):</h3>
                 <div className="space-y-2">
                   {players.map((player, index) => (
                     <div key={player.id} className="flex items-center justify-between bg-white/10 rounded-lg p-3">
@@ -676,10 +676,10 @@ function BombGamePageContent() {
                 onChange={(e) => setTotalRounds(Number(e.target.value))}
                 className="cr-select-enhanced px-4 py-3 text-base md:text-lg font-bold cursor-pointer w-full"
               >
-                <option value={3}>3 Runden</option>
-                <option value={5}>5 Runden</option>
-                <option value={7}>7 Runden</option>
-                <option value={10}>10 Runden</option>
+                <option value={3}>3 {locale === "en" ? "Rounds" : "Runden"}</option>
+                <option value={5}>5 {locale === "en" ? "Rounds" : "Runden"}</option>
+                <option value={7}>7 {locale === "en" ? "Rounds" : "Runden"}</option>
+                <option value={10}>10 {locale === "en" ? "Rounds" : "Runden"}</option>
               </select>
             </div>
             
@@ -688,13 +688,13 @@ function BombGamePageContent() {
                 onClick={startCategorySelection}
                 className="cr-button-primary px-8 py-4 text-xl font-black w-full"
               >
-                ➡️ Weiter zur Kategorie
+                ➡️ {locale === "en" ? "Continue to Category" : "Weiter zur Kategorie"}
               </button>
               <button
                 onClick={() => setGamePhase("setup")}
                 className="cr-button-danger px-6 py-3 text-lg font-black"
               >
-                ⬅️ Zurück zu Spielern
+                ⬅️ {locale === "en" ? "Back to Players" : "Zurück zu Spielern"}
               </button>
             </div>
           </div>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ShareIcon } from './EnhancedIcons';
+import { useParams } from 'next/navigation';
 
 interface SocialMediaLinksProps {
   variant?: 'header' | 'footer' | 'floating' | 'compact';
@@ -20,7 +21,7 @@ interface SocialLink {
   isActive: boolean;
 }
 
-const SOCIAL_LINKS: SocialLink[] = [
+const getSocialLinks = (locale: string): SocialLink[] => [
   {
     id: 'tiktok',
     name: 'TikTok',
@@ -28,7 +29,7 @@ const SOCIAL_LINKS: SocialLink[] = [
     url: 'https://tiktok.com/@wiemachtderbaer',
     color: 'bg-black',
     hoverColor: 'hover:bg-pink-600',
-    description: 'Bomb Party Challenges & Trinkspiele-Trends',
+    description: locale === 'en' ? 'Bomb Party Challenges & Party Game Trends' : 'Bomb Party Challenges & Trinkspiele-Trends',
     isActive: false // Coming Soon
   },
   {
@@ -38,7 +39,7 @@ const SOCIAL_LINKS: SocialLink[] = [
     url: 'https://instagram.com/wiemachtderbaer',
     color: 'bg-gradient-to-r from-purple-500 to-pink-500',
     hoverColor: 'hover:from-purple-600 hover:to-pink-600',
-    description: 'Party-Inspiration & Gaming-Highlights',
+    description: locale === 'en' ? 'Party Inspiration & Gaming Highlights' : 'Party-Inspiration & Gaming-Highlights',
     isActive: false // Coming Soon
   },
   {
@@ -48,7 +49,7 @@ const SOCIAL_LINKS: SocialLink[] = [
     url: 'https://youtube.com/@wiemachtderbaer',
     color: 'bg-red-600',
     hoverColor: 'hover:bg-red-700',
-    description: 'Trinkspiele-Tutorials & Live-Streams',
+    description: locale === 'en' ? 'Party Game Tutorials & Live Streams' : 'Trinkspiele-Tutorials & Live-Streams',
     isActive: false // Coming Soon
   },
   {
@@ -58,7 +59,7 @@ const SOCIAL_LINKS: SocialLink[] = [
     url: 'https://twitter.com/wiemachtderbaer',
     color: 'bg-blue-500',
     hoverColor: 'hover:bg-blue-600',
-    description: 'News, Updates & Community-Chat',
+    description: locale === 'en' ? 'News, Updates & Community Chat' : 'News, Updates & Community-Chat',
     isActive: false // Coming Soon
   },
   {
@@ -68,7 +69,7 @@ const SOCIAL_LINKS: SocialLink[] = [
     url: 'https://discord.gg/wiemachtderbaer',
     color: 'bg-indigo-600',
     hoverColor: 'hover:bg-indigo-700',
-    description: 'Community-Server für Multiplayer-Events',
+    description: locale === 'en' ? 'Community Server for Multiplayer Events' : 'Community-Server für Multiplayer-Events',
     isActive: false // Coming Soon
   }
 ];
@@ -79,6 +80,9 @@ export function SocialMediaLinks({
   className = '' 
 }: SocialMediaLinksProps) {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
+  const SOCIAL_LINKS = getSocialLinks(locale);
 
   const getVariantStyles = () => {
     switch (variant) {
@@ -140,7 +144,7 @@ export function SocialMediaLinks({
               `}
               onMouseEnter={() => setHoveredLink(social.id)}
               onMouseLeave={() => setHoveredLink(null)}
-              title={`${social.name} - Coming Soon!`}
+              title={`${social.name} - ${locale === 'en' ? 'Coming Soon!' : 'Bald verfügbar!'}`}
             >
               <span>{social.icon}</span>
               
@@ -187,10 +191,21 @@ interface FollowUsCTAProps {
 }
 
 export function FollowUsCTA({ 
-  title = "🚀 Folge uns für die neuesten Updates!",
-  subtitle = "Exklusive Bomb Party Challenges, neue Spiele und Party-Tipps direkt in deinem Feed.",
+  title,
+  subtitle,
   className = ""
 }: FollowUsCTAProps) {
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
+  
+  const defaultTitle = locale === 'en' 
+    ? "🚀 Follow us for the latest updates!"
+    : "🚀 Folge uns für die neuesten Updates!";
+  const defaultSubtitle = locale === 'en'
+    ? "Exclusive Bomb Party Challenges, new games and party tips directly in your feed."
+    : "Exklusive Bomb Party Challenges, neue Spiele und Party-Tipps direkt in deinem Feed.";
+    
+  const SOCIAL_LINKS = getSocialLinks(locale);
   return (
     <section className={`py-16 px-4 ${className}`}>
       <div className="max-w-4xl mx-auto text-center">
@@ -198,10 +213,10 @@ export function FollowUsCTA({
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            {title}
+            {title || defaultTitle}
           </h2>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            {subtitle}
+            {subtitle || defaultSubtitle}
           </p>
         </div>
 
@@ -240,14 +255,14 @@ export function FollowUsCTA({
                       className="btn-secondary text-xs inline-flex items-center gap-2"
                     >
                       <ShareIcon size={14} />
-                      Folgen
+                      {locale === 'en' ? 'Follow' : 'Folgen'}
                     </a>
                   ) : (
                     <button 
                       disabled
                       className="btn-secondary text-xs opacity-50 cursor-not-allowed"
                     >
-                      Bald verfügbar
+                      {locale === 'en' ? 'Coming soon' : 'Bald verfügbar'}
                     </button>
                   )}
                 </div>
@@ -260,24 +275,29 @@ export function FollowUsCTA({
         {/* Newsletter CTA */}
         <div className="bg-gradient-to-r from-purple-500/20 to-orange-500/20 rounded-xl p-8 border border-white/10">
           <h3 className="text-xl font-bold text-white mb-4">
-            📧 Verpasse keine Updates!
+            📧 {locale === 'en' ? 'Don\'t miss any updates!' : 'Verpasse keine Updates!'}
           </h3>
           <p className="text-base text-white/80 mb-6">
-            Melde dich für unseren Newsletter an und erfahre als Erste*r von neuen Features, 
-            exklusiven Events und Party-Tipps!
+            {locale === 'en' 
+              ? 'Sign up for our newsletter and be the first to know about new features, exclusive events and party tips!'
+              : 'Melde dich für unseren Newsletter an und erfahre als Erste*r von neuen Features, exklusiven Events und Party-Tipps!'
+            }
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
               type="email"
-              placeholder="deine@email.de"
+              placeholder={locale === 'en' ? 'your@email.com' : 'deine@email.de'}
               className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-orange-400/50"
             />
             <button className="btn-primary px-6 py-3 whitespace-nowrap">
-              🎉 Anmelden
+              🎉 {locale === 'en' ? 'Subscribe' : 'Anmelden'}
             </button>
           </div>
           <p className="text-xs text-white/50 mt-3">
-            Keine Spam, nur die besten Party-Updates! Abmeldung jederzeit möglich.
+            {locale === 'en' 
+              ? 'No spam, only the best party updates! Unsubscribe anytime.'
+              : 'Keine Spam, nur die besten Party-Updates! Abmeldung jederzeit möglich.'
+            }
           </p>
         </div>
       </div>

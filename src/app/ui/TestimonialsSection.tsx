@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useParams } from 'next/navigation';
 
 interface Testimonial {
   id: string;
@@ -13,13 +14,15 @@ interface Testimonial {
   date: string;
 }
 
-const TESTIMONIALS: Testimonial[] = [
+const getTestimonials = (locale: string): Testimonial[] => [
   {
     id: '1',
     name: 'Max_Party_King',
     avatar: '🤴',
     rating: 5,
-    text: 'Bomb Party ist der absolute Hammer! Haben gestern 6 Stunden durchgespielt. Die Multiplayer-Funktion funktioniert perfekt!',
+    text: locale === 'en' 
+      ? 'Bomb Party is absolutely amazing! We played for 6 hours straight yesterday. The multiplayer function works perfectly!'
+      : 'Bomb Party ist der absolute Hammer! Haben gestern 6 Stunden durchgespielt. Die Multiplayer-Funktion funktioniert perfekt!',
     game: 'Bomb Party',
     verified: true,
     date: '2024-12-07'
@@ -29,8 +32,10 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'Sarah_Gaming',
     avatar: '👸',
     rating: 5,
-    text: 'Endlich ein Trinkspiel, das auch online richtig Spaß macht! Perfekt für unsere WG-Partys. Danke!',
-    game: 'Ich hab noch nie',
+    text: locale === 'en'
+      ? 'Finally a party game that\'s really fun online too! Perfect for our shared apartment parties. Thanks!'
+      : 'Endlich ein Trinkspiel, das auch online richtig Spaß macht! Perfekt für unsere WG-Partys. Danke!',
+    game: locale === 'en' ? 'Never Have I Ever' : 'Ich hab noch nie',
     verified: true,
     date: '2024-12-06'
   },
@@ -39,7 +44,9 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'TechNerd_42',
     avatar: '🤓',
     rating: 5,
-    text: 'Technisch super umgesetzt! PWA läuft flüssig, Design ist mega. Als Entwickler: Respekt für die Qualität!',
+    text: locale === 'en'
+      ? 'Technically super well implemented! PWA runs smoothly, design is awesome. As a developer: respect for the quality!'
+      : 'Technisch super umgesetzt! PWA läuft flüssig, Design ist mega. Als Entwickler: Respekt für die Qualität!',
     game: 'Bomb Party',
     verified: false,
     date: '2024-12-05'
@@ -49,8 +56,10 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'Party_Lisa',
     avatar: '🥳',
     rating: 4,
-    text: 'Wahrheit oder Pflicht war schon immer unser Lieblingsspiel, aber diese Version ist nochmal geiler! Mega Aufgaben!',
-    game: 'Wahrheit oder Pflicht',
+    text: locale === 'en'
+      ? 'Truth or Dare was always our favorite game, but this version is even cooler! Awesome challenges!'
+      : 'Wahrheit oder Pflicht war schon immer unser Lieblingsspiel, aber diese Version ist nochmal geiler! Mega Aufgaben!',
+    game: locale === 'en' ? 'Truth or Dare' : 'Wahrheit oder Pflicht',
     verified: true,
     date: '2024-12-04'
   },
@@ -59,7 +68,9 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'Bier_Liebhaber',
     avatar: '🍺',
     rating: 5,
-    text: 'Als alter Saufspiel-Hase kann ich sagen: Das ist die Zukunft! Nie wieder langweilige Partys. 10/10!',
+    text: locale === 'en'
+      ? 'As an old party game veteran I can say: This is the future! Never boring parties again. 10/10!'
+      : 'Als alter Saufspiel-Hase kann ich sagen: Das ist die Zukunft! Nie wieder langweilige Partys. 10/10!',
     game: 'Bomb Party',
     verified: true,
     date: '2024-12-03'
@@ -69,8 +80,10 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'StudentLife_HD',
     avatar: '🎓',
     rating: 5,
-    text: 'Studenten-WG approved! Läuft auf allen Handys, kostet nix, macht Bock. Bessere Kombi gibt es nicht.',
-    game: 'Ich hab noch nie',
+    text: locale === 'en'
+      ? 'Student shared apartment approved! Runs on all phones, costs nothing, is fun. There\'s no better combination.'
+      : 'Studenten-WG approved! Läuft auf allen Handys, kostet nix, macht Bock. Bessere Kombi gibt es nicht.',
+    game: locale === 'en' ? 'Never Have I Ever' : 'Ich hab noch nie',
     verified: true,
     date: '2024-12-02'
   }
@@ -79,11 +92,16 @@ const TESTIMONIALS: Testimonial[] = [
 export function TestimonialsSection() {
   const [currentTestimonials, setCurrentTestimonials] = useState<Testimonial[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
+  
+  // Memoize testimonials to prevent recreation on every render
+  const TESTIMONIALS = useMemo(() => getTestimonials(locale), [locale]);
 
   useEffect(() => {
     // Zeige initial 3 Testimonials
     setCurrentTestimonials(TESTIMONIALS.slice(0, 3));
-  }, []);
+  }, [TESTIMONIALS]);
 
   useEffect(() => {
     // Auto-rotation alle 8 Sekunden
@@ -96,11 +114,11 @@ export function TestimonialsSection() {
     }, 8000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [TESTIMONIALS]);
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('de-DE', { 
+    return date.toLocaleDateString(locale === 'en' ? 'en-US' : 'de-DE', { 
       day: 'numeric', 
       month: 'short' 
     });
@@ -117,7 +135,7 @@ export function TestimonialsSection() {
             💬 COMMUNITY LOVE
           </h2>
           <p className="text-white/80 text-lg">
-            Das sagen echte Spieler über unsere Trinkspiele
+            {locale === 'en' ? 'What real players say about our party games' : 'Das sagen echte Spieler über unsere Partyspiele'}
           </p>
           
           {/* Rating Summary */}
@@ -128,7 +146,7 @@ export function TestimonialsSection() {
               ))}
             </div>
             <span className="text-white font-bold text-lg">4.8/5.0</span>
-            <span className="text-white/60">(2,134 Bewertungen)</span>
+            <span className="text-white/60">({locale === 'en' ? '2,134 reviews' : '2,134 Bewertungen'})</span>
           </div>
         </div>
 
@@ -150,7 +168,7 @@ export function TestimonialsSection() {
                         {testimonial.name}
                       </h4>
                       {testimonial.verified && (
-                        <span className="text-green-400 text-xs" title="Verifizierter Nutzer">
+                        <span className="text-green-400 text-xs" title={locale === 'en' ? 'Verified user' : 'Verifizierter Nutzer'}>
                           ✓
                         </span>
                       )}
@@ -199,7 +217,7 @@ export function TestimonialsSection() {
               className={`w-3 h-3 rounded-full transition-colors duration-300 ${
                 i === currentIndex ? 'bg-yellow-400' : 'bg-white/30'
               }`}
-              aria-label={`Testimonial-Gruppe ${i + 1} anzeigen`}
+              aria-label={locale === 'en' ? `Show testimonial group ${i + 1}` : `Testimonial-Gruppe ${i + 1} anzeigen`}
             />
           ))}
         </div>
@@ -208,17 +226,17 @@ export function TestimonialsSection() {
         <div className="text-center mt-16">
           <div className="cr-card inline-block p-6">
             <h3 className="text-xl font-bold text-yellow-300 mb-2">
-              🌟 Teile deine Erfahrung!
+              🌟 {locale === 'en' ? 'Share your experience!' : 'Teile deine Erfahrung!'}
             </h3>
             <p className="text-white/80 text-sm mb-4">
-              Hast du auch Spaß mit unseren Spielen? Erzähl es der Welt!
+              {locale === 'en' ? 'Did you also have fun with our games? Tell the world!' : 'Hast du auch Spaß mit unseren Spielen? Erzähl es der Welt!'}
             </p>
             <div className="flex justify-center gap-2">
               <button className="cr-button-primary px-4 py-2 text-sm">
-                📝 Bewertung schreiben
+                📝 {locale === 'en' ? 'Write review' : 'Bewertung schreiben'}
               </button>
               <button className="cr-button-primary px-4 py-2 text-sm">
-                📱 Teilen
+                📱 {locale === 'en' ? 'Share' : 'Teilen'}
               </button>
             </div>
           </div>

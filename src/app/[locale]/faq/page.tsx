@@ -1,11 +1,13 @@
+'use client';
+
 import { FAQSection } from '../../ui/FAQSection';
 import { SocialSharing } from '../../ui/SocialSharing';
 import { InternalLinkCard } from '../../ui/InternalLinkCard';
-
-
-
+import { useParams } from 'next/navigation';
 
 export default function FAQPage() {
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -16,11 +18,13 @@ export default function FAQPage() {
         
         <div className="relative z-10 max-w-4xl mx-auto">
           <h2 className="display-lg text-white mb-6">
-            ❓ FAQ - Online Partyspiele
+            ❓ {locale === 'en' ? 'FAQ - Online Party Games' : 'FAQ - Online Partyspiele'}
           </h2>
           <p className="body-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Alles was du über <strong>kostenlose Browser Partyspiele</strong> wissen musst! 
-            Von Bomb Party Regeln bis zu Sicherheitstipps - hier findest du alle Antworten.
+            {locale === 'en' 
+              ? 'Everything you need to know about free browser party games! From Bomb Party rules to safety tips - find all answers here.'
+              : 'Alles was du über kostenlose Browser Partyspiele wissen musst! Von Bomb Party Regeln bis zu Sicherheitstipps - hier findest du alle Antworten.'
+            }
           </p>
           
           {/* Quick Stats */}
@@ -28,22 +32,22 @@ export default function FAQPage() {
             <div className="stat-card animate-float-gentle">
               <div className="text-2xl mb-2">🎮</div>
               <div className="label-lg text-white">15+</div>
-              <div className="text-xs text-white/60">FAQ Themen</div>
+              <div className="text-xs text-white/60">{locale === 'en' ? 'FAQ Topics' : 'FAQ Themen'}</div>
             </div>
             <div className="stat-card animate-float-gentle anim-delay-1">
               <div className="text-2xl mb-2">⚡</div>
-              <div className="label-lg text-white">Sofort</div>
-              <div className="text-xs text-white/60">Antworten</div>
+              <div className="label-lg text-white">{locale === 'en' ? 'Instant' : 'Sofort'}</div>
+              <div className="text-xs text-white/60">{locale === 'en' ? 'Answers' : 'Antworten'}</div>
             </div>
             <div className="stat-card animate-float-gentle anim-delay-2">
               <div className="text-2xl mb-2">🔍</div>
-              <div className="label-lg text-white">Durchsuchbar</div>
-              <div className="text-xs text-white/60">FAQ System</div>
+              <div className="label-lg text-white">{locale === 'en' ? 'Searchable' : 'Durchsuchbar'}</div>
+              <div className="text-xs text-white/60">{locale === 'en' ? 'FAQ System' : 'FAQ System'}</div>
             </div>
             <div className="stat-card animate-float-gentle anim-delay-3">
               <div className="text-2xl mb-2">💡</div>
-              <div className="label-lg text-white">Hilfreich</div>
-              <div className="text-xs text-white/60">Tipps & Tricks</div>
+              <div className="label-lg text-white">{locale === 'en' ? 'Helpful' : 'Hilfreich'}</div>
+              <div className="text-xs text-white/60">{locale === 'en' ? 'Tips & Tricks' : 'Tipps & Tricks'}</div>
             </div>
           </div>
         </div>
@@ -57,34 +61,55 @@ export default function FAQPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="heading-2 text-white mb-4">
-              🎯 Jetzt Online Partyspiele kostenlos spielen!
+              🎯 {locale === 'en' ? 'Play Online Party Games for free now!' : 'Jetzt Online Partyspiele kostenlos spielen!'}
             </h2>
             <p className="body-lg text-white/80">
-              Hast du alle Antworten gefunden? Dann starte jetzt mit unseren Browser Partyspielen!
+              {locale === 'en' 
+                ? 'Found all answers? Then start now with our browser party games!'
+                : 'Hast du alle Antworten gefunden? Dann starte jetzt mit unseren Browser Partyspielen!'
+              }
             </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6">
             <InternalLinkCard
-              href="/game/bomb"
-              title="Bomb Party starten"
-              description="Das ultimative Wortspiel! Finde Wörter bevor die Bombe explodiert - Multiplayer bis 16 Spieler."
+              href={`/${locale}/game/bomb`}
+              title={locale === 'en' ? 'Start Bomb Party' : 'Bomb Party starten'}
+              description={locale === 'en' 
+                ? 'The ultimate word game! Find words before the bomb explodes - multiplayer up to 16 players.'
+                : 'Das ultimative Wortspiel! Finde Wörter bevor die Bombe explodiert - Multiplayer bis 16 Spieler.'
+              }
               gameType="bomb"
-              keywords={['Bomb Party', 'Multiplayer', 'Wortspiel']}
+              keywords={locale === 'en' 
+                ? ['Bomb Party', 'Multiplayer', 'Word Game']
+                : ['Bomb Party', 'Multiplayer', 'Wortspiel']
+              }
             />
             <InternalLinkCard
-              href="/game/neverhaveiever"
-              title="Ich hab noch nie online"
-              description="Lustige Geständnisse und peinliche Geheimnisse! Das perfekte Spiel um Freunde besser kennenzulernen."
+              href={`/${locale}/game/neverhaveiever`}
+              title={locale === 'en' ? 'Never Have I Ever online' : 'Ich hab noch nie online'}
+              description={locale === 'en'
+                ? 'Funny confessions and embarrassing secrets! The perfect game to get to know friends better.'
+                : 'Lustige Geständnisse und peinliche Geheimnisse! Das perfekte Spiel um Freunde besser kennenzulernen.'
+              }
               gameType="neverhaveiever"
-              keywords={['Ich hab noch nie', 'Geständnisse', 'Freunde']}
+              keywords={locale === 'en'
+                ? ['Never Have I Ever', 'Confessions', 'Friends']
+                : ['Ich hab noch nie', 'Geständnisse', 'Freunde']
+              }
             />
             <InternalLinkCard
-              href="/game/truthordare"
-              title="Wahrheit oder Pflicht Browser"
-              description="Mutige Wahrheiten und verrückte Aufgaben! Für Erwachsene die keine Angst vor Herausforderungen haben."
+              href={`/${locale}/game/truthordare`}
+              title={locale === 'en' ? 'Truth or Dare Browser' : 'Wahrheit oder Pflicht Browser'}
+              description={locale === 'en'
+                ? 'Bold truths and crazy challenges! For adults who are not afraid of challenges.'
+                : 'Mutige Wahrheiten und verrückte Aufgaben! Für Erwachsene die keine Angst vor Herausforderungen haben.'
+              }
               gameType="truthordare"
-              keywords={['Wahrheit oder Pflicht', 'Aufgaben', 'Erwachsene']}
+              keywords={locale === 'en'
+                ? ['Truth or Dare', 'Challenges', 'Adults']
+                : ['Wahrheit oder Pflicht', 'Aufgaben', 'Erwachsene']
+              }
             />
           </div>
         </div>
@@ -94,17 +119,26 @@ export default function FAQPage() {
       <section className="py-16 px-4 bg-gradient-to-r from-purple-900/20 to-orange-900/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="heading-3 text-white mb-6">
-            📰 Mehr Partyspiel-Tipps & Guides
+            📰 {locale === 'en' ? 'More Party Game Tips & Guides' : 'Mehr Partyspiel-Tipps & Guides'}
           </h2>
           <p className="body-lg text-white/80 mb-8">
-            Entdecke unseren Blog mit Partyplanung-Tipps, neuen Spielideen und Guides für die perfekte Party!
+            {locale === 'en'
+              ? 'Discover our blog with party planning tips, new game ideas and guides for the perfect party!'
+              : 'Entdecke unseren Blog mit Partyplanung-Tipps, neuen Spielideen und Guides für die perfekte Party!'
+            }
           </p>
           <InternalLinkCard
-            href="/blog"
-            title="Partyspiele Blog & Magazin"
-            description="Partyplanung-Tipps, Spielregeln, Sicherheitshinweise und kreative Ideen für unvergessliche Partys."
+            href={`/${locale}/blog`}
+            title={locale === 'en' ? 'Party Games Blog & Magazine' : 'Partyspiele Blog & Magazin'}
+            description={locale === 'en'
+              ? 'Party planning tips, game rules, safety guidelines and creative ideas for unforgettable parties.'
+              : 'Partyplanung-Tipps, Spielregeln, Sicherheitshinweise und kreative Ideen für unvergessliche Partys.'
+            }
             gameType="blog"
-            keywords={['Blog', 'Partyplanung', 'Tipps']}
+            keywords={locale === 'en'
+              ? ['Blog', 'Party Planning', 'Tips']
+              : ['Blog', 'Partyplanung', 'Tipps']
+            }
             className="max-w-md mx-auto"
           />
         </div>

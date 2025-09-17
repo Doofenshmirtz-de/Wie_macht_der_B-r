@@ -25,7 +25,7 @@ export default function Home() {
   const t = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
       de: {
-        'home:heroTitle': 'ONLINE TRINKSPIELE',
+        'home:heroTitle': 'ONLINE PARTYSPIELE',
         'home:heroSubtitle': 'KOSTENLOS SPIELEN',
         'home:heroDescription': 'Die beste Spiele-Webseite der Welt!',
         'home:readyForParty': 'Bereit für den ultimativen Partyspaß?',
@@ -53,7 +53,7 @@ export default function Home() {
         'games:truthOrDare.description': 'Mutige Wahrheiten und verrückte Aufgaben! Das perfekte Partyspiel für Erwachsene online.'
       },
       en: {
-        'home:heroTitle': 'ONLINE DRINKING GAMES',
+        'home:heroTitle': 'ONLINE PARTY GAMES',
         'home:heroSubtitle': 'PLAY FOR FREE',
         'home:heroDescription': 'The best gaming website in the world!',
         'home:readyForParty': 'Ready for the ultimate party fun?',
@@ -351,7 +351,7 @@ export default function Home() {
               <InternalLinkCard
                 href={`/${locale}/faq`}
                 title={t('home:faqTitle')}
-                description="15+ Antworten zu Bomb Party Regeln, Browser Kompatibilität, Multiplayer Setup und verantwortungsvollem Trinken."
+                description="15+ Antworten zu Bomb Party Regeln, Browser Kompatibilität, Multiplayer Setup und verantwortungsvollem Spielen."
                 gameType="blog"
                 keywords={['FAQ', 'Hilfe', 'Antworten']}
                 className="max-w-lg mx-auto"

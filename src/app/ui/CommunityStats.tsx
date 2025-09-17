@@ -2,6 +2,7 @@
 
 import { useCommunityStats } from '../hooks/useCommunityStats';
 import { UsersIcon, GameIcon, TrophyIcon, StarIcon } from './EnhancedIcons';
+import { useParams } from 'next/navigation';
 
 interface CommunityStatsProps {
   variant?: 'homepage' | 'compact' | 'footer';
@@ -19,6 +20,9 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
     formatNumber,
     formatRating 
   } = useCommunityStats();
+  
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
 
   if (variant === 'compact') {
     return (
@@ -48,7 +52,7 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
             <span>{isLoading ? '...' : formatNumber(playersOnline)} online</span>
           </div>
           <div>•</div>
-          <div>{isLoading ? '...' : formatNumber(totalGamesPlayed)} Spiele gespielt</div>
+          <div>{isLoading ? '...' : formatNumber(totalGamesPlayed)} {locale === 'en' ? 'games played' : 'Spiele gespielt'}</div>
         </div>
       </div>
     );
@@ -63,10 +67,10 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
       <div className="relative mx-auto max-w-screen-lg px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            🌟 UNSERE COMMUNITY
+            🌟 {locale === 'en' ? 'OUR COMMUNITY' : 'UNSERE COMMUNITY'}
           </h2>
           <p className="text-lg text-white/80">
-            Tausende Spieler haben bereits ihren Spaß - sei dabei!
+            {locale === 'en' ? 'Thousands of players are already having fun - join in!' : 'Tausende Spieler haben bereits ihren Spaß - sei dabei!'}
           </p>
         </div>
 
@@ -85,7 +89,7 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
               )}
             </div>
             <p className="text-white/70 text-sm font-semibold">
-              Spieler online
+              {locale === 'en' ? 'Players online' : 'Spieler online'}
             </p>
           </div>
 
@@ -102,7 +106,7 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
               )}
             </div>
             <p className="text-white/70 text-sm font-semibold">
-              Spiele heute
+              {locale === 'en' ? 'Games today' : 'Spiele heute'}
             </p>
           </div>
 
@@ -119,7 +123,7 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
               )}
             </div>
             <p className="text-white/70 text-sm font-semibold">
-              Gesamt gespielt
+              {locale === 'en' ? 'Total played' : 'Gesamt gespielt'}
             </p>
           </div>
 
@@ -143,7 +147,7 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
               )}
             </div>
             <p className="text-white/70 text-sm font-semibold">
-              {formatNumber(totalReviews)} Bewertungen
+              {formatNumber(totalReviews)} {locale === 'en' ? 'reviews' : 'Bewertungen'}
             </p>
           </div>
         </div>
@@ -151,7 +155,7 @@ export function CommunityStats({ variant = 'homepage', className = '' }: Communi
         {/* Call to Action */}
         <div className="text-center mt-12">
           <p className="text-yellow-300 font-bold text-lg">
-            💪 Werde Teil der besten Trinkspiele-Community!
+            💪 {locale === 'en' ? 'Become part of the best party games community!' : 'Werde Teil der besten Partyspiele-Community!'}
           </p>
         </div>
       </div>

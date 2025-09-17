@@ -49,7 +49,7 @@ export function Footer() {
     pwa: 'PWA Ready',
     langs: 'EN/DE',
     mobile: 'Mobile Optimized',
-    copyright: '© 2024 Wie macht der Bär. Made for the best party community.',
+    copyright: '© 2025 Wie macht der Bär. Made for the best party community.',
     playResponsible: 'Play responsibly.'
   } : {
     brandSub: 'PARTYSPIELE DELUXE',
@@ -69,7 +69,7 @@ export function Footer() {
     pwa: 'PWA Ready',
     langs: 'DE/EN',
     mobile: 'Mobile Optimiert',
-    copyright: '© 2024 Wie macht der Bär. Für die beste Party-Community.',
+    copyright: '© 2025 Wie macht der Bär. Für die beste Party-Community.',
     playResponsible: 'Spielt verantwortungsvoll.'
   };
 
@@ -144,7 +144,7 @@ export function Footer() {
             </div>
           </div>
           <div className="mt-4 text-center">
-            <p className="text-white/40 text-xs">© 2024 Wie macht der Bär. Für die beste Party-Community.</p>
+            <p className="text-white/40 text-xs">© 2025 Wie macht der Bär. Für die beste Party-Community.</p>
             <p className="text-white/30 text-xs mt-1">Spielt verantwortungsvoll.</p>
           </div>
         </div>

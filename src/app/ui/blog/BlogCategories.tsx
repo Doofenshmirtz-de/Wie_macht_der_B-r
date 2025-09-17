@@ -7,13 +7,6 @@ import { BombIcon, GameIcon, TrophyIcon, UsersIcon, ShareIcon } from '../Enhance
 export function BlogCategories({ locale }: { locale: 'de' | 'en' }) {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const _ = locale === 'en' ? {
-    title: 'Explore Categories',
-    categories: ['Drinking Games', 'Party Planning', 'Game Reviews', 'Tutorials']
-  } : {
-    title: 'Kategorien entdecken',
-    categories: ['Partyspiele', 'Partyplanung', 'Spiele-Reviews', 'Tutorials']
-  };
 
   const content = {
     de: {
@@ -30,11 +23,11 @@ export function BlogCategories({ locale }: { locale: 'de' | 'en' }) {
         },
         {
           id: 'drinking-games',
-          name: 'Trinkspiele',
+          name: 'Partyspiele',
           icon: BombIcon,
           count: 18,
           color: 'orange',
-          description: 'Klassische und moderne Trinkspiele'
+          description: 'Klassische und moderne Partyspiele'
         },
         {
           id: 'party-planning',
@@ -76,11 +69,11 @@ export function BlogCategories({ locale }: { locale: 'de' | 'en' }) {
         },
         {
           id: 'drinking-games',
-          name: 'Drinking Games',
+          name: 'Party Games',
           icon: BombIcon,
           count: 18,
           color: 'orange',
-          description: 'Classic and modern drinking games'
+          description: 'Classic and modern party games'
         },
         {
           id: 'party-planning',

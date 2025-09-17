@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
+import { useParams } from 'next/navigation';
 
 interface PWAInstallPromptProps {
   className?: string;
@@ -12,6 +13,8 @@ export default function PWAInstallPrompt({ className = '' }: PWAInstallPromptPro
   const [isDismissed, setIsDismissed] = useState(true); // Start als dismissed, dann nach Verzögerung prüfen
   const [isInstalling, setIsInstalling] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
 
   useEffect(() => {
     // Prüfe localStorage beim Mount
@@ -81,10 +84,10 @@ export default function PWAInstallPrompt({ className = '' }: PWAInstallPromptPro
           {/* Content */}
           <div className="flex-1 min-w-0">
             <h3 className="text-xs font-semibold text-white">
-              Als App installieren?
+              {locale === 'en' ? 'Install as app?' : 'Als App installieren?'}
             </h3>
             <p className="text-xs text-gray-200 mt-1 leading-relaxed">
-              Schnellerer Zugriff & Offline-Spiele
+              {locale === 'en' ? 'Faster access & offline games' : 'Schnellerer Zugriff & Offline-Spiele'}
             </p>
 
             {/* Buttons */}
@@ -94,13 +97,16 @@ export default function PWAInstallPrompt({ className = '' }: PWAInstallPromptPro
                 disabled={isInstalling}
                 className="flex-1 bg-yellow-500 hover:bg-yellow-600 disabled:bg-yellow-600 text-black text-xs font-semibold py-1.5 px-2 rounded transition-colors duration-200"
               >
-                {isInstalling ? 'Installiere...' : 'Installieren'}
+                {isInstalling 
+                  ? (locale === 'en' ? 'Installing...' : 'Installiere...')
+                  : (locale === 'en' ? 'Install' : 'Installieren')
+                }
               </button>
               <button
                 onClick={handleDismiss}
                 className="text-xs text-gray-300 hover:text-white px-2 transition-colors duration-200"
               >
-                Später
+                {locale === 'en' ? 'Later' : 'Später'}
               </button>
             </div>
             
@@ -109,7 +115,7 @@ export default function PWAInstallPrompt({ className = '' }: PWAInstallPromptPro
               onClick={handleNeverShow}
               className="text-xs text-gray-400 hover:text-gray-300 mt-1 transition-colors duration-200"
             >
-              Nicht mehr anzeigen
+              {locale === 'en' ? 'Don\'t show again' : 'Nicht mehr anzeigen'}
             </button>
           </div>
 
@@ -117,7 +123,7 @@ export default function PWAInstallPrompt({ className = '' }: PWAInstallPromptPro
           <button
             onClick={handleDismiss}
             className="flex-shrink-0 text-gray-300 hover:text-white transition-colors duration-200"
-            aria-label="Schließen"
+            aria-label={locale === 'en' ? 'Close' : 'Schließen'}
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

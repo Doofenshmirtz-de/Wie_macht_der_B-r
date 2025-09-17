@@ -12,7 +12,7 @@ interface SocialSharingProps {
 }
 
 export function SocialSharing({ 
-  title = "Wie macht der Bär - Die besten Online Trinkspiele",
+  title = "Wie macht der Bär - Die besten Online Partyspiele",
   description = "Spiel Bomb Party, Ich hab noch nie & Wahrheit oder Pflicht online mit Freunden!",
   url = typeof window !== 'undefined' ? window.location.href : 'https://www.wie-macht-der-baer.de',
   variant = 'full',
@@ -178,7 +178,7 @@ export function SocialSharing({
             📤 TEILE DEN SPASS!
           </h2>
           <p className="text-white/80 text-lg">
-            Zeige deinen Freunden die geilsten Online-Trinkspiele!
+            Zeige deinen Freunden die geilsten Online-Partyspiele!
           </p>
         </div>
 
