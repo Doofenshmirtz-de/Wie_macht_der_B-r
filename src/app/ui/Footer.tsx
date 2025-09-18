@@ -193,7 +193,7 @@ export function Footer() {
               </div>
               <div>
                 <h3 className="text-xl font-black bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  {locale === 'en' ? 'HOW DOES THE BEAR' : 'WIE MACHT DER BÄR'}
+                  {locale === 'en' ? 'BEAR PARTY' : 'WIE MACHT DER BÄR'}
                 </h3>
                 <p className="text-xs text-yellow-200/80 font-bold">{t.brandSub}</p>
               </div>
