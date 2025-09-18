@@ -25,11 +25,15 @@ export default function Home() {
   const [activeCard, setActiveCard] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
 
-  // Touch handlers für Swipe-Funktionalität
+  // Touch handlers für Swipe-Funktionalität mit smooth Animation
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
+    setIsAnimating(false);
+    setSwipeDirection(null);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -37,7 +41,7 @@ export default function Home() {
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd || isAnimating) return;
     
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
@@ -45,16 +49,32 @@ export default function Home() {
 
     if (isLeftSwipe && initialGamesData?.games) {
       // Swipe nach links = nächste Karte
-      setActiveCard((prev) => 
-        prev < initialGamesData.games.length - 1 ? prev + 1 : 0
-      );
+      setIsAnimating(true);
+      setSwipeDirection('left');
+      setTimeout(() => {
+        setActiveCard((prev) => 
+          prev < initialGamesData.games.length - 1 ? prev + 1 : 0
+        );
+        setTimeout(() => {
+          setIsAnimating(false);
+          setSwipeDirection(null);
+        }, 300);
+      }, 100);
     }
     
     if (isRightSwipe && initialGamesData?.games) {
       // Swipe nach rechts = vorherige Karte
-      setActiveCard((prev) => 
-        prev > 0 ? prev - 1 : initialGamesData.games.length - 1
-      );
+      setIsAnimating(true);
+      setSwipeDirection('right');
+      setTimeout(() => {
+        setActiveCard((prev) => 
+          prev > 0 ? prev - 1 : initialGamesData.games.length - 1
+        );
+        setTimeout(() => {
+          setIsAnimating(false);
+          setSwipeDirection(null);
+        }, 300);
+      }, 100);
     }
   };
   
@@ -366,17 +386,27 @@ export default function Home() {
                   <div className="pt-8 pb-4 flex flex-col items-center">
                     {initialGamesData?.games?.length ? (
                       <div 
-                        className="w-full max-w-screen-lg mx-auto px-4"
+                        className="w-full max-w-screen-lg mx-auto px-4 relative overflow-hidden"
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
                         onTouchEnd={handleTouchEnd}
                       >
-                        <GameCard 
-                          key={`responsive-${initialGamesData.games[activeCard].id}`}
-                          game={initialGamesData.games[activeCard]}
-                          index={activeCard}
-                          priority
-                        />
+                        <div 
+                          className={`transition-all duration-300 ease-out ${
+                            isAnimating 
+                              ? swipeDirection === 'left' 
+                                ? 'transform -translate-x-full opacity-0' 
+                                : 'transform translate-x-full opacity-0'
+                              : 'transform translate-x-0 opacity-100'
+                          }`}
+                        >
+                          <GameCard 
+                            key={`responsive-${initialGamesData.games[activeCard].id}`}
+                            game={initialGamesData.games[activeCard]}
+                            index={activeCard}
+                            priority
+                          />
+                        </div>
                       </div>
                     ) : (
                       <div className="flex items-center justify-center p-8 min-w-[320px]">
