@@ -23,6 +23,40 @@ export default function Home() {
   const [isSmall, setIsSmall] = useState(false);
   const [showDots, setShowDots] = useState(false);
   const [activeCard, setActiveCard] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Touch handlers für Swipe-Funktionalität
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && initialGamesData?.games) {
+      // Swipe nach links = nächste Karte
+      setActiveCard((prev) => 
+        prev < initialGamesData.games.length - 1 ? prev + 1 : 0
+      );
+    }
+    
+    if (isRightSwipe && initialGamesData?.games) {
+      // Swipe nach rechts = vorherige Karte
+      setActiveCard((prev) => 
+        prev > 0 ? prev - 1 : initialGamesData.games.length - 1
+      );
+    }
+  };
   
   // Übersetzungen direkt definieren
   const t = (key: string) => {
@@ -331,7 +365,12 @@ export default function Home() {
                 {showDots ? (
                   <div className="pt-8 pb-4 flex flex-col items-center">
                     {initialGamesData?.games?.length ? (
-                      <div className="w-full max-w-screen-lg mx-auto px-4">
+                      <div 
+                        className="w-full max-w-screen-lg mx-auto px-4"
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                      >
                         <GameCard 
                           key={`responsive-${initialGamesData.games[activeCard].id}`}
                           game={initialGamesData.games[activeCard]}
@@ -349,17 +388,26 @@ export default function Home() {
                     )}
                     {/* Yellow dots */}
                     {initialGamesData?.games?.length ? (
-                      <div className="mt-5 flex items-center justify-center gap-2.5">
-                        {initialGamesData.games.map((_, i) => (
-                          <button
-                            key={`dot-${i}`}
-                            onClick={() => setActiveCard(i)}
-                            aria-label={`Slide ${i + 1}`}
-                            className={`w-2.5 h-2.5 rounded-full transition-all ${
-                              activeCard === i ? 'bg-yellow-400 scale-110 shadow-[0_0_0_3px_rgba(250,204,21,0.25)]' : 'bg-yellow-300/50'
-                            }`}
-                          />
-                        ))}
+                      <div className="mt-5 flex flex-col items-center gap-3">
+                        <div className="flex items-center justify-center gap-2.5">
+                          {initialGamesData.games.map((_, i) => (
+                            <button
+                              key={`dot-${i}`}
+                              onClick={() => setActiveCard(i)}
+                              aria-label={`Slide ${i + 1}`}
+                              className={`w-2.5 h-2.5 rounded-full transition-all ${
+                                activeCard === i ? 'bg-yellow-400 scale-110 shadow-[0_0_0_3px_rgba(250,204,21,0.25)]' : 'bg-yellow-300/50'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        {/* Swipe hint */}
+                        <div className="text-xs text-white/60 text-center">
+                          <span className="inline-flex items-center gap-1">
+                            <span>👆</span>
+                            <span>{locale === 'en' ? 'Swipe left/right or tap dots' : 'Wischen oder Punkte antippen'}</span>
+                          </span>
+                        </div>
                       </div>
                     ) : null}
                   </div>
