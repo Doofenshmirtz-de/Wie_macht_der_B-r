@@ -45,8 +45,6 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
             <MobileOptimizations />
             <TouchOptimizations />
             
-            {/* Development Tools */}
-            <ResponsiveDebugPanel />
             
             {/* Enhanced Accessibility */}
             <SkipLinks />

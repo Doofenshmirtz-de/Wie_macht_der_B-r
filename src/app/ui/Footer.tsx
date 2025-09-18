@@ -49,7 +49,7 @@ export function Footer() {
     pwa: 'PWA Ready',
     langs: 'EN/DE',
     mobile: 'Mobile Optimized',
-    copyright: '© 2025 Wie macht der Bär. Made for the best party community.',
+    copyright: '© 2025 Bear Party. Made for the best party community.',
     playResponsible: 'Play responsibly.'
   } : {
     brandSub: 'PARTYSPIELE DELUXE',
@@ -193,7 +193,7 @@ export function Footer() {
               </div>
               <div>
                 <h3 className="text-xl font-black bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  WIE MACHT DER BÄR
+                  {locale === 'en' ? 'HOW DOES THE BEAR' : 'WIE MACHT DER BÄR'}
                 </h3>
                 <p className="text-xs text-yellow-200/80 font-bold">{t.brandSub}</p>
               </div>
@@ -270,7 +270,7 @@ export function Footer() {
                  <Link href={`/${locale}/faq`} className="text-white/70 hover:text-yellow-300 transition-colors duration-200 text-sm font-medium">❓ {t.faq}</Link>
                </li>
               <li>
-                <span className="text-white/50 text-sm">📞 Kontakt</span>
+                <span className="text-white/50 text-sm">📞 {locale === 'en' ? 'Contact' : 'Kontakt'}</span>
               </li>
             </ul>
           </div>

@@ -46,40 +46,40 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
   const menuItems: MenuItem[] = [
     {
       href: '/',
-      label: '🏠 Startseite',
-      description: 'Zurück zur Hauptseite'
+      label: locale === 'en' ? '🏠 Homepage' : '🏠 Startseite',
+      description: locale === 'en' ? 'Back to homepage' : 'Zurück zur Hauptseite'
     },
     {
       href: '#games-section',
-      label: '🎮 Spiele',
-      description: 'Alle verfügbaren Trinkspiele',
+      label: locale === 'en' ? '🎮 Games' : '🎮 Spiele',
+      description: locale === 'en' ? 'All available party games' : 'Alle verfügbaren Trinkspiele',
       isScroll: true
     },
     {
       href: `/game/bomb`,
       label: '💣 Bomb Party',
-      description: 'Wortspiel-Trinkspiel'
+      description: locale === 'en' ? 'Word game party game' : 'Wortspiel-Trinkspiel'
     },
     {
       href: `/game/neverhaveiever`, 
-      label: '🤭 Ich hab noch nie',
-      description: 'Geständnis-Trinkspiel'
+      label: locale === 'en' ? '🤭 Never Have I Ever' : '🤭 Ich hab noch nie',
+      description: locale === 'en' ? 'Confession party game' : 'Geständnis-Trinkspiel'
     },
     {
       href: `/game/truthordare`,
-      label: '🎯 Wahrheit oder Pflicht',
-      description: 'Mutprobe-Trinkspiel'
+      label: locale === 'en' ? '🎯 Truth or Dare' : '🎯 Wahrheit oder Pflicht',
+      description: locale === 'en' ? 'Dare party game' : 'Mutprobe-Trinkspiel'
     },
     {
       href: '#community-stats',
       label: '🌟 Community',
-      description: 'Unsere Spieler-Community',
+      description: locale === 'en' ? 'Our player community' : 'Unsere Spieler-Community',
       isScroll: true
     },
     {
       href: `/faq`,
       label: '❓ FAQ',
-      description: 'Häufige Fragen'
+      description: locale === 'en' ? 'Frequently asked questions' : 'Häufige Fragen'
     }
   ];
 
@@ -101,7 +101,9 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative z-50 p-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:bg-white/20"
+        className={`relative z-50 p-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:bg-white/20 ${
+          isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
         aria-label="Navigation öffnen"
         aria-expanded={isOpen}
       >
@@ -124,18 +126,20 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
       )}
 
       {/* Mobile Menu */}
-      <div className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900 z-40 transform transition-transform duration-300 ${
+      <div className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900 z-50 transform transition-transform duration-300 ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         
         {/* Menu Header */}
         <div className="p-6 border-b border-white/20">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-white">Navigation</h2>
+            <h2 className="text-xl font-bold text-white">
+              {locale === 'en' ? 'Navigation' : 'Navigation'}
+            </h2>
             <button
               onClick={() => setIsOpen(false)}
               className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
-              aria-label="Navigation schließen"
+              aria-label={locale === 'en' ? 'Close navigation' : 'Navigation schließen'}
             >
               ✕
             </button>
@@ -192,8 +196,12 @@ export function MobileNavigationMenu({ className = '' }: MobileNavigationMenuPro
         {/* Menu Footer */}
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
           <div className="text-center">
-            <p className="text-sm text-white/60">Wie macht der Bär</p>
-            <p className="text-xs text-white/40">Online Trinkspiele</p>
+            <p className="text-sm text-white/60">
+              {locale === 'en' ? 'Bear Party' : 'Wie macht der Bär'}
+            </p>
+            <p className="text-xs text-white/40">
+              {locale === 'en' ? 'Online Party Games' : 'Online Trinkspiele'}
+            </p>
           </div>
         </div>
       </div>

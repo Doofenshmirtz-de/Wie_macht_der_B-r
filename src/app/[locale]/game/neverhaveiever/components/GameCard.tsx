@@ -10,6 +10,7 @@ interface GameCardProps {
 }
 
 export function GameCard({ currentStatement, onNext, isSpecialCard = false }: GameCardProps) {
+  const locale = typeof window !== 'undefined' && window.location.pathname.startsWith('/en') ? 'en' : 'de';
   const [isSwipeActive, setIsSwipeActive] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -189,8 +190,8 @@ export function GameCard({ currentStatement, onNext, isSpecialCard = false }: Ga
           {/* Instructions */}
           {!isSpecialCard && (
             <div className="text-white/80 mb-6">
-              <p className="mb-2">Falls du das schon mal gemacht hast: <strong className="text-red-300">Trinken!</strong></p>
-              <p className="text-sm">← Swipe für nächste Aussage →</p>
+              <p className="mb-2">{locale === 'en' ? 'If you\'ve done this before: ' : 'Falls du das schon mal gemacht hast: '}<strong className="text-red-300">{locale === 'en' ? 'Drink!' : 'Trinken!'}</strong></p>
+              <p className="text-sm">{locale === 'en' ? '← Swipe for next statement →' : '← Swipe für nächste Aussage →'}</p>
             </div>
           )}
 
@@ -200,13 +201,13 @@ export function GameCard({ currentStatement, onNext, isSpecialCard = false }: Ga
               swipeDirection === 'left' ? 'scale-110 text-blue-300' : 'text-white/60'
             }`}>
               <span className="text-2xl">⬅️</span>
-              <span className="font-bold">Nächste</span>
+              <span className="font-bold">{locale === 'en' ? 'Next' : 'Nächste'}</span>
             </div>
             <div className={`flex items-center gap-2 transition-all ${
               swipeDirection === 'right' ? 'scale-110 text-purple-300' : 'text-white/60'
             }`}>
               <span className="text-2xl">➡️</span>
-              <span className="font-bold">Aussage</span>
+              <span className="font-bold">{locale === 'en' ? 'statement' : 'Aussage'}</span>
             </div>
           </div>
         </div>
@@ -216,7 +217,7 @@ export function GameCard({ currentStatement, onNext, isSpecialCard = false }: Ga
           onClick={handleNext}
           className="cr-button-primary w-full px-6 py-4 text-xl font-black"
         >
-          ➡️ Nächste Aussage
+          {locale === 'en' ? '➡️ Next statement' : '➡️ Nächste Aussage'}
         </button>
       </div>
     </div>

@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Reset für schwarzen Streifen oben */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -506,11 +513,6 @@ select {
     font-size: 1.5rem !important;
   }
   
-  .epic-game-card {
-    min-width: 320px !important;
-    max-width: 320px !important;
-    height: 400px !important;
-  }
   
   .epic-hero-section {
     padding-top: 2rem !important;
@@ -911,6 +913,22 @@ select {
 .font-small h2 { font-size: 1.5rem !important; }
 .font-large h2 { font-size: 3rem !important; }
 .font-xl h2 { font-size: 4rem !important; }
+
+/* GameCard responsive font sizes for accessibility */
+.font-large .epic-game-card h3 { font-size: 1.5rem !important; }
+.font-xl .epic-game-card h3 { font-size: 1.75rem !important; }
+
+.font-large .epic-game-card p { font-size: 1rem !important; }
+.font-xl .epic-game-card p { font-size: 1.125rem !important; }
+
+/* Ensure GameCards can grow with larger text */
+.font-large .epic-game-card { min-height: 650px !important; }
+.font-xl .epic-game-card { min-height: 700px !important; }
+
+@media (min-width: 640px) {
+  .font-large .epic-game-card { min-height: 600px !important; }
+  .font-xl .epic-game-card { min-height: 650px !important; }
+}
 
 /* Focus Styles for Keyboard Navigation */
 /* Entfernt: generische Focus-Stile – im Design-System konsolidiert */

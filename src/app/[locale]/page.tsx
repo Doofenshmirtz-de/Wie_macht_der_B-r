@@ -20,6 +20,9 @@ export default function Home() {
   const locale = params.locale as string;
   const [mounted, setMounted] = useState(false);
   const [initialGamesData, setInitialGamesData] = useState<GetGamesResult | undefined>(undefined);
+  const [isSmall, setIsSmall] = useState(false);
+  const [showDots, setShowDots] = useState(false);
+  const [activeCard, setActiveCard] = useState(0);
   
   // Übersetzungen direkt definieren
   const t = (key: string) => {
@@ -89,11 +92,49 @@ export default function Home() {
     setMounted(true);
   }, []);
 
+  // Responsive helper with intelligent dots display
+  useEffect(() => {
+    const update = () => {
+      const width = window.innerWidth;
+      const isSmallScreen = width < 640;
+      const isMediumScreen = width < 1024; // Tablet breakpoint
+      
+      setIsSmall(isSmallScreen);
+      
+      // Show dots on small screens OR when screen is too small to show all cards
+      // More conservative calculation to handle dev tools better
+      const cardWidth = 460; // Slightly larger to be more conservative
+      const availableWidth = width - 64; // More padding for safety
+      const cardsPerView = Math.floor(availableWidth / cardWidth);
+      const totalCards = initialGamesData?.games?.length || 0;
+      
+      // Force dots on very small screens, intelligent on medium screens
+      setShowDots(isSmallScreen || (isMediumScreen && totalCards > Math.max(1, cardsPerView)));
+    };
+    
+    // Initial update
+    update();
+    
+    // Debounced resize handler to prevent excessive updates
+    let timeoutId: NodeJS.Timeout;
+    const debouncedUpdate = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(update, 100);
+    };
+    
+    window.addEventListener('resize', debouncedUpdate);
+    return () => {
+      window.removeEventListener('resize', debouncedUpdate);
+      clearTimeout(timeoutId);
+    };
+  }, [initialGamesData]);
+
   // Initiale Daten laden für SEO und Performance - sofort beim Mount
   useEffect(() => {
     const loadInitial = async () => {
       try {
-        const data = await getInitialGames();
+        const currentLocale = (params as { locale?: string })?.locale === 'en' ? 'en' : 'de';
+        const data = await getInitialGames(currentLocale as 'de' | 'en');
         console.log('🎮 HomePage: Initial games loaded', data);
         setInitialGamesData(data);
       } catch (error) {
@@ -103,6 +144,19 @@ export default function Home() {
     
     loadInitial();
   }, []);
+
+  // Auto-rotate cards on mobile
+  useEffect(() => {
+    if (!isSmall) return;
+    if (!initialGamesData?.games?.length) return;
+    const id = setInterval(() => {
+      setActiveCard((prev) => {
+        const next = (prev + 1) % initialGamesData.games.length;
+        return next;
+      });
+    }, 5000);
+    return () => clearInterval(id);
+  }, [isSmall, initialGamesData]);
 
   // Suchfunktionalität
   const allGames = initialGamesData?.games || [];
@@ -272,24 +326,65 @@ export default function Home() {
                 )}
               </div>
             ) : (
-              /* Einfaches Karussell ohne Infinite Scroll */
-              <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-8 px-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                {initialGamesData?.games?.map((game, index) => (
-                  <GameCard 
-                    key={game.id}
-                    game={game} 
-                    index={index}
-                    priority={index < 2}
-                  />
-                )) || (
-                  <div className="flex items-center justify-center p-8 min-w-[320px]">
-                    <div className="text-center">
-                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
-                      <span className="text-white/80 font-bold">{t('home:loadingGames')}</span>
+              /* Responsive: Show dots when needed, otherwise horizontal list */
+              <>
+                {showDots ? (
+                  <div className="pt-8 pb-4 flex flex-col items-center">
+                    {initialGamesData?.games?.length ? (
+                      <div className="w-full max-w-screen-lg mx-auto px-4">
+                        <GameCard 
+                          key={`responsive-${initialGamesData.games[activeCard].id}`}
+                          game={initialGamesData.games[activeCard]}
+                          index={activeCard}
+                          priority
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center p-8 min-w-[320px]">
+                        <div className="text-center">
+                          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+                          <span className="text-white/80 font-bold">{t('home:loadingGames')}</span>
+                        </div>
+                      </div>
+                    )}
+                    {/* Yellow dots */}
+                    {initialGamesData?.games?.length ? (
+                      <div className="mt-5 flex items-center justify-center gap-2.5">
+                        {initialGamesData.games.map((_, i) => (
+                          <button
+                            key={`dot-${i}`}
+                            onClick={() => setActiveCard(i)}
+                            aria-label={`Slide ${i + 1}`}
+                            className={`w-2.5 h-2.5 rounded-full transition-all ${
+                              activeCard === i ? 'bg-yellow-400 scale-110 shadow-[0_0_0_3px_rgba(250,204,21,0.25)]' : 'bg-yellow-300/50'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : (
+                  <div className="flex justify-center items-center">
+                    <div className="flex gap-6 pb-8 pt-8 px-4">
+                      {initialGamesData?.games?.map((game, index) => (
+                        <GameCard 
+                          key={game.id}
+                          game={game} 
+                          index={index}
+                          priority={index < 2}
+                        />
+                      )) || (
+                        <div className="flex items-center justify-center p-8 min-w-[320px]">
+                          <div className="text-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+                            <span className="text-white/80 font-bold">{t('home:loadingGames')}</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
-              </div>
+              </>
             )}
           </div>
           </div>

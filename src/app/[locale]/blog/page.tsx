@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       keywords: "Trinkspiele Blog, Partyplanung, Trinkspiele Tipps, Online Trinkspiele, Partyspiele Magazin, Saufspiele Guide, Drinking Games Blog"
     },
     en: {
-      title: "Blog - Drinking Games Magazine | Wie macht der Bär",
+      title: "Blog - Drinking Games Magazine | Bear Party",
       description: "Discover the best tips, trends and secrets for unforgettable parties. From classic drinking games to online trends - your magazine for the perfect party night!",
       keywords: "Drinking Games Blog, Party Planning, Drinking Games Tips, Online Drinking Games, Party Games Magazine, Drinking Games Guide"
     }

@@ -63,9 +63,9 @@ export function Header() {
           </div>
           <div className="flex flex-col">
             <div className="text-xl font-black bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent drop-shadow-lg tracking-wide">
-              WIE MACHT DER BÄR
+              {locale === 'en' ? 'HOW DOES THE BEAR' : 'WIE MACHT DER BÄR'}
             </div>
-            <p className="text-xs text-yellow-200/90 font-bold tracking-widest">PARTYSPIELE DELUXE</p>
+            <p className="text-xs text-yellow-200/90 font-bold tracking-widest">{locale === 'en' ? 'PARTY GAMES DELUXE' : 'PARTYSPIELE DELUXE'}</p>
           </div>
         </Link>
 
@@ -168,7 +168,7 @@ export function Header() {
               locale === "en" ? "opacity-100" : "opacity-0 group-hover:opacity-50"
             } bg-gradient-to-r from-yellow-400/20 via-transparent to-yellow-400/20`}></div>
             
-            <Image src="/flags/gb.svg" alt="Switch to English - Play Wie macht der Bär in English" fill sizes="64px" className="object-cover group-hover:scale-110 transition-transform duration-300" />
+            <Image src="/flags/gb.svg" alt="Switch to English - Play Bear Party in English" fill sizes="64px" className="object-cover group-hover:scale-110 transition-transform duration-300" />
             
             {locale === "en" && (
               <div className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-yellow-400 rounded-full border-2 border-yellow-300 shadow-xl animate-pulse"></div>

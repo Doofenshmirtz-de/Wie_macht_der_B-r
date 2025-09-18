@@ -8,14 +8,15 @@ interface CategorySelectionProps {
 }
 
 export function CategorySelection({ onCategorySelect, onOpenSettings }: CategorySelectionProps) {
+  const locale = typeof window !== 'undefined' && window.location.pathname.startsWith('/en') ? 'en' : 'de';
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-3xl md:text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 drop-shadow-lg">
-          Wähle eine Kategorie
+          {locale === 'en' ? 'Choose a category' : 'Wähle eine Kategorie'}
         </h2>
         <p className="text-white/80 text-lg">
-          Bereit für &quot;Ich hab noch nie&quot;?
+          {locale === 'en' ? 'Ready for "Never Have I Ever"?' : 'Bereit für "Ich hab noch nie"?'}
         </p>
       </div>
 
@@ -33,7 +34,7 @@ export function CategorySelection({ onCategorySelect, onOpenSettings }: Category
               Casual
             </h3>
             <p className="text-white/90 text-sm md:text-base leading-relaxed">
-              Harmlose und lustige Aussagen für alle. Perfekt zum Kennenlernen!
+              {locale === 'en' ? 'Harmless and funny statements for everyone. Perfect for getting to know each other!' : 'Harmlose und lustige Aussagen für alle. Perfekt zum Kennenlernen!'}
             </p>
           </div>
           <div className="absolute bottom-2 right-2 opacity-20 text-6xl">
@@ -53,7 +54,7 @@ export function CategorySelection({ onCategorySelect, onOpenSettings }: Category
               Party
             </h3>
             <p className="text-white/90 text-sm md:text-base leading-relaxed">
-              Wilde Partysituationen und Trinkerlebnisse. Wer hat was gemacht?
+              {locale === 'en' ? 'Wild party situations and drinking experiences. Who did what?' : 'Wilde Partysituationen und Trinkerlebnisse. Wer hat was gemacht?'}
             </p>
           </div>
           <div className="absolute bottom-2 right-2 opacity-20 text-6xl">
@@ -73,7 +74,7 @@ export function CategorySelection({ onCategorySelect, onOpenSettings }: Category
               18+
             </h3>
             <p className="text-white/90 text-sm md:text-base leading-relaxed">
-              Nur für Erwachsene! Pikante und intime Aussagen für mutige Spieler.
+              {locale === 'en' ? 'Adults only! Spicy and intimate statements for brave players.' : 'Nur für Erwachsene! Pikante und intime Aussagen für mutige Spieler.'}
             </p>
           </div>
           <div className="absolute bottom-2 right-2 opacity-20 text-6xl">
@@ -91,7 +92,7 @@ export function CategorySelection({ onCategorySelect, onOpenSettings }: Category
         >
           <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
           <Image src="/icons/gear.svg" alt="Einstellungen" width={20} height={20} className="drop-shadow-lg" />
-          <span className="text-white font-bold text-lg drop-shadow-lg">Anleitung</span>
+          <span className="text-white font-bold text-lg drop-shadow-lg">{locale === 'en' ? 'Instructions' : 'Anleitung'}</span>
         </button>
       </div>
     </div>

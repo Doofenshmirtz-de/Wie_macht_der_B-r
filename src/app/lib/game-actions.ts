@@ -38,7 +38,7 @@ const GAMES_DATABASE: GameCard[] = [
     subtitle: "Geständnisse und peinliche Momente!",
     href: "/game/neverhaveiever",
     gradient: "from-blue-500 via-purple-500 to-pink-600",
-    iconSrc: "/icons/question.svg",
+    iconSrc: "/icons/gift.svg",
     available: true,
     players: "3-12 Spieler",
     difficulty: "Einfach",

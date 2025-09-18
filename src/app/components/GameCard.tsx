@@ -60,9 +60,9 @@ export function GameCard({ game, priority = false }: GameCardProps) {
 
   const cardContent = (
     <div 
-      className={`epic-game-card game-card group snap-center min-w-[320px] sm:min-w-[420px] max-w-[320px] sm:max-w-[420px] min-h-[550px] sm:min-h-[550px] relative overflow-hidden rounded-3xl transition-all duration-500 ${
+      className={`epic-game-card game-card group snap-center w-full sm:min-w-[420px] sm:max-w-[420px] min-h-[600px] sm:min-h-[560px] mx-auto relative overflow-hidden rounded-2xl transition-all duration-500 ${
         available 
-          ? "hover:scale-105 hover:-translate-y-1 cursor-pointer" 
+          ? "sm:hover:scale-105 sm:hover:-translate-y-1 cursor-pointer" 
           : "opacity-75 cursor-not-allowed"
       }`}
     >
@@ -71,15 +71,15 @@ export function GameCard({ game, priority = false }: GameCardProps) {
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
       
       {/* Glow Effect */}
-      <div className={`absolute -inset-1 bg-gradient-to-r ${gradient} rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500`}></div>
+      <div className={`absolute -inset-1 bg-gradient-to-r ${gradient} rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500`}></div>
       
       {/* Card Border */}
-      <div className="absolute inset-0 rounded-3xl border-2 border-yellow-400/30 group-hover:border-yellow-300/60 transition-colors duration-300"></div>
+      <div className="absolute inset-0 rounded-2xl border border-yellow-400/30 group-hover:border-yellow-300/60 transition-colors duration-300"></div>
       
       {/* Card Content - Mobile noch höher für vollständige Sichtbarkeit */}
-      <div className="relative h-[550px] sm:h-[550px] p-4 sm:p-6 flex flex-col text-white">
-        {/* Header with Icon and Title - Responsive feste Höhe für einheitlichen Bildstart */}
-        <div className="h-[120px] sm:h-[110px] mb-4">
+      <div className="relative min-h-[600px] sm:min-h-[560px] p-4 sm:p-6 flex flex-col text-white">
+        {/* Header with Icon and Title */}
+        <div className="mb-4">
           <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
             <div className="relative">
               <div className="absolute inset-0 bg-yellow-400/50 rounded-full blur-sm group-hover:blur-md transition-all duration-300"></div>
@@ -95,8 +95,8 @@ export function GameCard({ game, priority = false }: GameCardProps) {
               </div>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-xl sm:text-2xl font-black text-white drop-shadow-lg leading-tight">{title}</h3>
-              <p className="text-xs sm:text-sm text-yellow-200 font-bold">{description}</p>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-white drop-shadow-lg leading-tight">{title}</h3>
+              <p className="text-xs sm:text-sm lg:text-base text-yellow-200 font-bold">{description}</p>
             </div>
             
             {/* Status Badge */}
@@ -113,22 +113,25 @@ export function GameCard({ game, priority = false }: GameCardProps) {
             </div>
           </div>
           
-          {/* Game Description - Responsive feste Höhe für einheitlichen Bildstart */}
-          <div className="h-[56px] sm:h-[48px] overflow-hidden">
-            <p className="text-white/90 text-sm sm:text-base font-semibold leading-relaxed line-clamp-3 sm:line-clamp-2">
+          {/* Game Description - kompletter Text sichtbar */}
+          <div className="mt-1">
+            <p className="text-white/90 text-sm sm:text-base lg:text-lg font-semibold leading-relaxed">
               {subtitle}
             </p>
           </div>
         </div>
         
-        {/* Game Image or Placeholder */}
-        <div className="relative flex-1 min-h-[200px] sm:min-h-[220px] mb-4 sm:mb-6 rounded-2xl overflow-hidden border-2 border-white/20 group-hover:border-white/40 transition-colors duration-300">
+        {/* Spacer to push image to fixed position */}
+        <div className="flex-1 min-h-[5px] sm:min-h-[2px]"></div>
+        
+        {/* Game Image or Placeholder (bewusst gecroppt wie Desktop) - FESTE POSITION */}
+        <div className="relative flex-none h-[400px] sm:h-[280px] mb-1 sm:mb-2 rounded-2xl overflow-hidden border-2 border-white/20 sm:group-hover:border-white/40 transition-colors duration-300">
           {available && imageSrc ? (
             <Image 
               src={imageSrc} 
               alt={`${title} - ${subtitle} für ${players}`} 
               fill 
-              sizes="420px"
+              sizes="(max-width: 640px) 672px, 420px"
               className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
               priority={priority}
             />
@@ -143,7 +146,7 @@ export function GameCard({ game, priority = false }: GameCardProps) {
           
           {/* Overlay for hover effect */}
           {available && (
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
               <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
                 <span className="text-white font-bold text-sm">{labels.play}</span>
               </div>
@@ -152,15 +155,15 @@ export function GameCard({ game, priority = false }: GameCardProps) {
         </div>
         
         {/* Game Stats - IMMER sichtbar mit fester Position */}
-        <div className="flex justify-between items-center mt-auto pt-4 pb-4 bg-black/20 rounded-lg mx-2">
+        <div className="flex justify-between items-center mt-1 pt-2 pb-4 bg-black/20 rounded-lg mx-2">
           <div className="flex gap-3 sm:gap-4 px-3">
             <div className="text-center">
-              <p className="text-xs text-yellow-200 font-bold">{labels.players}</p>
-              <p className="text-sm text-white font-bold">{players}</p>
+              <p className="text-xs sm:text-sm text-yellow-200 font-bold">{labels.players}</p>
+              <p className="text-sm sm:text-base text-white font-bold">{players}</p>
             </div>
             <div className="text-center">
-              <p className="text-xs text-yellow-200 font-bold">{labels.difficulty}</p>
-              <p className="text-sm text-white font-bold">{difficulty}</p>
+              <p className="text-xs sm:text-sm text-yellow-200 font-bold">{labels.difficulty}</p>
+              <p className="text-sm sm:text-base text-white font-bold">{difficulty}</p>
             </div>
           </div>
           

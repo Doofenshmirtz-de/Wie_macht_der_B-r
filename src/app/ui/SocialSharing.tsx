@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useAnalytics } from '../providers/AnalyticsProvider';
 
 interface SocialSharingProps {
@@ -12,13 +13,15 @@ interface SocialSharingProps {
 }
 
 export function SocialSharing({ 
-  title = "Wie macht der Bär - Die besten Online Partyspiele",
+  title = "Bear Party - Die besten Online Partyspiele",
   description = "Spiel Bomb Party, Ich hab noch nie & Wahrheit oder Pflicht online mit Freunden!",
   url = typeof window !== 'undefined' ? window.location.href : 'https://www.wie-macht-der-baer.de',
   variant = 'full',
   className = ''
 }: SocialSharingProps) {
   
+  const params = useParams() as { locale?: string };
+  const locale = params?.locale === 'en' ? 'en' : 'de';
   const [showShareMenu, setShowShareMenu] = useState(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
   const { trackEvent } = useAnalytics();
@@ -115,10 +118,10 @@ export function SocialSharing({
         <button
           onClick={handleNativeShare}
           className="cr-button-primary px-4 py-2 text-sm font-bold flex items-center gap-2"
-          aria-label="Teilen"
+          aria-label={locale === 'en' ? 'Share' : 'Teilen'}
         >
           <span>📤</span>
-          <span>Teilen</span>
+          <span>{locale === 'en' ? 'Share' : 'Teilen'}</span>
         </button>
       </div>
     );
@@ -131,7 +134,7 @@ export function SocialSharing({
           <button
             onClick={() => setShowShareMenu(!showShareMenu)}
             className="cr-button-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center"
-            aria-label="Social Media Teilen"
+            aria-label={locale === 'en' ? 'Share on social media' : 'Social Media Teilen'}
           >
             <span className="text-xl">📤</span>
           </button>
@@ -158,7 +161,7 @@ export function SocialSharing({
                 >
                   <span>{copiedToClipboard ? '✅' : '🔗'}</span>
                   <span className="text-white">
-                    {copiedToClipboard ? 'Kopiert!' : 'Link kopieren'}
+                    {copiedToClipboard ? (locale === 'en' ? 'Copied!' : 'Kopiert!') : (locale === 'en' ? 'Copy link' : 'Link kopieren')}
                   </span>
                 </button>
               </div>
@@ -175,10 +178,10 @@ export function SocialSharing({
       <div className="mx-auto max-w-screen-lg px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent drop-shadow-lg mb-4">
-            📤 TEILE DEN SPASS!
+            {locale === 'en' ? '📤 SHARE THE FUN!' : '📤 TEILE DEN SPASS!'}
           </h2>
           <p className="text-white/80 text-lg">
-            Zeige deinen Freunden die geilsten Online-Partyspiele!
+            {locale === 'en' ? 'Show your friends the coolest online party games!' : 'Zeige deinen Freunden die geilsten Online-Partyspiele!'}
           </p>
         </div>
 
@@ -190,18 +193,18 @@ export function SocialSharing({
               className="cr-button-primary px-8 py-4 text-lg font-black flex items-center gap-3 mx-auto group"
             >
               <span className="text-2xl group-hover:scale-110 transition-transform">📱</span>
-              <span>JETZT TEILEN</span>
+              <span>{locale === 'en' ? 'SHARE NOW' : 'JETZT TEILEN'}</span>
               <span className="text-2xl group-hover:scale-110 transition-transform">📤</span>
             </button>
             <p className="text-white/60 text-sm mt-3">
-              Schnell-Teilen über dein System
+              {locale === 'en' ? 'Quick share via your system' : 'Schnell-Teilen über dein System'}
             </p>
           </div>
 
           {/* Platform Grid */}
           <div className="border-t border-white/20 pt-8">
             <h3 className="text-center text-white font-bold mb-6">
-              🌐 Oder wähle deine Plattform:
+              {locale === 'en' ? '🌐 Or choose your platform:' : '🌐 Oder wähle deine Plattform:'}
             </h3>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -235,7 +238,7 @@ export function SocialSharing({
                     : 'cr-button-primary'
                 }`}
               >
-                {copiedToClipboard ? '✅ Kopiert!' : '🔗 Kopieren'}
+                {copiedToClipboard ? (locale === 'en' ? '✅ Copied!' : '✅ Kopiert!') : (locale === 'en' ? '🔗 Copy' : '🔗 Kopieren')}
               </button>
             </div>
           </div>
@@ -244,7 +247,7 @@ export function SocialSharing({
         {/* Social Proof */}
         <div className="text-center mt-12">
           <p className="text-yellow-300 font-bold">
-            💪 Über 2,134 Spieler haben uns bereits geteilt!
+            {locale === 'en' ? '💪 Over 2,134 players have already shared us!' : '💪 Über 2,134 Spieler haben uns bereits geteilt!'}
           </p>
         </div>
       </div>

@@ -125,7 +125,7 @@ export function GameHistoryFAQ({ locale }: GameHistoryFAQProps) {
           {
             year: "2020+",
             title: "🌐 Online Multiplayer Era",
-            description: "Wie macht der Bär revolutionizes the online gaming experience",
+            description: "Bear Party revolutionizes the online gaming experience",
             details: "Real multiplayer features, PWA technology, and seamless browser integration make the game perfectly accessible for modern users."
           }
         ]

@@ -193,17 +193,5 @@ export function AccessibilityEnhancements({ className = '' }: AccessibilityEnhan
 }
 
 export function SkipLinks() {
-  return (
-    <div className="skip-links">
-      <a href="#main-content" className="skip-link">
-        Zum Hauptinhalt springen
-      </a>
-      <a href="#games-section" className="skip-link">
-        Zu den Spielen springen
-      </a>
-      <a href="#community-stats" className="skip-link">
-        Zur Community springen
-      </a>
-    </div>
-  );
+  return null;
 }
