@@ -1,12 +1,15 @@
 // Service Worker for PWA functionality
-const CACHE_NAME = 'wie-macht-der-baer-v1';
-const STATIC_CACHE_NAME = 'static-cache-v1';
-const DYNAMIC_CACHE_NAME = 'dynamic-cache-v1';
+const CACHE_NAME = 'wie-macht-der-baer-v2';
+const STATIC_CACHE_NAME = 'static-cache-v2';
+const DYNAMIC_CACHE_NAME = 'dynamic-cache-v2';
 
 // Assets to cache on install
 const STATIC_ASSETS = [
   '/',
-  '/offline',
+  '/de',
+  '/en',
+  '/de/offline',
+  '/en/offline',
   '/manifest.json',
   '/bomb.svg',
   '/bearbomb.svg',
@@ -81,11 +84,105 @@ self.addEventListener('fetch', (event) => {
           
           return response;
         })
-        .catch(() => {
-          // Return cached version or offline page
+        .catch((error) => {
+          console.log('Navigation request failed, checking cache:', error);
+          
+          // Special handling for root URL - try to serve cached homepage first
+          if (url.pathname === '/' || url.pathname === '/de' || url.pathname === '/en') {
+            return caches.match('/de')
+              .then((cachedResponse) => {
+                if (cachedResponse) {
+                  console.log('Serving cached homepage for:', request.url);
+                  return cachedResponse;
+                }
+                
+                // If no cached homepage, try the offline page
+                return caches.match('/de/offline')
+                  .then((offlineResponse) => {
+                    if (offlineResponse) {
+                      return offlineResponse;
+                    }
+                    
+                    // Last resort: return a basic HTML response
+                    return new Response(`
+                      <!DOCTYPE html>
+                      <html>
+                      <head>
+                        <title>Wie macht der Bär - Online Partyspiele</title>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1">
+                        <style>
+                          body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+                          .container { max-width: 600px; margin: 0 auto; }
+                          .btn { padding: 15px 30px; background: #ffd700; color: black; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
+                          .btn:hover { background: #ffed4e; }
+                        </style>
+                      </head>
+                      <body>
+                        <div class="container">
+                          <h1>🍻 Wie macht der Bär 🍻</h1>
+                          <h2>ONLINE PARTYSPIELE</h2>
+                          <p>Die besten Online Trinkspiele für deine Party!</p>
+                          <p>Bomb Party, Ich hab noch nie, Wahrheit oder Pflicht - alles kostenlos!</p>
+                          <button class="btn" onclick="window.location.reload()">
+                            🔄 Erneut versuchen
+                          </button>
+                        </div>
+                      </body>
+                      </html>
+                    `, {
+                      headers: { 'Content-Type': 'text/html' }
+                    });
+                  });
+              });
+          }
+          
+          // For other pages, return cached version or offline page
           return caches.match(request)
             .then((cachedResponse) => {
-              return cachedResponse || caches.match('/offline');
+              if (cachedResponse) {
+                console.log('Serving cached response for:', request.url);
+                return cachedResponse;
+              }
+              
+              // Determine locale from URL and return appropriate offline page
+              const pathname = url.pathname;
+              let offlinePath = '/de/offline'; // Default to German
+              
+              if (pathname.startsWith('/en/')) {
+                offlinePath = '/en/offline';
+              }
+              
+              console.log('No cached response found, serving offline page:', offlinePath);
+              
+              // Try to serve the offline page, but if that fails too, serve a basic response
+              return caches.match(offlinePath)
+                .then((offlineResponse) => {
+                  if (offlineResponse) {
+                    return offlineResponse;
+                  }
+                  
+                  // Last resort: return a basic HTML response
+                  return new Response(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                      <title>Offline - Wie macht der Bär</title>
+                      <meta charset="utf-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1">
+                    </head>
+                    <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                      <h1>Du bist offline</h1>
+                      <p>Bitte überprüfe deine Internetverbindung und versuche es erneut.</p>
+                      <button onclick="window.location.reload()" style="padding: 10px 20px; background: #ffd700; color: black; border: none; border-radius: 5px; cursor: pointer;">
+                        Erneut versuchen
+                      </button>
+                    </body>
+                    </html>
+                  `, {
+                    headers: { 'Content-Type': 'text/html' }
+                  });
+                });
             });
         })
     );
@@ -146,7 +243,42 @@ self.addEventListener('fetch', (event) => {
           .catch(() => {
             // Return offline page for failed requests
             if (request.destination === 'document') {
-              return caches.match('/offline');
+              // Determine locale from URL and return appropriate offline page
+              const url = new URL(request.url);
+              const pathname = url.pathname;
+              let offlinePath = '/de/offline'; // Default to German
+              
+              if (pathname.startsWith('/en/')) {
+                offlinePath = '/en/offline';
+              }
+              
+              return caches.match(offlinePath)
+                .then((offlineResponse) => {
+                  if (offlineResponse) {
+                    return offlineResponse;
+                  }
+                  
+                  // Last resort: return a basic HTML response
+                  return new Response(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                      <title>Offline - Wie macht der Bär</title>
+                      <meta charset="utf-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1">
+                    </head>
+                    <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                      <h1>Du bist offline</h1>
+                      <p>Bitte überprüfe deine Internetverbindung und versuche es erneut.</p>
+                      <button onclick="window.location.reload()" style="padding: 10px 20px; background: #ffd700; color: black; border: none; border-radius: 5px; cursor: pointer;">
+                        Erneut versuchen
+                      </button>
+                    </body>
+                    </html>
+                  `, {
+                    headers: { 'Content-Type': 'text/html' }
+                  });
+                });
             }
             
             // Return a basic response for other failed requests

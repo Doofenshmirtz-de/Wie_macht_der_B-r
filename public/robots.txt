@@ -3,11 +3,13 @@ Allow: /
 Disallow: /_next/
 Disallow: /api/
 Disallow: /favicon.ico
+Disallow: /de/offline
+Disallow: /en/offline
 
 # Crawl-delay for better server performance
 Crawl-delay: 1
 
-# Enterprise Sitemap Architektur fÃ¼r internationale SEO
+# Enterprise Sitemap Architektur für internationale SEO
 Sitemap: https://www.wie-macht-der-baer.de/sitemap.xml
 
 
