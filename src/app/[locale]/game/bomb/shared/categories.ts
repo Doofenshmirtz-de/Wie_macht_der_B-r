@@ -11,7 +11,7 @@ export const categoriesDE: Record<string, string[]> = {
     "Energie-Drinks","Apps auf dem Handy","Youtube-Stars","Schauspieler","Märchen","Zeichentrickserien","Kuchenarten","Möbelstücke","Bösewichte(aus Filmen und co.)","Videospiele",
     "Währungen","Baumarten","Metalle","Tanzstile","Musikgenres","Fußballvereine","Kartenspiele","Emotionen/Gefühle","Hobbys","Nachrichtensender","Männernamen mit 'A'","Frauennamen mit 'E'",
     "Dinge, die man im Supermarkt findet","Dinge, die man im Bad findet","Wörter, die mit 'Str' anfangen","Dinge, die rot sind","Dinge, die rund sind","Dinge, die man anzündet","Dinge, die kalt sind",
-    "Historische Epochen","Präsidenten der USA","Sehenswürdigkeiten","Buchtitel","Backwaren","Berühmte Sänger","Schulfächer","Sprachen","Organe im menschlichen Körper","Städte, die mit "B" anfangen ",
+    "Historische Epochen","Präsidenten der USA","Sehenswürdigkeiten","Buchtitel","Backwaren","Berühmte Sänger","Schulfächer","Sprachen","Organe im menschlichen Körper","Städte, die mit 'B' anfangen",
     "Dinge, die man am Strand findet","Dinge, die man im Wald findet","Dinge, die fliegen können","Adjektive, die Personen beschreiben","Dinge, die man für eine Party braucht","Gründe, zu spät zu kommen",
     "Dinge, die man auf einem Bauernhof findet","Arabische Länder","Dinge, die man anmacht","Dinge auf einem Spielplatz","Dinge zum Camping","Internationale Gerichte","Dinge im Fitnessstudio",
     "Dinge mit einem Rad","Dinge, die man grillt","Accessoires","Dinge, die man öffnen kann","Übersetzungen für Hallo","Dinge, die piepen","Wüsten weltweit","Tiere im Zoo","Politiker weltweit",
@@ -22,7 +22,7 @@ export const categoriesDE: Record<string, string[]> = {
     "Feiertage","Farben","Formen","Planeten & Monde","Naturkatastrophen","Chemische Elemente","Energiequellen","Berufe im Gesundheitswesen","Handwerksberufe","Schulfächer",
     "Universitätsfächer","Historische Persönlichkeiten","Berühmte Bauwerke","Seltene Tiere","Berühmte Erfindungen","Weltreligionen", "Fluggesellschaften","Schauspieler aus Deutschland",
     "Möbelstücke","Sterne und Sternbilder","Inseln im Mittelmeer","Bekannte Berge","Dialekte","Bekannte Schlösser und Burgen","Gewässer in Europa","Dinge, die mit Strom laufen",
-    "Künstlernamen von Rappern","Marken von Sportartikeln","Dinge, die man auf eine einsame Insel mitbringt","Wörter mit Doppel-S"," Wörter, die auf "-ung" enden","Dinge, die man mit "Micro-" anfängt",
+    "Künstlernamen von Rappern","Marken von Sportartikeln","Dinge, die man auf eine einsame Insel mitbringt","Wörter mit Doppel-S","Wörter, die auf '-ung' enden","Dinge, die man mit 'Micro-' anfängt",
     "Medizinische Berufe",
   ],
   spicy: [
