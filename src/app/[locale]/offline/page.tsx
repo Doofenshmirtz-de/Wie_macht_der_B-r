@@ -8,12 +8,16 @@ export const dynamic = 'force-dynamic';
 
 export default function OfflinePage() {
   const router = useRouter();
-  const [isOnline, setIsOnline] = useState(true);
+  const [isOnline, setIsOnline] = useState(false);
 
   useEffect(() => {
-    setIsOnline(navigator.onLine);
+    // Always show as offline on this page since it's the offline fallback
+    setIsOnline(false);
     
-    const handleOnline = () => setIsOnline(true);
+    const handleOnline = () => {
+      // If user comes back online, redirect to homepage
+      router.push('/');
+    };
     const handleOffline = () => setIsOnline(false);
     
     window.addEventListener('online', handleOnline);
@@ -23,14 +27,11 @@ export default function OfflinePage() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, []);
+  }, [router]);
 
   const handleRetry = () => {
-    if (isOnline) {
-      router.refresh();
-    } else {
-      window.location.reload();
-    }
+    // Always try to go back to homepage first
+    router.push('/');
   };
 
 
@@ -105,8 +106,8 @@ export default function OfflinePage() {
 
         {/* Network Status Indicator */}
         <div className="text-xs text-gray-500">
-          Status: <span className={isOnline ? 'text-green-400' : 'text-red-400'}>
-            {isOnline ? 'Online' : 'Offline'}
+          Status: <span className="text-red-400">
+            Offline
           </span>
         </div>
       </div>
